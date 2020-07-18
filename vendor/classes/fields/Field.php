@@ -1,7 +1,7 @@
 <?php
 
 
-namespace nik\vendor\classes;
+namespace nik\vendor\classes\fields;
 
 
 abstract class Field
@@ -12,7 +12,7 @@ abstract class Field
          * TODO make;
          */
     }
-    abstract public function rendor();
+    abstract public function render();
     abstract public function validation();
 
 }

@@ -3,7 +3,9 @@
 spl_autoload_register('autoloader');
 
 function autoloader($class){
-$file = substr($class. '.php', 4);
+$file = substr("$class.php", 4);
+
+echo $file;
 require_once $file;
 
 }
