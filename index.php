@@ -16,11 +16,7 @@ require_once 'vendor/loader.php';
     <?php require_once 'content/header.php';?>
 </header>
 <article>
-    <?php
-echo \nik\vendor\classes\Form::createAllForm();
-    ?>
-
-
+    <?php require_once 'content/article.php';?>
 </article>
 <aside>
     <?php require_once 'content/aside.php';?>
