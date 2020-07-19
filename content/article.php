@@ -1,6 +1,7 @@
 <?php
+require_once 'database/Data.php';
 
-$form = new \nik\vendor\classes\Form();
-echo $form->createAllForm();
+$formOutput = new \nik\vendor\classes\Form($form);
+echo $formOutput->viewForm();
 
 

@@ -18,7 +18,7 @@ require_once 'vendor/loader.php';
 </header>
 <article>
     <?php require_once 'content/article.php';?>
-    <?php autoloader(1);?>
+
 </article>
 <aside>
     <?php require_once 'content/aside.php';?>
