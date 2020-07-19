@@ -1,17 +1,12 @@
 <?php
 
 
-namespace nik\vendor\classes;
+namespace vendor\classes;
 
 
-class Text extends Field
+class TextField extends Field
 {
 
-
-    public function __construct($form)
-    {
-        parent::__construct($form);
-    }
 
     public function render()
     {

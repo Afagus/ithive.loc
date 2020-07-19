@@ -1,9 +1,9 @@
 <?php
 
 
-namespace nik\vendor\classes;
+namespace vendor\classes;
 
-use nik\vendor\classes;
+use vendor\classes;
 
 
 require_once 'database/Data.php';
@@ -11,12 +11,24 @@ require_once 'database/Data.php';
 class Form
 {
     public $form;
+    public $arrayOfFields;
 
     public function __construct($form)
     {
         $this->form = $form;
     }
 
+
+    /**
+     * @param $form
+     * Создаем массив из объектов полей
+     */
+    public function createArraysOfFields($form){
+        foreach ($form as $element){
+            $className = "\\vendor\classes\\" . $element['type'];
+                $this->arrayOfFields[] = new $className($element);
+        }
+    }
 
     public function viewForm()
     {
@@ -27,13 +39,19 @@ class Form
                 <tr>
                     <td>
                         <p><?php
-                            $output = new Text($this->form);
-                            echo $output->render();
+
+                            $ee = new TextField($this->form);
+                            echo $ee->render();
+
                             ?><Br>
                     </td>
+
+                </tr>
+                <tr>
                     <td>
                         <input type="submit" value="Отправить сообщение">
                     </td>
+
                 </tr>
             </table>
         </form>

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace nik\vendor\classes;
+namespace vendor\classes;
 
 
 class Radio
