@@ -2,9 +2,11 @@
 require_once 'database/Data.php';
 
 $formOutput = new \vendor\classes\Form($form);
-var_dump($formOutput->createArraysOfFields($form));
+$formOutput->viewForm();
 
-$obj = new \vendor\classes\TextField($form);
+var_dump($formOutput->arrayOfFields);
+
+
 
 
 

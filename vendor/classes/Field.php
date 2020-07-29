@@ -17,7 +17,11 @@ abstract class Field
     public function __construct($form)
     {
         $this->name = $form['name'];
-//        $this->validation = $form['validation'];
+        $this->validation = $form['validation'];
+        $this->type = $form['type'];
+        $this->placeholder = isset($form['placeholder'])? $form['placeholder'] : '';
+        $this->value = isset($_POST['value'])? $_POST['value'] : '';
+        $this->labelForLetter = $form['labelForLetter'];
 
      }
     abstract public function render();

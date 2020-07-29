@@ -4,23 +4,18 @@
 namespace vendor\classes;
 
 
-class TextField extends Field
+class TextArea extends Field
 {
-
     public function __construct($form)
     {
         parent::__construct($form);
-        
     }
-
 
     public function render()
     {
         ?>
-        <input
-                type="text"
-                name="Tumbayumba"
-                value="TextField!">TextField
+        <textarea  name="textArea"></textarea></p>
+
         <?php
     }
 
@@ -28,6 +23,4 @@ class TextField extends Field
     {
         // TODO: Implement validation() method.
     }
-
 }
-
