@@ -10,7 +10,7 @@ class TextField extends Field
     public function __construct($form)
     {
         parent::__construct($form);
-        
+
     }
 
 
@@ -18,9 +18,10 @@ class TextField extends Field
     {
         ?>
         <input
-                type="text"
-                name="Tumbayumba"
-                value="TextField!">TextField
+        type="text"
+        name="<?= $this->name ?>"
+        value="<?= $this->value ?>"
+        placeholder="<?= $this->placeholder?>">
         <?php
     }
 

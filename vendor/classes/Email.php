@@ -18,8 +18,9 @@ class Email extends Field
         ?>
         <input
             type="text"
-            name="Tumbayumba"
-            value="Value">Email
+            name="<?= $this->name?>"
+            value=""
+            placeholder="<?= $this->placeholder?>">
         <?php
     }
 
