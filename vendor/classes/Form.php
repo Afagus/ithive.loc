@@ -2,12 +2,8 @@
 
 
 namespace vendor\classes;
-
 use vendor\classes;
-
-
 require_once 'database/Data.php';
-
 class Form
 {
     public $form;
@@ -18,7 +14,6 @@ class Form
         $this->form = $form;
         $this->createArraysOfFields($this->form);
     }
-
 
     /**
      * @param $form
