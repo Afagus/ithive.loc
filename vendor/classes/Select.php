@@ -6,17 +6,21 @@ namespace vendor\classes;
 
 class Select extends Field
 {
-public function __construct($form)
-{
-    parent::__construct($form);
-}
+    private $options = [];
+    public function __construct($form)
+    {
+        parent::__construct($form);
+        $this->options = $form['options'];
+    }
 
     public function render()
     {
         ?>
         <select>
-            <option>Пункт 1</option>
-            <option>Пункт 2</option>
+            <?php foreach ($this->options as $key=>$item): ?>
+                <option value="<?= $key?>"><?= $item?></option>
+
+            <?php endforeach; ?>
         </select>
         <?php
     }

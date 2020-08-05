@@ -6,11 +6,12 @@ namespace vendor\classes;
 
 class Radio extends Field
 {
+    private $nameValue = [];
 
     public function __construct($form)
     {
         parent::__construct($form);
-
+        $this->nameValue = $form['nameValue'];
 
     }
 
@@ -19,32 +20,18 @@ class Radio extends Field
         ?>
         <p>Please select your preferred contact method:</p>
         <div>
-            <input type="radio"
-                   id="contactChoice1"
-                   name="contact"
-                   value="email">
-            <label for="contactChoice1">Email</label>
-
-            <input type="radio"
-                   id="contactChoice2"
-                   name="contact"
-                   value="phone">
-            <label for="contactChoice2">Phone</label>
-
-            <input type="radio"
-                   id="contactChoice3"
-                   name="contact"
-                   value="mail">
-            <label for="contactChoice3">Mail</label>
+            <?php foreach ($this->nameValue as $item): ?>
+                <input type="radio"
+                       id="<?= $item['id'] ?>"
+                       name="<?= $this->name ?>"
+                       value="<?= $item['value'] ?>"><?= $item['view'] ?>
+            <?php endforeach; ?>
         </div>
-
-
-
         <?php
     }
 
     public function validation()
     {
-        // TODO: Implement validation() method.
+// TODO: Implement validation() method.
     }
 }

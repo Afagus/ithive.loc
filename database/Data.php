@@ -53,13 +53,13 @@ $form = [
         'name' => 'checkbox',
         'dataForCheckbox' => [
             ['value' => 'valueOfItem1',
-                'list' => 'stringOfList1'],
+                'list' => 'Выбор из списка №1'],
 
             ['value' => 'valueOfItem2',
-                'list' => 'stringOfList2'],
+                'list' => 'Выбор из списка №2'],
 
             ['value' => 'valueOfItem3',
-                'list' => 'stringOfList3']
+                'list' => 'Выбор из списка №3']
         ],
         'validation' => ''
 
