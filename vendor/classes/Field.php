@@ -19,14 +19,23 @@ abstract class Field
         $this->name = $form['name'];
         $this->validation = $form['validation'];
         $this->type = $form['type'];
-        $this->placeholder = isset($form['placeholder'])? $form['placeholder'] : '';
-        $this->value = isset($_POST['value'])? $_POST['value'] : '';
+        $this->placeholder = isset($form['placeholder']) ? $form['placeholder'] : '';
+        $this->value = isset($_POST[$this->name]) ? $_POST[$this->name  ] : '';
         $this->labelForLetter = $form['labelForLetter'];
 
-     }
-    abstract public function render();
-    abstract public function validation();
+    }
 
+    abstract public function render();
+
+    public function isFieldEmpty()
+    {
+
+        if (empty(!$_POST) && empty($this->value)) {
+            echo 'The field is empty' .'<br>';
+        }
+
+
+    }
 
 
 }

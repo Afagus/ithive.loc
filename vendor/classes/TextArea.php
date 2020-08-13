@@ -13,14 +13,18 @@ class TextArea extends Field
 
     public function render()
     {
+        $this->isFieldEmpty();
         ?>
-        <textarea  name="textArea"></textarea></p>
+
+        <textarea name="<?=$this->name?>"
+                  placeholder="<?= $this->placeholder ?>"><?=$this->value?></textarea></p>
 
         <?php
     }
 
     public function validation()
     {
-        // TODO: Implement validation() method.
+
+
     }
 }

@@ -15,11 +15,13 @@ class Email extends Field
     // TODO: Implement render() method.
         public function render()
     {
+        $this->isFieldEmpty();
         ?>
+
         <input
             type="text"
             name="<?= $this->name?>"
-            value=""
+            value="<?= $this->value?>""
             placeholder="<?= $this->placeholder?>">
         <?php
     }

@@ -16,6 +16,7 @@ class TextField extends Field
 
     public function render()
     {
+        $this->isFieldEmpty();
         ?>
         <input
         type="text"
@@ -24,11 +25,5 @@ class TextField extends Field
         placeholder="<?= $this->placeholder?>">
         <?php
     }
-
-    public function validation()
-    {
-        // TODO: Implement validation() method.
-    }
-
 }
 

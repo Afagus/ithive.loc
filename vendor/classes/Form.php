@@ -2,8 +2,11 @@
 
 
 namespace vendor\classes;
+
 use vendor\classes;
+
 require_once 'database/Data.php';
+
 class Form
 {
     public $form;
@@ -27,6 +30,9 @@ class Form
         }
     }
 
+    /**
+     * Выводим поля формы на экран
+     */
     public function viewForm()
     {
         ?>
@@ -36,14 +42,12 @@ class Form
                 <?php
 
                 foreach ($this->arrayOfFields as $field) {
+
                     echo '<tr><td>';
                     echo $field->render();
                     echo '</td></tr>';
-
                 }
                 ?>
-
-
                 <tr>
                     <td>
                         <input type="submit" value="Отправить сообщение">
@@ -54,6 +58,8 @@ class Form
         </form>
 
         <?php
+mydebugger($_POST);
+
     }
 
 

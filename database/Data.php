@@ -1,7 +1,6 @@
 <?php
 
 
-
 $form = [
 
     'name' => [
@@ -41,13 +40,14 @@ $form = [
         'labelForLetter' => 'Выбор из выпадающего списка',
         'type' => 'Select',
         'name' => 'select',
-        'options' => ['value1' => 1,
+        'options' => [
+            'value1' => 1,
             'value2' => 2,
             'value3' => 3],
         'validation' => ''
     ],
     'checkbox' => [
-
+        'title' => 'Поставьте галочку',
         'labelForLetter' => 'Чекбокс',
         'type' => 'Checkbox',
         'name' => 'checkbox',
@@ -66,6 +66,7 @@ $form = [
     ],
     'radio' => [
 
+        'title' => 'Укажите Ваш пол',
         'labelForLetter' => 'Пол клиента',
         'validation' => '',
         'type' => 'Radio',
