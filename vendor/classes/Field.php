@@ -6,12 +6,22 @@ namespace vendor\classes;
 
 abstract class Field
 {
+
+    public static $listOfValidators = [];
+    /**
+     * @var string
+     */
+
+
+
     public $type;
     public $name;
     public $placeholder;
     public $value;
     public $validation;
     public $labelForLetter;
+
+    private $message = '';
 
 
     public function __construct($form)
@@ -20,22 +30,55 @@ abstract class Field
         $this->validation = $form['validation'];
         $this->type = $form['type'];
         $this->placeholder = isset($form['placeholder']) ? $form['placeholder'] : '';
-        $this->value = isset($_POST[$this->name]) ? $_POST[$this->name  ] : '';
+        $this->value = isset($_POST[$this->name]) ? $_POST[$this->name] : '';
         $this->labelForLetter = $form['labelForLetter'];
 
     }
 
-    abstract public function render();
 
-    public function isFieldEmpty()
+
+    /**
+     * @return bool|mixed
+     * валидация поля, которая записывает в переменную результат отработки функции, в виде массива
+     *и возвращает булевое выражение, также при "false" записывает в свойство $message текст ошибки
+     */
+    public function validate()
     {
-
-        if (empty(!$_POST) && empty($this->value)) {
-            echo 'The field is empty' .'<br>';
+        if($this->validation) {
+            $result = ( Field::$listOfValidators[$this->validation] )($this->value);
+            if (!$result['resultOfValid']){
+                $this->message = $result['message'];
+            }
+           return $result['resultOfValid'];
         }
-
-
+        return true;
     }
 
 
+    abstract public function render();
+
+
 }
+
+/**
+ * @param $value
+ * Создание массива с функциями валидаций под все возможные типы
+ * @return array
+ * с результатом по валидации и сообщением для пользователя
+ */
+
+Field::$listOfValidators['not_empty'] = function ($value) {
+
+    return [
+        'resultOfValid' => (bool)$value,
+        'message' => 'The field is empty or not correct'
+    ];
+};
+
+Field::$listOfValidators['email'] = function ($value) {
+
+    return [
+      'result'  => (bool)$value,
+      'message' =>'The field is empty or not correct'
+    ];
+};

@@ -12,10 +12,12 @@ class Form
     public $form;
     public $arrayOfFields = [];
 
+
     public function __construct($form)
     {
         $this->form = $form;
         $this->createArraysOfFields($this->form);
+        $this->validatorOfForm();
     }
 
     /**
@@ -27,6 +29,23 @@ class Form
         foreach ($form as $element) {
             $className = "\\vendor\classes\\" . $element['type'];
             $this->arrayOfFields[] = new $className($element);
+        }
+    }
+
+    /**
+     * Валидатор формы, который в случае наличия ошибок в полях, считает их,
+     * а затем в случае их наличия выводит текст об ошибкее формы
+     */
+
+    public function validatorOfForm()
+    {
+        if (!empty($_POST)) {
+            $errors = 0;
+            foreach ($this->arrayOfFields as $field) {
+                if (!$field->validate()) {
+                    $errors++;
+                }
+            }
         }
     }
 
@@ -58,7 +77,7 @@ class Form
         </form>
 
         <?php
-mydebugger($_POST);
+        mydebugger($_POST);
 
     }
 

@@ -7,22 +7,24 @@ namespace vendor\classes;
 class Select extends Field
 {
     private $options = [];
+
     public function __construct($form)
     {
         parent::__construct($form);
         $this->options = $form['options'];
     }
 
+
+
     public function render()
     {
 
         ?>
-        <p><select size="3" name="<?=$this->name?>">
-                <option disabled>Выберите героя</option>
-                <option value="t1" selected>Чебурашка</option>
-                <option value="t2">Крокодил Гена</option>
-                <option value="t3">Шапокляк</option>
-                <option value="t4">Крыса Лариса</option>
+        <p><select name="<?= $this->name ?>">
+                <option disabled>Выберите число</option>
+                <?php foreach ($this->options as $key => $value): ?>
+                <option value="<?= $key ?>"><?= $value ?></option>
+                <?php endforeach; ?>
             </select></p>
         <?php
     }

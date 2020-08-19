@@ -16,7 +16,7 @@ class TextField extends Field
 
     public function render()
     {
-        $this->isFieldEmpty();
+
         ?>
         <input
         type="text"
