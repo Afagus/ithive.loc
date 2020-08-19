@@ -12,23 +12,15 @@ class Email extends Field
     }
 
 
-    // TODO: Implement render() method.
-        public function render()
+    public function render()
     {
-
+        echo $this->message;
         ?>
-
         <input
-            type="text"
-            name="<?= $this->name?>"
-            value="<?= $this->value?>""
-            placeholder="<?= $this->placeholder?>">
+                type="text"
+                name="<?= $this->name ?>"
+                value="<?= $this->value ?>""
+        placeholder="<?= $this->placeholder ?>">
         <?php
-    }
-
-
-    public function validation()
-    {
-        // TODO: Implement validation() method.
     }
 }

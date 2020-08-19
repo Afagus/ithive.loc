@@ -18,6 +18,7 @@ class Form
         $this->form = $form;
         $this->createArraysOfFields($this->form);
         $this->validatorOfForm();
+
     }
 
     /**
@@ -46,7 +47,9 @@ class Form
                     $errors++;
                 }
             }
+            return !(bool)$errors;
         }
+
     }
 
     /**
@@ -55,7 +58,13 @@ class Form
     public function viewForm()
     {
         ?>
-        <h2>Заполните форму для отправки сообщения</h2>
+        <h2><?php
+            if ($_POST && !$this->validatorOfForm()){
+                echo '<span class="warning">'.'Форма не отправлена, проверьте правильность заполнения полей'.'</span>';
+            }else{
+                echo 'Заполните форму для отправки сообщения';
+            }
+            ?></h2>
         <form action="" method="post">
             <table>
                 <?php
@@ -77,7 +86,7 @@ class Form
         </form>
 
         <?php
-        mydebugger($_POST);
+        mydebugger($this->validatorOfForm());
 
     }
 

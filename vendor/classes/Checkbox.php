@@ -25,13 +25,7 @@ class Checkbox extends Field
         <input type="checkbox"
                name="<?= $this->name ?>"
                value="<?= $item['value'] ?>">
-                <?= $item['list'] ?><Br>
+        <?= $item['list'] ?><Br>
     <?php endforeach;
-
-    }
-
-    public function validation()
-    {
-        // TODO: Implement validation() method.
     }
 }

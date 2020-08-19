@@ -32,3 +32,7 @@ header{
 article{
     margin:  20px;
 }
+
+span.warning{
+    color: red;
+}

@@ -16,13 +16,13 @@ class TextField extends Field
 
     public function render()
     {
-
+        echo $this->message;
         ?>
         <input
-        type="text"
-        name="<?= $this->name ?>"
-        value="<?= $this->value ?>"
-        placeholder="<?= $this->placeholder?>">
+                type="text"
+                name="<?= $this->name ?>"
+                value="<?= $this->value ?>"
+                placeholder="<?= $this->placeholder ?>">
         <?php
     }
 }

@@ -13,7 +13,6 @@ abstract class Field
      */
 
 
-
     public $type;
     public $name;
     public $placeholder;
@@ -21,7 +20,7 @@ abstract class Field
     public $validation;
     public $labelForLetter;
 
-    private $message = '';
+    public $message = '';
 
 
     public function __construct($form)
@@ -35,8 +34,6 @@ abstract class Field
 
     }
 
-
-
     /**
      * @return bool|mixed
      * валидация поля, которая записывает в переменную результат отработки функции, в виде массива
@@ -44,12 +41,12 @@ abstract class Field
      */
     public function validate()
     {
-        if($this->validation) {
-            $result = ( Field::$listOfValidators[$this->validation] )($this->value);
-            if (!$result['resultOfValid']){
-                $this->message = $result['message'];
+        if ($this->validation) {
+            $result = (Field::$listOfValidators[$this->validation])($this->value);
+            if (!$result['resultOfValid']) {
+                $this->message = $result['message'].'<br>';
             }
-           return $result['resultOfValid'];
+            return $result['resultOfValid'];
         }
         return true;
     }
@@ -78,7 +75,7 @@ Field::$listOfValidators['not_empty'] = function ($value) {
 Field::$listOfValidators['email'] = function ($value) {
 
     return [
-      'result'  => (bool)$value,
-      'message' =>'The field is empty or not correct'
+        'resultOfValid' => (bool)$value,
+        'message' => 'The field is empty or not correct'
     ];
 };

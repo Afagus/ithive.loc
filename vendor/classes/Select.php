@@ -28,9 +28,4 @@ class Select extends Field
             </select></p>
         <?php
     }
-
-    public function validation()
-    {
-        // TODO: Implement validation() method.
-    }
 }

@@ -31,9 +31,4 @@ class Radio extends Field
         </div>
         <?php
     }
-
-    public function validation()
-    {
-// TODO: Implement validation() method.
-    }
 }

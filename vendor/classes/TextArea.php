@@ -13,18 +13,12 @@ class TextArea extends Field
 
     public function render()
     {
-        echo Field::$message;
+        echo $this->message;
         ?>
         <textarea name="<?= $this->name ?>"
                   placeholder="<?= $this->placeholder ?>">
                   <?= $this->value ?>
         </textarea></p>
         <?php
-    }
-
-    public function validation()
-    {
-
-
     }
 }
