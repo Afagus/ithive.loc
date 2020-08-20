@@ -29,7 +29,7 @@ abstract class Field
         $this->validation = $form['validation'];
         $this->type = $form['type'];
         $this->placeholder = isset($form['placeholder']) ? $form['placeholder'] : '';
-        $this->value = isset($_POST[$this->name]) ? $_POST[$this->name] : '';
+        $this->value =  $form['value'];
         $this->labelForLetter = $form['labelForLetter'];
 
     }
@@ -42,7 +42,7 @@ abstract class Field
     public function validate()
     {
         if ($this->validation) {
-            $result = (Field::$listOfValidators[$this->validation])($this->value);
+            $result = (self::$listOfValidators[$this->validation])($this->value);
             if (!$result['resultOfValid']) {
                 $this->message = $result['message'].'<br>';
             }

@@ -7,15 +7,22 @@ use vendor\classes;
 
 require_once 'database/Data.php';
 
+
 class Form
 {
+
+    public static $counter;
+
     public $form;
+    public $nameOfForm;
     public $arrayOfFields = [];
 
 
-    public function __construct($form)
+
+    public function __construct($form, $nameOfForm = '')
     {
         $this->form = $form;
+        $this->nameOfForm = $nameOfForm;
         $this->createArraysOfFields($this->form);
         $this->validatorOfForm();
 
@@ -29,18 +36,22 @@ class Form
     {
         foreach ($form as $element) {
             $className = "\\vendor\classes\\" . $element['type'];
+            $element['value'] = '';
+            if (!empty($_POST) && $_POST['nameOfForm'] == $this->nameOfForm){
+                $element['value'] =  isset($_POST[$element['name']]) ? $_POST[$element['name']] : '';
+            }
             $this->arrayOfFields[] = new $className($element);
         }
     }
 
     /**
      * Валидатор формы, который в случае наличия ошибок в полях, считает их,
-     * а затем в случае их наличия выводит текст об ошибкее формы
+     * и возвращает булевое значение
      */
 
     public function validatorOfForm()
     {
-        if (!empty($_POST)) {
+        if (!empty($_POST) && $_POST['nameOfForm'] == $this->nameOfForm) {
             $errors = 0;
             foreach ($this->arrayOfFields as $field) {
                 if (!$field->validate()) {
@@ -57,11 +68,12 @@ class Form
      */
     public function viewForm()
     {
+        self::$counter++;//счетчик количества созданных форм
         ?>
         <h2><?php
-            if ($_POST && !$this->validatorOfForm()){
-                echo '<span class="warning">'.'Форма не отправлена, проверьте правильность заполнения полей'.'</span>';
-            }else{
+            if (!empty($_POST) && ($_POST['nameOfForm'] == $this->nameOfForm) && !$this->validatorOfForm()) {
+                echo '<span class="warning">' . 'Форма не отправлена, проверьте правильность заполнения полей' . '</span>';
+            } else {
                 echo 'Заполните форму для отправки сообщения';
             }
             ?></h2>
@@ -78,7 +90,8 @@ class Form
                 ?>
                 <tr>
                     <td>
-                        <input type="submit" value="Отправить сообщение">
+                        <input type="hidden" name= "nameOfForm" value="<?= $this->nameOfForm?>" >
+                        <input type="submit" value="Отправить данные формы № <?= self::$counter ?>">
                     </td>
 
                 </tr>
@@ -86,9 +99,5 @@ class Form
         </form>
 
         <?php
-        mydebugger($this->validatorOfForm());
-
     }
-
-
 }
