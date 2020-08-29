@@ -15,15 +15,13 @@ class Select extends Field
     }
 
 
-
     public function render()
     {
-
+        echo $this->message;
         ?>
         <p><select name="<?= $this->name ?>">
-                <option disabled>Выберите число</option>
                 <?php foreach ($this->options as $key => $value): ?>
-                <option value="<?= $key ?>"><?= $value ?></option>
+                    <option value="<?= $key ?>"><?= $value ?></option>
                 <?php endforeach; ?>
             </select></p>
         <?php

@@ -19,6 +19,7 @@ class Radio extends Field
 
     public function render()
     {
+        echo $this->message;
         ?>
         <p><b><?= $this->title ?></b></p>
         <div>

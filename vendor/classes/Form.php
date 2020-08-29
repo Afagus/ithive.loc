@@ -11,6 +11,7 @@ require_once 'database/Data.php';
 class Form
 {
 
+
     public static $counter;
 
     public $form;
@@ -72,7 +73,7 @@ class Form
         ?>
         <h2><?php
             if (!empty($_POST) && ($_POST['nameOfForm'] == $this->nameOfForm) && !$this->validatorOfForm()) {
-                echo '<span class="warning">' . 'Форма не отправлена, проверьте правильность заполнения полей' . '</span>';
+                echo '<span class="warning">' . 'Форма не отправлена, проверьте правильность заполнения полей' .'<br>' . '</span>';
             } else {
                 echo 'Заполните форму для отправки сообщения';
             }

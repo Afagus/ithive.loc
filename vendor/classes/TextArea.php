@@ -15,10 +15,10 @@ class TextArea extends Field
     {
         echo $this->message;
         ?>
-        <textarea name="<?= $this->name ?>"
-                  placeholder="<?= $this->placeholder ?>">
-                  <?= $this->value ?>
-        </textarea></p>
+        <textarea
+
+                name="<?= $this->name ?>"
+                placeholder="<?= $this->placeholder ?>"><?= $this->value ?></textarea></p>
         <?php
     }
 }

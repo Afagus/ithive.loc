@@ -29,7 +29,7 @@ abstract class Field
         $this->validation = $form['validation'];
         $this->type = $form['type'];
         $this->placeholder = isset($form['placeholder']) ? $form['placeholder'] : '';
-        $this->value =  $form['value'];
+        $this->value = $form['value'];
         $this->labelForLetter = $form['labelForLetter'];
 
     }
@@ -44,7 +44,7 @@ abstract class Field
         if ($this->validation) {
             $result = (self::$listOfValidators[$this->validation])($this->value);
             if (!$result['resultOfValid']) {
-                $this->message = $result['message'].'<br>';
+                $this->message = $result['message'] . '<br>';
             }
             return $result['resultOfValid'];
         }
@@ -58,24 +58,6 @@ abstract class Field
 }
 
 /**
- * @param $value
- * Создание массива с функциями валидаций под все возможные типы
- * @return array
- * с результатом по валидации и сообщением для пользователя
+ * подключение коллекции валидаторов полей
  */
-
-Field::$listOfValidators['not_empty'] = function ($value) {
-
-    return [
-        'resultOfValid' => (bool)$value,
-        'message' => 'The field is empty or not correct'
-    ];
-};
-
-Field::$listOfValidators['email'] = function ($value) {
-
-    return [
-        'resultOfValid' => (bool)$value,
-        'message' => 'The field is empty or not correct'
-    ];
-};
+require_once 'vendor/collectionOfValidators.php';

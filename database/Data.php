@@ -41,6 +41,7 @@ $form = [
         'type' => 'Select',
         'name' => 'select',
         'options' => [
+            'value0'  =>'Выберите число',
             'value1' => 1,
             'value2' => 2,
             'value3' => 3],
@@ -68,7 +69,7 @@ $form = [
 
         'title' => 'Укажите Ваш пол',
         'labelForLetter' => 'Пол клиента',
-        'validation' => '',
+        'validation' => 'radio',
         'type' => 'Radio',
         'name' => 'radio',
         'nameValue' => [
