@@ -41,11 +41,11 @@ $form = [
         'type' => 'Select',
         'name' => 'select',
         'options' => [
-            'value0'  =>'Выберите число',
+            0  =>'Выберите число',
             'value1' => 1,
             'value2' => 2,
             'value3' => 3],
-        'validation' => ''
+        'validation' => 'select'
     ],
     'checkbox' => [
         'title' => 'Поставьте галочку',
@@ -62,7 +62,7 @@ $form = [
             ['value' => 'valueOfItem3',
                 'list' => 'Выбор из списка №3']
         ],
-        'validation' => ''
+        'validation' => 'checkbox'
 
     ],
     'radio' => [

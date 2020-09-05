@@ -16,9 +16,19 @@ class Checkbox extends Field
         $this->title = $form['title'];
     }
 
+    public function createMessage()
+    {
+        if ($this->value) {
+            return ($this->labelForLetter . ' : ' . implode(', ',$this->value) . "\n");
+        }else{
+            return '';
+        }
+
+    }
+
     public function render()
     {
-        mydebugger($this);
+
         echo $this->message;
         ?>
         <p><b><?= $this->title ?></b></p>
@@ -27,7 +37,7 @@ class Checkbox extends Field
         <input type="checkbox"
                name="<?= $this->name ?>[]"
                value="<?= $item['value'] ?>"
-            <?= in_array($item['value'], $this->dataForCheckbox) ? 'checked="checked"' : ''; ?>>
+            <?= $this->value && in_array($item['value'], $this->value) ? 'checked="checked"' : ''; ?>>
         <?= $item['list'] ?><Br>
     <?php endforeach;
     }

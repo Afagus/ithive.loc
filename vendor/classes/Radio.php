@@ -27,7 +27,7 @@ class Radio extends Field
                 <input type="radio"
                        id="<?= $item['id'] ?>"
                        name="<?= $this->name ?>"
-                       value="<?= $item['value'] ?>"><?= $item['view'] ?>
+                       value="<?= $item['value'] ?>"<?=($this->value == $item['value']) ? ' checked':'';?>><?= $item['view'] ?>
             <?php endforeach; ?>
         </div>
         <?php

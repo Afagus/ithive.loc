@@ -55,6 +55,18 @@ abstract class Field
     abstract public function render();
 
 
+    /**
+     * @return string
+     */
+    public function createMessage()
+    {
+        if ($this->value) {
+            return ($this->labelForLetter . ' : ' . $this->value ."\n");
+        }else{
+            return '';
+        }
+
+    }
 }
 
 /**

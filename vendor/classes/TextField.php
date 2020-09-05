@@ -11,6 +11,7 @@ class TextField extends Field
     {
         parent::__construct($form);
 
+
     }
 
 
@@ -25,5 +26,6 @@ class TextField extends Field
                 placeholder="<?= $this->placeholder ?>">
         <?php
     }
+
 }
 

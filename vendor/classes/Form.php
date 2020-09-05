@@ -19,13 +19,13 @@ class Form
     public $arrayOfFields = [];
 
 
-
     public function __construct($form, $nameOfForm = '')
     {
         $this->form = $form;
         $this->nameOfForm = $nameOfForm;
         $this->createArraysOfFields($this->form);
         $this->validatorOfForm();
+        $this->compileMessage();
 
     }
 
@@ -38,8 +38,8 @@ class Form
         foreach ($form as $element) {
             $className = "\\vendor\classes\\" . $element['type'];
             $element['value'] = '';
-            if (!empty($_POST) && $_POST['nameOfForm'] == $this->nameOfForm){
-                $element['value'] =  isset($_POST[$element['name']]) ? $_POST[$element['name']] : '';
+            if (!empty($_POST) && $_POST['nameOfForm'] == $this->nameOfForm) {
+                $element['value'] = isset($_POST[$element['name']]) ? $_POST[$element['name']] : '';
             }
             $this->arrayOfFields[] = new $className($element);
         }
@@ -73,7 +73,7 @@ class Form
         ?>
         <h2><?php
             if (!empty($_POST) && ($_POST['nameOfForm'] == $this->nameOfForm) && !$this->validatorOfForm()) {
-                echo '<span class="warning">' . 'Форма не отправлена, проверьте правильность заполнения полей' .'<br>' . '</span>';
+                echo '<span class="warning">' . 'Форма не отправлена, проверьте правильность заполнения полей' . '<br>' . '</span>';
             } else {
                 echo 'Заполните форму для отправки сообщения';
             }
@@ -87,11 +87,12 @@ class Form
                     echo '<tr><td>';
                     echo $field->render();
                     echo '</td></tr>';
+
                 }
                 ?>
                 <tr>
                     <td>
-                        <input type="hidden" name= "nameOfForm" value="<?= $this->nameOfForm?>" >
+                        <input type="hidden" name="nameOfForm" value="<?= $this->nameOfForm ?>">
                         <input type="submit" value="Отправить данные формы № <?= self::$counter ?>">
                     </td>
 
@@ -100,5 +101,23 @@ class Form
         </form>
 
         <?php
+    }
+
+    public function compileMessage()
+    {
+        if ($this->validatorOfForm()) {
+            $allMess = '';
+            foreach ($this->arrayOfFields as $field) {
+                $allMess .= $field->createMessage();
+            }
+            $allMess .= '______________________________________________________' . "\n";
+
+            $fp = fopen($this->nameOfForm . '.txt', 'a');
+            fwrite($fp, $allMess);
+            fclose($fp);
+
+        }
+
+
     }
 }

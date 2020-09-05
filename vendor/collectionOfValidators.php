@@ -40,7 +40,7 @@ Field::$listOfValidators['email'] = function ($value) {
 /**
  * @param $value
  * @return array
- * валимдатор поля  спризнаком 'radio'
+ * валидатор поля  спризнаком 'radio'
  */
 
 Field::$listOfValidators['radio'] = function ($value) {
@@ -50,3 +50,31 @@ Field::$listOfValidators['radio'] = function ($value) {
         'message' => '<span style="color: red">The field is empty or not correct</span>'
     ];
 };
+
+/**
+ * @param $value
+ * @return array
+ * валидатор поля  спризнаком 'select'
+ */
+
+Field::$listOfValidators['select'] = function ($value) {
+
+    return [
+        'resultOfValid' => (bool)$value,
+        'message' => '<span style="color: red">The field is empty or not correct</span>'
+    ];
+};
+/**
+ * @param $value
+ * @return array
+ * валидатор поля  спризнаком 'checkbox'
+ */
+
+Field::$listOfValidators['checkbox'] = function ($value) {
+
+    return [
+        'resultOfValid' => (bool)$value,
+        'message' => '<span style="color: red">The field is empty or not correct</span>'
+    ];
+};
+

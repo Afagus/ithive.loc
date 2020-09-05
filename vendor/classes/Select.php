@@ -21,7 +21,7 @@ class Select extends Field
         ?>
         <p><select name="<?= $this->name ?>">
                 <?php foreach ($this->options as $key => $value): ?>
-                    <option value="<?= $key ?>"><?= $value ?></option>
+                    <option <?= ($this->value == $key) ? 'selected ' : ''; ?>value="<?= $key ?>"><?= $value ?></option>
                 <?php endforeach; ?>
             </select></p>
         <?php
