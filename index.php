@@ -27,7 +27,19 @@ require_once 'vendor/loader.php';
     <?php //require_once 'content/footer.php';?>
 </footer>
 
+
+
 <?php
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$db_name = 'form';
+
+$link= mysqli_connect($host, $user, $password, $db_name);
+$query = "SELECT * FROM table_form_building WHERE id_form > 0";
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
+for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
+mydebugger($data);
 
 
 ?>
