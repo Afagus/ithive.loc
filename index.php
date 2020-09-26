@@ -17,6 +17,8 @@ require_once 'vendor/loader.php';
 
 </header>
 <article>
+
+
     <?php require_once 'content/article.php';?>
 
 </article>
@@ -24,7 +26,7 @@ require_once 'vendor/loader.php';
     <?php require_once 'content/aside.php';?>
 </aside>
 <footer>
-    <?php //require_once 'content/footer.php';?>
+    <?php require_once 'content/footer.php';?>
 </footer>
 
 <?php

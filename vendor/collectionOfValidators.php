@@ -40,7 +40,7 @@ Field::$listOfValidators['email'] = function ($value) {
 /**
  * @param $value
  * @return array
- * валидатор поля  спризнаком 'radio'
+ * валидатор поля  с признаком 'radio'
  */
 
 Field::$listOfValidators['radio'] = function ($value) {
@@ -54,7 +54,7 @@ Field::$listOfValidators['radio'] = function ($value) {
 /**
  * @param $value
  * @return array
- * валидатор поля  спризнаком 'select'
+ * валидатор поля  с признаком 'select'
  */
 
 Field::$listOfValidators['select'] = function ($value) {
@@ -67,7 +67,7 @@ Field::$listOfValidators['select'] = function ($value) {
 /**
  * @param $value
  * @return array
- * валидатор поля  спризнаком 'checkbox'
+ * валидатор поля  с признаком 'checkbox'
  */
 
 Field::$listOfValidators['checkbox'] = function ($value) {
