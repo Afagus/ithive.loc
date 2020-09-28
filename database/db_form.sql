@@ -28,6 +28,9 @@ CREATE TABLE table_form_building
     value          char(50) null,
     validation     int      null,
     labelForLetter char(50) null,
+    options        TEXT,
+    title           char(30),
+
     constraint table_form_building_ibfk_1
         foreign key (type) references table_types_of_fields (id_types),
     constraint table_form_building_ibfk_2
@@ -58,12 +61,15 @@ VALUES ('not_empty'),
        ('radio');
 
 INSERT INTO table_form_building
-    (name, type, placeholder, value, validation, labelForLetter)
-VALUES ('name', 1, 'Enter name', '', 1, 'Имя'),
-       ('subject', 1, 'Enter subject', '', 1, 'Тема'),
-       ('email', 2, 'Enter e-mail', '', 2, 'Электронная почта'),
-       ('message', 3, 'Input your message', '', 1, 'Сообщение'),
-       ('select', 4, NULL, '', 3, 'Выбор из выпадающего списка'),
-       ('checkbox', 5, NULL, '', 4, 'Чекбокс'),
-       ('radio', 6, NULL, '', 5, 'Пол клиента');
+    (name, type, placeholder, value, validation, labelForLetter, options, title)
+VALUES ('name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
+       ('subject', 1, 'Enter subject', '', 1, 'Тема', NULL, NULL),
+       ('email', 2, 'Enter e-mail', '', 2, 'Электронная почта', NULL, NULL),
+       ('message', 3, 'Input your message', '', 1, 'Сообщение', NULL, NULL),
+       ('select', 4, NULL, '', 3, 'Выбор из выпадающего списка',
+        '{"0":"Enter value","value1":1,"value2":2,"value3":3}', NULL),
+       ('checkbox', 5, NULL, '', 4, 'Чекбокс',
+        '{"0":{"value":"valueOfItem1","list":"Check value 1"},"1":{"value":"valueOfItem2","list":"Check value 2"},"2":{"value":"valueOfItem3","list":"Check value 3"}}', 'Поставьте галочку'),
+       ('radio', 6, NULL, '', 5, 'Пол клиента', '{"0":{"id":"male","value":"male","view":"Male"},"1":{"id":"female",
+"value":"female","view":"Female"},"2":{"id":"other","value":"other","view":"Other"}}' , 'Укажите Ваш пол');
 

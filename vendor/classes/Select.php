@@ -11,11 +11,11 @@ class Select extends Field
     public function __construct($form)
     {
         parent::__construct($form);
-        $this->options = $form['options'];
+        $this->options = json_decode($form['options'], JSON_FORCE_OBJECT);
+
     }
 
-
-    public function render()
+        public function render()
     {
         echo $this->message;
         ?>

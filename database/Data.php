@@ -4,7 +4,7 @@ require_once 'db_connection.php';
 
 
 /**
-$form = [
+$eee = [
 
     'name' => [
         'type' => 'TextField',
@@ -57,13 +57,13 @@ $form = [
         'name' => 'checkbox',
         'dataForCheckbox' => [
             ['value' => 'valueOfItem1',
-                'list' => 'Выбор из списка №1'],
+            'list' => 'Check list №1'],
 
             ['value' => 'valueOfItem2',
-                'list' => 'Выбор из списка №2'],
+            'list' => 'Check list №2'],
 
             ['value' => 'valueOfItem3',
-                'list' => 'Выбор из списка №3']
+            'list' => 'Check list №3']
         ],
         'validation' => 'checkbox'
 
@@ -94,3 +94,4 @@ $form = [
     ]
 ];
 **/
+
