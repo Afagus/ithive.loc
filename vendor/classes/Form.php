@@ -128,8 +128,8 @@ class Form
             $names = '';
             $val = '';
             foreach ($this->arrayOfFields as $arrayOfField) {
-                $names .= '`' . $arrayOfField->getName() . '`' . ', ';
-                $val .= '`' . $arrayOfField->getValue() . '`' . ', ';
+                $names .= '\'' . $arrayOfField->getName() . '\'' . ', ';
+                $val .= '\'' . $arrayOfField->getValue() . '\'' . ', ';
             }
             $names = mb_substr($names, 0, -2);
             $val = mb_substr($val, 0, -2);

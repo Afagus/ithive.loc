@@ -48,7 +48,7 @@ class Checkbox extends Field
     public function getValue()
     {
         if ($this->value) {
-            return json_encode($this->value);
+            return json_encode($this->value, JSON_FORCE_OBJECT);
         } else {
             return '';
         }
