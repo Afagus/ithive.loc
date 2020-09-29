@@ -10,8 +10,6 @@ require_once 'database/Data.php';
 
 class Form
 {
-
-
     public static $counter;
 
     public $form;
@@ -26,6 +24,7 @@ class Form
         $this->createArraysOfFields($this->form);
         $this->validatorOfForm();
         $this->compileMessage();
+        $this->sendToDB();
 
     }
 
@@ -123,8 +122,17 @@ class Form
 
     public function sendToDB()
     {
-        /**
-         * TODO: Сделать соединение с базой данных и отправку туда значений
-         **/
+        $link = mysqli_connect(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_NAME) or die('Error of database');
+        mysqli_set_charset($link, "utf8");
+
+        foreach ($this->arrayOfFields as $arrayOfField) {
+
+            $sql = "INSERT INTO customers ($arrayOfField['name'])
+                VALUES ($arrayOfField['value'])";
+        }
+            $res = mysqli_query($link, $sql) or die("Ошибка " . mysqli_error($link));
+echo $sql;
+
+
     }
 }

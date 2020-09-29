@@ -1,6 +1,7 @@
 DROP TABLE if exists table_form_building;
 DROP TABLE if exists table_types_of_fields;
 DROP TABLE if exists type_of_validation;
+DROP TABLE if exists customers;
 
 
 
@@ -73,3 +74,14 @@ VALUES ('name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
        ('radio', 6, NULL, '', 5, 'Пол клиента', '{"0":{"id":"male","value":"male","view":"Male"},"1":{"id":"female",
 "value":"female","view":"Female"},"2":{"id":"other","value":"other","view":"Other"}}' , 'Укажите Ваш пол');
 
+CREATE TABLE customers
+(
+    id_customer int auto_increment primary key,
+    name char(30) NOT NULL,
+    subject char (30) NOT NULL,
+    message TEXT,
+    email char(50) NOT NULL,
+    selection char(30),
+    checkbox char(30),
+    radio char(30)
+);

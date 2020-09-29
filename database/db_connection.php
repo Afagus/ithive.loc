@@ -14,5 +14,6 @@ $sql = 'SELECT * FROM table_form_building
     JOIN type_of_validation tov on tov.id_validation = table_form_building.validation';
 $res = mysqli_query($link, $sql);
 $form= mysqli_fetch_all($res, MYSQLI_ASSOC);
+mysqli_close($link);
 
 

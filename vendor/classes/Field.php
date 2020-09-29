@@ -67,6 +67,14 @@ abstract class Field
         }
 
     }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 }
 
 /**
