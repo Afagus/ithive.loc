@@ -75,6 +75,14 @@ abstract class Field
     {
         return $this->value;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }
 
 /**

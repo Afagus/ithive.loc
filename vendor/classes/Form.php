@@ -122,17 +122,23 @@ class Form
 
     public function sendToDB()
     {
-        $link = mysqli_connect(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_NAME) or die('Error of database');
-        mysqli_set_charset($link, "utf8");
+        if ($this->validatorOfForm()) {
+            $link = mysqli_connect(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_NAME) or die('Error of database');
+            mysqli_set_charset($link, "utf8");
+            $names = '';
+            $val = '';
+            foreach ($this->arrayOfFields as $arrayOfField) {
+                $names .= '`' . $arrayOfField->getName() . '`' . ', ';
+                $val .= '`' . $arrayOfField->getValue() . '`' . ', ';
+            }
+            $names = mb_substr($names, 0, -2);
+            $val = mb_substr($val, 0, -2);
 
-        foreach ($this->arrayOfFields as $arrayOfField) {
-
-            $sql = "INSERT INTO customers ($arrayOfField['name'])
-                VALUES ($arrayOfField['value'])";
-        }
+            $sql = "INSERT INTO customers ($names)
+                VALUES ($val)";
+            echo $sql;
             $res = mysqli_query($link, $sql) or die("Ошибка " . mysqli_error($link));
-echo $sql;
-
-
+            mysqli_close($link);
+        }
     }
 }

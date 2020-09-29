@@ -19,8 +19,8 @@ class Checkbox extends Field
     public function createMessage()
     {
         if ($this->value) {
-            return ($this->labelForLetter . ' : ' . implode(', ',$this->value) . "\n");
-        }else{
+            return ($this->labelForLetter . ' : ' . implode(', ', $this->value) . "\n");
+        } else {
             return '';
         }
 
@@ -40,5 +40,17 @@ class Checkbox extends Field
             <?= $this->value && in_array($item['value'], $this->value) ? 'checked="checked"' : ''; ?>>
         <?= $item['list'] ?><Br>
     <?php endforeach;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        if ($this->value) {
+            return json_encode($this->value);
+        } else {
+            return '';
+        }
     }
 }
