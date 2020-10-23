@@ -1,7 +1,12 @@
 <?php
-require_once 'db_connection.php';
 
+$sql = 'SELECT * FROM table_form_building 
+    JOIN table_types_of_fields ttof on ttof.id_types = table_form_building.type_ID
+    JOIN type_of_validation tov on tov.id_validation = table_form_building.validation_ID';
 
+$database = \database\singleConnect::getInstance();
+
+$form = $database->query($sql);
 
 /**
 $eee = [

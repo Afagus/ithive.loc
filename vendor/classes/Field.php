@@ -19,7 +19,7 @@ abstract class Field
     public $value;
     public $validation;
     public $labelForLetter;
-
+    public $id;
     public $message = '';
 
 
@@ -31,6 +31,7 @@ abstract class Field
         $this->placeholder = isset($form['placeholder']) ? $form['placeholder'] : '';
         $this->value = $form['value'];
         $this->labelForLetter = $form['labelForLetter'];
+        $this->id = $form['id'];
 
     }
 
@@ -61,8 +62,8 @@ abstract class Field
     public function createMessage()
     {
         if ($this->value) {
-            return ($this->labelForLetter . ' : ' . $this->value ."\n");
-        }else{
+            return ($this->labelForLetter . ' : ' . $this->value . "\n");
+        } else {
             return '';
         }
 

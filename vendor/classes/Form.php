@@ -11,21 +11,31 @@ require_once 'database/Data.php';
 class Form
 {
     public static $counter;
-
-    public $form;
-    public $nameOfForm;
+    private $form;
+    private $nameOfForm;
     public $arrayOfFields = [];
 
-
-    public function __construct($form, $nameOfForm = '')
+    private function __construct($form, $nameOfForm)
     {
         $this->form = $form;
         $this->nameOfForm = $nameOfForm;
         $this->createArraysOfFields($this->form);
         $this->validatorOfForm();
-        $this->compileMessage();
-        $this->sendToDB();
+        $this->toStartSending();
+    }
+    /**
+     * @return mixed
+     */
+    static public function getSingleForm($nameOfForm )
+    {
+        $database = \database\singleConnect::getInstance();
+        $sql = 'SELECT * FROM table_form_building 
+    JOIN table_types_of_fields ttof on ttof.id_types = table_form_building.type_ID
+    JOIN type_of_validation tov on tov.id_validation = table_form_building.validation_ID 
+    WHERE form_ID = ' . $nameOfForm;
+        $form = $database->query($sql);
 
+        return new self($form, $nameOfForm);
     }
 
     /**
@@ -104,41 +114,57 @@ class Form
 
     public function compileMessage()
     {
-        if ($this->validatorOfForm()) {
-            $allMess = '';
-            foreach ($this->arrayOfFields as $field) {
-                $allMess .= $field->createMessage();
-            }
-            $allMess .= '______________________________________________________' . "\n";
-
-            $fp = fopen($this->nameOfForm . '.txt', 'a');
-            fwrite($fp, $allMess);
-            fclose($fp);
-
+        $allMess = '';
+        foreach ($this->arrayOfFields as $field) {
+            $allMess .= $field->createMessage();
         }
-
+        return $allMess .= '______________________________________________________' . "\n";
 
     }
 
-    public function sendToDB()
+    public function sendToFile($allMess)
+    {
+        $fp = fopen($this->nameOfForm . '.txt', 'a');
+        fwrite($fp, $allMess);
+        fclose($fp);
+
+    }
+
+    public function toStartSending()
     {
         if ($this->validatorOfForm()) {
-            $link = mysqli_connect(DB_HOST, DB_LOGIN, DB_PASSWORD, DB_NAME) or die('Error of database');
-            mysqli_set_charset($link, "utf8");
-            $names = '';
-            $val = '';
-            foreach ($this->arrayOfFields as $arrayOfField) {
-                $names .= '\'' . $arrayOfField->getName() . '\'' . ', ';
-                $val .= '\'' . $arrayOfField->getValue() . '\'' . ', ';
-            }
-            $names = mb_substr($names, 0, -2);
-            $val = mb_substr($val, 0, -2);
-
-            $sql = "INSERT INTO customers ($names)
-                VALUES ($val)";
-            echo $sql;
-            $res = mysqli_query($link, $sql) or die("Ошибка " . mysqli_error($link));
-            mysqli_close($link);
+            $myMess = $this->compileMessage();
+            $this->sendToFile($myMess);
+            $this->sendToDB($myMess);
+        } else {
+            return false;
         }
     }
+
+
+    public function sendToDB($message)
+    {
+        $link = \database\singleConnect::getInstance();
+
+        $sql = "INSERT INTO client_full_message (form_ID, message)
+                VALUES ($this->nameOfForm, '$message')
+                ";
+        $link->query($sql);
+
+
+        $messageID = $link->getLastId();
+        $forSQL = '';
+        foreach ($this->arrayOfFields as $arrayOfField) {
+            $forSQL .= '(' . $messageID . ',' . $arrayOfField->id . ',' . '\'' . $arrayOfField->getValue() . '\'' . ')' . ',';
+        }
+        $forSQL = mb_substr($forSQL, 0, -1);
+
+        $sql = "INSERT INTO message_one_field (message_ID, field_ID, value)
+         
+        VALUES $forSQL";
+
+        $res = $link->query($sql);
+
+    }
+
 }

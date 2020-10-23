@@ -1,7 +1,7 @@
 <?php
-require_once 'database/Data.php';
+require_once 'vendor/classes/Form.php';
 
-$formOutput = new \vendor\classes\Form($form, 'article');
+$formOutput =\vendor\classes\Form::getSingleForm(1);
 $formOutput->viewForm();
 
 
