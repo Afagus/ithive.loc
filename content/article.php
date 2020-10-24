@@ -8,7 +8,7 @@ if (!$_GET) {
     $database = \database\singleConnect::getInstance();
     $sql = 'SELECT * FROM main_form ';
     $form = $database->query($sql);
-    mydebugger($form);
+
 
     echo '<ul>';
     foreach ($form as $value) {
@@ -18,10 +18,6 @@ if (!$_GET) {
     }
     echo '</ul>';
 
-if (empty($_GET['showForm'])){
-    $formOutput =\vendor\classes\Form::getSingleForm($_GET['showForm']);
-    $formOutput->viewForm();
-}
 
 
 
@@ -29,7 +25,7 @@ if (empty($_GET['showForm'])){
    // $qq = \vendor\classes\Form::getFromDB(2, 1);
    // $qq->viewForm();
 }
-//phpinfo();
+
 //$formOutput =\vendor\classes\Form::getSingleForm(1);
 //$formOutput->viewForm();
 
