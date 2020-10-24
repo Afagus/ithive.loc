@@ -10,6 +10,7 @@ require_once 'database/Data.php';
 
 class Form
 {
+
     public static $counter;
     private $form;
     private $nameOfForm;
@@ -22,11 +23,13 @@ class Form
         $this->createArraysOfFields($this->form);
         $this->validatorOfForm();
         $this->toStartSending();
+
     }
+
     /**
      * @return mixed
      */
-    static public function getSingleForm($nameOfForm )
+    static public function getSingleForm($nameOfForm)
     {
         $database = \database\singleConnect::getInstance();
         $sql = 'SELECT * FROM table_form_building 
@@ -38,6 +41,23 @@ class Form
         return new self($form, $nameOfForm);
     }
 
+    static public function getFromDB($messageID, $nameOfForm)
+    {
+
+        $database = \database\singleConnect::getInstance();
+        $sql = 'SELECT * FROM table_form_building
+        left JOIN client_full_message cfm on cfm.form_ID = table_form_building.form_ID
+        left JOIN message_one_field mof on mof.field_ID = table_form_building.id and cfm.form_ID = mof.message_ID
+        left JOIN table_types_of_fields ttof on ttof.id_types = table_form_building.type_ID
+        left JOIN type_of_validation tov on tov.id_validation = table_form_building.validation_ID
+        WHERE cfm.id = ' . $messageID;
+
+        $form = $database->query($sql);
+
+        return new self($form, $nameOfForm);
+
+    }
+
     /**
      * @param $form
      * Создаем массив из объектов полей
@@ -46,7 +66,7 @@ class Form
     {
         foreach ($form as $element) {
             $className = "\\vendor\classes\\" . $element['type'];
-            $element['value'] = '';
+            //$element['value'] = '';
             if (!empty($_POST) && $_POST['nameOfForm'] == $this->nameOfForm) {
                 $element['value'] = isset($_POST[$element['name']]) ? $_POST[$element['name']] : '';
             }

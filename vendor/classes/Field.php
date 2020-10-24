@@ -84,7 +84,12 @@ abstract class Field
     {
         return $this->name;
     }
+
+
+
 }
+
+
 
 /**
  * подключение коллекции валидаторов полей

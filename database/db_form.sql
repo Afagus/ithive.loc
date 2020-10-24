@@ -29,7 +29,9 @@ CREATE TABLE main_form
 
 INSERT INTO main_form
 (nameOfForm)
-VALUES ('article');
+VALUES ('article'),
+       ('second')
+;
 
 CREATE TABLE table_form_building
 (

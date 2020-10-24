@@ -36,10 +36,10 @@ article {
     margin: 20px;
     float: left;
     background-color: grey;
-
-
 }
-
+h1 {
+    background-color: bisque;
+}
 span.warning {
     color: red;
 
