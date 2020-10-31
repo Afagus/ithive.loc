@@ -50,8 +50,10 @@ if (@$_GET['showForm']) {
     if (@$_GET['showMessage']) {
         $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm']);
         $qq->viewForm();
+        \vendor\classes\Form::
     }
 }
+
 
 
 

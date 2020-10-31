@@ -103,6 +103,9 @@ VALUES (1, 'name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
        (2, 'radio', 6, NULL, '', 5, 'Пол клиента', '{"0":{"id":"male","value":"male","view":"Male"},"1":{"id":"female",
 "value":"female","view":"Female"},"2":{"id":"other","value":"other","view":"Other"}}', 'Укажите Ваш пол');
 
+
+
+
 CREATE TABLE client_full_message
 (
     id      int auto_increment primary key,

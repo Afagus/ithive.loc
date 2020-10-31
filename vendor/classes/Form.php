@@ -15,9 +15,11 @@ class Form
     private $form;
     private $nameOfForm;
     public $arrayOfFields = [];
+    public $findMessageID;
 
-    private function __construct($form, $nameOfForm)
+    private function __construct($form, $nameOfForm, $findMessageID = 0)
     {
+        $this->findMessageID = $findMessageID;
         $this->form = $form;
         $this->nameOfForm = $nameOfForm;
         $this->createArraysOfFields($this->form);
@@ -185,6 +187,19 @@ class Form
 
         $res = $link->query($sql);
 
+    }
+
+    public function changeMessageInDB()
+    {
+        $link = \database\singleConnect::getInstance();
+
+        foreach ($this->arrayOfFields as $arrayOfField) {
+            $sql = 'UPDATE message_one_field
+                SET value = ' .$arrayOfField->value .'
+                WHERE message_ID = ' . $this->findMessageID and $arrayOfField->id;;
+
+            $link->query($sql);
+        }
     }
 
 }
