@@ -40,20 +40,17 @@ if (@$_GET['showForm']) {
     echo '<ul>';
     foreach ($formFromQuery as $value) {
         ?>
-        <li><a href="/ithive.loc/index.php?showMessage=<?= $value['id'] ?>">Ссылка на
+        <li><a href="/ithive.loc/index.php?showMessage=<?= $value['id'] ?>&showForm=<?= $_GET['showForm'] ?>">Ссылка на
                 сообщение <?= $value['id'] ?> от <?= $value['date'] ?> </a></li>
         <?php
-        if (@$_GET['showMessage']) {
-            echo 'hello';
-    }
+
     }
     echo '</ul>';
 
-   if (@$_GET['showMessage']) {
-//echo 'hello';
-////        $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm']);
-////        $qq->viewForm();
-//    }
+    if (@$_GET['showMessage']) {
+        $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm']);
+        $qq->viewForm();
+    }
 }
 
 

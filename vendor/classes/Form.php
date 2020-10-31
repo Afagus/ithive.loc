@@ -47,7 +47,7 @@ class Form
         $database = \database\singleConnect::getInstance();
         $sql = 'SELECT * FROM table_form_building
         left JOIN client_full_message cfm on cfm.form_ID = table_form_building.form_ID
-        left JOIN message_one_field mof on mof.field_ID = table_form_building.id and cfm.form_ID = mof.message_ID
+        left JOIN message_one_field mof on mof.field_ID = table_form_building.id and cfm.id = mof.message_ID
         left JOIN table_types_of_fields ttof on ttof.id_types = table_form_building.type_ID
         left JOIN type_of_validation tov on tov.id_validation = table_form_building.validation_ID
         WHERE cfm.id = ' . $messageID;
