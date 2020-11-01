@@ -24,6 +24,8 @@ if (!$_GET) {
 }
 /**
  * TODO check & kill the Notice
+ *Если в строке запроса есть переданное значение с ключом 'showForm'
+ *
  **/
 if (@$_GET['showForm']) {
 
@@ -37,6 +39,9 @@ if (@$_GET['showForm']) {
     $formFromQuery = $database->query($sql);
 
 
+    /**
+     * Вывод списка сообщений из имеющихся в БД
+     */
     echo '<ul>';
     foreach ($formFromQuery as $value) {
         ?>
@@ -47,6 +52,10 @@ if (@$_GET['showForm']) {
     }
     echo '</ul>';
 
+
+    /**
+     * Вывод сообщения при переходе из списка сообщений
+     */
     if (@$_GET['showMessage']) {
         $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm']);
         $qq->viewForm();

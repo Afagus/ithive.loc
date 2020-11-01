@@ -60,6 +60,19 @@ class Form
 
     }
 
+    public function changeMessageInDB()
+    {
+        $link = \database\singleConnect::getInstance();
+
+        foreach ($this->arrayOfFields as $arrayOfField) {
+            $sql = 'UPDATE message_one_field
+                SET value = ' .$arrayOfField->value .'
+                WHERE message_ID = ' . $this->findMessageID and $arrayOfField->id;;
+
+            $link->query($sql);
+        }
+    }
+
     /**
      * @param $form
      * Создаем массив из объектов полей
@@ -140,7 +153,7 @@ class Form
         foreach ($this->arrayOfFields as $field) {
             $allMess .= $field->createMessage();
         }
-        return $allMess .= '______________________________________________________' . "\n";
+        return $allMess .= '_______________________' . "\n";
 
     }
 
@@ -189,17 +202,6 @@ class Form
 
     }
 
-    public function changeMessageInDB()
-    {
-        $link = \database\singleConnect::getInstance();
 
-        foreach ($this->arrayOfFields as $arrayOfField) {
-            $sql = 'UPDATE message_one_field
-                SET value = ' .$arrayOfField->value .'
-                WHERE message_ID = ' . $this->findMessageID and $arrayOfField->id;;
-
-            $link->query($sql);
-        }
-    }
 
 }
