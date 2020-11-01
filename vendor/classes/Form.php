@@ -176,7 +176,9 @@ class Form
         }
     }
 
-
+    /**
+     * TODO Проверить идею, вставить сюда иф и запускать или этот функционал или метод changeMessageInDB() в зависимости от того есть ли занчение или нет в $findMessageID
+     */
     public function sendToDB($message)
     {
         $link = \database\singleConnect::getInstance();
