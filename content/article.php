@@ -47,24 +47,7 @@ if (@$_GET['showForm']) {
     }
     echo '</ul>';
 
-    if (@$_GET['showMessage']) {
-        $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm']);
-        $qq->viewForm();
-        \vendor\classes\Form::
-    }
 }
-
-
-
-
-
-
-// $qq = \vendor\classes\Form::getFromDB(2, 1);
-// $qq->viewForm();
-
-
-//$formOutput =\vendor\classes\Form::getSingleForm(1);
-//$formOutput->viewForm();
 
 
 
