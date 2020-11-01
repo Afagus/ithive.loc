@@ -47,11 +47,12 @@ if (@$_GET['showForm']) {
     }
     echo '</ul>';
 
+    if (@$_GET['showMessage']) {
+        $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm']);
+        $qq->viewForm();
+
+    }
 }
-
-
-
-
 
 
 
