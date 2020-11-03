@@ -57,11 +57,12 @@ if (@$_GET['showForm']) {
      * Вывод сообщения при переходе из списка сообщений
      */
     if (@$_GET['showMessage']) {
-        $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm']);
+        $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm'],);
         $qq->viewForm();
 
     }
 }
+
 
 
 

@@ -26,6 +26,7 @@ class Form
         $this->validatorOfForm();
         $this->toStartSending();
 
+
     }
 
     /**
@@ -56,20 +57,21 @@ class Form
 
         $form = $database->query($sql);
 
-        return new self($form, $nameOfForm);
+        return new self($form, $nameOfForm, $messageID);
 
     }
 
     public function changeMessageInDB()
     {
-        $link = \database\singleConnect::getInstance();
 
         foreach ($this->arrayOfFields as $arrayOfField) {
+            $link = \database\singleConnect::getInstance();
             $sql = 'UPDATE message_one_field
-                SET value = ' .$arrayOfField->value .'
-                WHERE message_ID = ' . $this->findMessageID and $arrayOfField->id;;
+                SET value = ' . $arrayOfField->getValue() . '
+                WHERE message_ID = ' . $this->findMessageID;
 
             $link->query($sql);
+            echo $sql . '<br>';
         }
     }
 
@@ -181,29 +183,27 @@ class Form
      */
     public function sendToDB($message)
     {
-        $link = \database\singleConnect::getInstance();
-
-        $sql = "INSERT INTO client_full_message (form_ID, message)
+        if (!$this->findMessageID == 0) {
+            $link = \database\singleConnect::getInstance();
+            $sql = "INSERT INTO client_full_message (form_ID, message)
                 VALUES ($this->nameOfForm, '$message')
                 ";
-        $link->query($sql);
+            $link->query($sql);
+            $messageID = $link->getLastId();
+            $forSQL = '';
+            foreach ($this->arrayOfFields as $arrayOfField) {
+                $forSQL .= '(' . $messageID . ',' . $arrayOfField->id . ',' . '\'' . $arrayOfField->getValue() . '\'' . ')' . ',';
+            }
+            $forSQL = mb_substr($forSQL, 0, -1);
 
-
-        $messageID = $link->getLastId();
-        $forSQL = '';
-        foreach ($this->arrayOfFields as $arrayOfField) {
-            $forSQL .= '(' . $messageID . ',' . $arrayOfField->id . ',' . '\'' . $arrayOfField->getValue() . '\'' . ')' . ',';
-        }
-        $forSQL = mb_substr($forSQL, 0, -1);
-
-        $sql = "INSERT INTO message_one_field (message_ID, field_ID, value)
+            $sql = "INSERT INTO message_one_field (message_ID, field_ID, value)
          
         VALUES $forSQL";
+            $res = $link->query($sql);
+        }else{
+             $this->changeMessageInDB();
+        }
+        }
 
-        $res = $link->query($sql);
 
     }
-
-
-
-}
