@@ -57,7 +57,7 @@ class Form
 
         $form = $database->query($sql);
 
-        return new self($form, $nameOfForm, $messageID);
+        return new self($form, $nameOfForm);
 
     }
 
