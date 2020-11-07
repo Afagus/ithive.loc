@@ -21,6 +21,7 @@ abstract class Field
     public $labelForLetter;
     public $id;
     public $message = '';
+    public $field_ID = 0;
 
 
     public function __construct($form)
@@ -32,6 +33,7 @@ abstract class Field
         $this->value = $form['value'];
         $this->labelForLetter = $form['labelForLetter'];
         $this->id = $form['id'];
+        $this->field_ID = isset($form['field_ID']) ? $form['field_ID'] : '';
 
     }
 

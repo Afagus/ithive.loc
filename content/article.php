@@ -23,47 +23,57 @@ if (!$_GET) {
     echo '</ul>';
 }
 /**
- * TODO check & kill the Notice
+ * TODO: check & kill the Notice
  *Если в строке запроса есть переданное значение с ключом 'showForm'
  *
  **/
-if (@$_GET['showForm']) {
-
-    $formOutput = \vendor\classes\Form::getSingleForm($_GET['showForm']);
-    $formOutput->viewForm();
-
-    $database = \database\singleConnect::getInstance();
-    $sql = 'SELECT * 
-                FROM client_full_message
-                WHERE form_ID = ' . $_GET['showForm'];
-    $formFromQuery = $database->query($sql);
-
-
-    /**
-     * Вывод списка сообщений из имеющихся в БД
-     */
-    echo '<ul>';
-    foreach ($formFromQuery as $value) {
-        ?>
-        <li><a href="/ithive.loc/index.php?showMessage=<?= $value['id'] ?>&showForm=<?= $_GET['showForm'] ?>">Ссылка на
-                сообщение <?= $value['id'] ?> от <?= $value['date'] ?> </a></li>
-        <?php
-
-    }
-    echo '</ul>';
-
+if (key_exists('showForm', $_GET)) {
 
     /**
      * Вывод сообщения при переходе из списка сообщений
      */
-    if (@$_GET['showMessage']) {
-        $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm'],);
+    if (key_exists('showMessage' , $_GET)) {
+        $qq = \vendor\classes\Form::getFromDB($_GET['showMessage'], $_GET['showForm']);
         $qq->viewForm();
 
+
+    } else {
+
+        $formOutput = \vendor\classes\Form::getSingleForm($_GET['showForm']);
+        $formOutput->viewForm();
+
     }
+    $database = \database\singleConnect::getInstance();
+    $sql = 'SELECT * 
+                FROM client_full_message
+                WHERE form_ID = ' . $_GET['showForm'];
+    /**
+     * Вывод списка сообщений из имеющихся в БД
+     */
+    $formFromQuery = $database->query($sql);
+    echo '<ul>';
+    foreach ($formFromQuery as $value) {
+        ?>
+        <li><a href="/ithive.loc/index.php?showMessage=<?= $value['id'] ?>&showForm=<?= $_GET['showForm'] ?>">Ссылка
+                на сообщение <?= $value['id'] ?> от <?= $value['date'] ?> </a></li>
+        <?php
+    }
+    echo '</ul>';
+
+
 }
 
+?>
+<form action="/ithive.loc/index.php?showMessage= 1">
+<input type="submit" value="construct" name="keyConstr">
+</form>
 
+<?php
+if (key_exists('keyConstr',$_GET)){
+
+$viewConstr = new \vendor\classes\ConstructorForm();
+$viewConstr->viewerConstr();
+}
 
 
 

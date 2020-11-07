@@ -40,7 +40,6 @@ class Form
     JOIN type_of_validation tov on tov.id_validation = table_form_building.validation_ID 
     WHERE form_ID = ' . $nameOfForm;
         $form = $database->query($sql);
-
         return new self($form, $nameOfForm);
     }
 
@@ -57,23 +56,10 @@ class Form
 
         $form = $database->query($sql);
 
-        return new self($form, $nameOfForm);
+        return new self($form, $nameOfForm, $messageID);
 
     }
 
-    public function changeMessageInDB()
-    {
-
-        foreach ($this->arrayOfFields as $arrayOfField) {
-            $link = \database\singleConnect::getInstance();
-            $sql = 'UPDATE message_one_field
-                SET value = ' . $arrayOfField->getValue() . '
-                WHERE message_ID = ' . $this->findMessageID;
-
-            $link->query($sql);
-            echo $sql . '<br>';
-        }
-    }
 
     /**
      * @param $form
@@ -172,38 +158,53 @@ class Form
         if ($this->validatorOfForm()) {
             $myMess = $this->compileMessage();
             $this->sendToFile($myMess);
-            $this->sendToDB($myMess);
+            $this->sendChoice($myMess);
         } else {
             return false;
         }
     }
 
+    public function sendChoice($message)
+    {
+        if ($this->findMessageID == 0) {
+            $this->sendToDB($message);
+        } else {
+            $this->changeMessageInDB();
+        }
+    }
+
     /**
-     * TODO Проверить идею, вставить сюда иф и запускать или этот функционал или метод changeMessageInDB() в зависимости от того есть ли занчение или нет в $findMessageID
+     * TODO: Проверить идею, вставить сюда иф и запускать или этот функционал или метод changeMessageInDB() в зависимости от того есть ли занчение или нет в $findMessageID
      */
     public function sendToDB($message)
     {
-        if (!$this->findMessageID == 0) {
-            $link = \database\singleConnect::getInstance();
-            $sql = "INSERT INTO client_full_message (form_ID, message)
-                VALUES ($this->nameOfForm, '$message')
-                ";
-            $link->query($sql);
-            $messageID = $link->getLastId();
-            $forSQL = '';
-            foreach ($this->arrayOfFields as $arrayOfField) {
-                $forSQL .= '(' . $messageID . ',' . $arrayOfField->id . ',' . '\'' . $arrayOfField->getValue() . '\'' . ')' . ',';
-            }
-            $forSQL = mb_substr($forSQL, 0, -1);
-
-            $sql = "INSERT INTO message_one_field (message_ID, field_ID, value)
+        $link = \database\singleConnect::getInstance();
+        $sql = "INSERT INTO client_full_message (form_ID, message)
+                VALUES ($this->nameOfForm, '$message')";
+        $link->query($sql);
+        $messageID = $link->getLastId();
+        $forSQL = '';
+        foreach ($this->arrayOfFields as $arrayOfField) {
+            $forSQL .= '(' . $messageID . ',' . $arrayOfField->id . ',' . '\'' . $arrayOfField->getValue() . '\'' . ')' . ',';
+        }
+        $forSQL = mb_substr($forSQL, 0, -1);
+        $sql = "INSERT INTO message_one_field (message_ID, field_ID, value)
          
         VALUES $forSQL";
-            $res = $link->query($sql);
-        }else{
-             $this->changeMessageInDB();
-        }
-        }
-
-
+        $res = $link->query($sql);
     }
+
+    /**
+     * TODO: доделать запрос, изменить обращение к столбцам. Вопрос как словить ID сообщения, и где берется findMessageID
+     */
+    public function changeMessageInDB()
+    {
+        foreach ($this->arrayOfFields as $arrayOfField) {
+            $link = \database\singleConnect::getInstance();
+            $sql = 'UPDATE message_one_field
+                SET value = \'' . $arrayOfField->getValue() . '\'
+                WHERE message_ID = ' . $this->findMessageID . ' AND field_ID = ' . $arrayOfField->field_ID;
+            $link->query($sql);
+        }
+    }
+}
