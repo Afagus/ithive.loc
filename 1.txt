@@ -3277,3 +3277,59 @@ _______________________
 Чекбокс : valueOfItem2, valueOfItem3
 Пол клиента : female
 _______________________
+Имя : fgfgfgfgfgfg
+Тема : bbbbbbbbb
+Электронная почта : berlin@com
+Сообщение : bbbbbbbbmess
+Выбор из выпадающего списка : value1
+Чекбокс : valueOfItem1, valueOfItem2, valueOfItem3
+Пол клиента : female
+_______________________
+Имя : fgfgfgfgfgfg
+Тема : bbbbbbbbb
+Электронная почта : berlin@com
+Сообщение : bbbbbbbbmess
+Выбор из выпадающего списка : value1
+Чекбокс : valueOfItem3
+Пол клиента : female
+_______________________
+Имя : ttttttttooooooooooooooooooooo
+Тема : tok
+Электронная почта : tokio@f.com
+Сообщение : ttttmess
+Выбор из выпадающего списка : value3
+Чекбокс : valueOfItem3
+Пол клиента : other
+_______________________
+Имя : kyiv3333333333
+Тема : kkkkkk
+Электронная почта : kyiv@com.ua
+Сообщение : kkktmess
+Выбор из выпадающего списка : value3
+Чекбокс : valueOfItem3
+Пол клиента : other
+_______________________
+Имя : madrid3333333
+Тема : mmmm
+Электронная почта : madr@com.ua
+Сообщение : ddddddddtmess
+Выбор из выпадающего списка : value3
+Чекбокс : valueOfItem3
+Пол клиента : other
+_______________________
+Имя : lololololol
+Тема : opoipoipip
+Электронная почта : uoityuirty
+Сообщение : utlitul
+Выбор из выпадающего списка : value2
+Чекбокс : valueOfItem3
+Пол клиента : female
+_______________________
+Имя : FuckingMoskow
+Тема : moskSubj
+Электронная почта : mosk@mail.ru
+Сообщение : dfghfgh
+Выбор из выпадающего списка : value2
+Чекбокс : valueOfItem3
+Пол клиента : female
+_______________________

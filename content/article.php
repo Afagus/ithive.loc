@@ -64,7 +64,7 @@ if (key_exists('showForm', $_GET)) {
 }
 
 ?>
-<form action="/ithive.loc/index.php?showMessage= 1">
+<form action="">
 <input type="submit" value="construct" name="keyConstr">
 </form>
 

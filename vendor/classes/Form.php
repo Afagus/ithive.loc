@@ -55,11 +55,8 @@ class Form
         WHERE cfm.id = ' . $messageID;
 
         $form = $database->query($sql);
-
         return new self($form, $nameOfForm, $messageID);
-
     }
-
 
     /**
      * @param $form
