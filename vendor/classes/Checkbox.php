@@ -37,7 +37,7 @@ class Checkbox extends Field
         <input type="checkbox"
                name="<?= $this->name ?>[]"
                value="<?= $item['value'] ?>"
-            <?= $this->value && in_array($item['value'], (is_array($this->value)?$this->value : json_decode($this->value, JSON_FORCE_OBJECT))) ? 'checked="checked"' : '';?>>
+            <?= $this->value && in_array($item['value'], (is_array($this->value)?$this->value : (json_decode($this->value, JSON_FORCE_OBJECT)))) ? 'checked="checked"' : '';?>>
         <?= $item['list'] ?><Br>
     <?php endforeach;
     }
