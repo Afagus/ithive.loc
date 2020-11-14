@@ -43,7 +43,7 @@ class Form
         return new self($form, $nameOfForm);
     }
 
-    static public function getFromDB($messageID, $nameOfForm)
+    static public function getFromDB($messageID)
     {
 
         $database = \database\singleConnect::getInstance();
@@ -55,7 +55,8 @@ class Form
         WHERE cfm.id = ' . $messageID;
 
         $form = $database->query($sql);
-        return new self($form, $nameOfForm, $messageID);
+
+        return new self($form, $form[0]['form_ID'], $messageID);
     }
 
     /**

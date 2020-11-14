@@ -1,22 +1,30 @@
 <?php
 require_once 'vendor/loader.php';
+const DIR = __DIR__;
+define('REQUEST_URI', $_SERVER['REQUEST_URI']);
 
-$REQUEST_URI = substr($_SERVER['REQUEST_URI'], 1);
-$arrayQuery = explode('/', $REQUEST_URI);
-mydebugger($REQUEST_URI);
-mydebugger($arrayQuery);
-mydebugger($_GET);
 
-if (!$_GET){
-    require_once 'controller/mainpage.php';
-}
 
-if ($_GET) {
-    $test = 'controller/' . "$arrayQuery[2]." . "php";
-    if (file_exists($test)) {
+$rootPath = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', __DIR__));
+$arrayQuery = explode('/', str_replace(REQUEST_URI, '',$rootPath . '/'));
+$pureQuery = (str_replace($rootPath, '', $arrayQuery));
 
-        require_once $test;
-    } else {
-        require_once 'controller/404.php';
+define('ROUTE', $arrayQuery);
+mydebugger(ROUTE);
+
+$filePath = ROUTE[0];
+
+mydebugger($filePath);
+
+if (!$filePath) {
+    $filePath = 'controller/mainpage.php';
+} else {
+    $filePath = 'controller/' . ROUTE[0] . '.php';
+
+    if (!file_exists($filePath)) {
+        $filePath = 'controller/404.php';
     }
 }
+require_once $filePath;
+
+mydebugger($filePath);
