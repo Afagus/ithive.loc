@@ -62,18 +62,18 @@ if (key_exists('showForm', $_GET)) {
 
 
 }
-
-?>
-<form action="">
-<input type="submit" value="construct" name="keyConstr">
-</form>
-
+//
+//?>
+<!--<form action="">-->
+<!--<input type="submit" value="construct" name="keyConstr">-->
+<!--</form>-->
+<!---->
 <?php
-if (key_exists('keyConstr',$_GET)){
-
-$viewConstr = new \vendor\classes\ConstructorForm();
-$viewConstr->viewerConstr();
-}
+//if (key_exists('keyConstr',$_GET)){
+//
+//$viewConstr = new \vendor\classes\ConstructorForm();
+//$viewConstr->viewerConstr();
+//}
 
 
 
