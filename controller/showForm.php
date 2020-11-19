@@ -18,7 +18,8 @@ echo '<ul>';
 foreach ($formFromQuery as $value) {
     ?>
     <li><a href="/ithive.loc/showMessage/<?= $value['id'] ?>">Ссылка
-            на сообщение <?= $value['id'] ?> от <?= $value['date'] ?> </a></li>
+            на сообщение <?= $value['id'] ?> от <?= $value['date'] ?> </a>
+    </li>
     <?php
 }
 echo '</ul>';

@@ -1,53 +1,39 @@
-html {
+html, body {
     height: 100%;
 }
 
-body {
-    height: 100%;
-}
-
-h2 {
+h2, h4 {
     font-style: italic;
-    background: azure;
-}
-
-footer {
-
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: cadetblue;
-    color: white;
-    text-align: center;
 
 }
-
+#main {
+    min-height:100%;
+    position: relative;
+    background-color: rgb(100,255,255);
+}
 header {
-    padding: 10px;
+    height:120px;
+    background-color: rgb(146, 238, 179);
     text-align: center;
-    background: #1abc9c;
-    color: white;
-    font-size: 25px;
-    float: top;
-}
-
-article {
-    margin: 20px;
-    float: left;
-    background-color: grey;
-}
-h1 {
-    background-color: bisque;
+    font-size: 2em;
 }
 span.warning {
     color: red;
-
 }
-
 aside {
     float: right;
     margin: 20px;
     background-color: chartreuse;
-
 }
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(179, 245, 195);
+    text-align: center;
+}
+
+
+
