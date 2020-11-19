@@ -14,44 +14,34 @@ require_once 'vendor/loader.php';
 </head>
 <body>
 <header>
-    <?php require_once 'content/header.php';?>
+    <?php require_once 'content/header.php'; ?>
 </header>
 <article>
-<?php
-$rootFolder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', __DIR__));
+    <?php
+    $rootFolder = str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', __DIR__));
 
-$temp = rtrim(ltrim($_SERVER['REQUEST_URI'],'/'),'/');
-$arrayQuery = str_replace($rootFolder,'', $temp);
-$arrayQuery = substr($arrayQuery, 1);
+    $temp = rtrim(ltrim($_SERVER['REQUEST_URI'], '/'), '/');
+    $arrayQuery = str_replace($rootFolder, '', $temp);
+    $arrayQuery = substr($arrayQuery, 1);
+    $arrayQuery = explode('/', $arrayQuery);
+    define('ROUTE', $arrayQuery);
+    $filePath = ROUTE[0];
 
-$arrayQuery = explode('/', $arrayQuery);
-
-
-define('ROUTE', $arrayQuery);
-mydebugger(ROUTE);
-$filePath = ROUTE[0];
-
-
-if (!$filePath) {
-    $filePath = 'controller/mainpage.php';
-} else {
-    if ($_GET) {
-        $filePath = 'controller/construct.php';
+    if (!$filePath) {
+        $filePath = 'controller/mainpage.php';
     } else {
         $filePath = 'controller/' . ROUTE[0] . '.php';
-
         if (!file_exists($filePath)) {
             $filePath = 'controller/404.php';
         }
     }
-}
-require_once $filePath;
+    require_once $filePath;
+    mydebugger(ROUTE);
+    ?>
 
-?>
+    <form action="construct" method="post">
+        <input type="submit" value="constructer" name="constructorForm">
+    </form>
 </article>
-<form action="">
-    <input type="submit" value="construct" name="constructorForm">
-</form>
-
 </body>
 </html>
