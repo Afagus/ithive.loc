@@ -30,6 +30,20 @@ class Form
     }
 
     /**
+     * Creation of form
+     **/
+    static public function createForm($name)
+    {
+        $database = \database\singleConnect::getInstance();
+        $sql = 'INSERT INTO main_form (nameOfForm)
+        VALUES (\''.$name.'\')';
+        $database->query($sql);
+        echo $sql;
+        return $database->getLastId();
+    }
+
+
+    /**
      * @return mixed
      */
     static public function getSingleForm($nameOfForm)

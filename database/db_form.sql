@@ -105,7 +105,6 @@ VALUES (1, 'name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
 
 
 
-
 CREATE TABLE client_full_message
 (
     id      int auto_increment primary key,

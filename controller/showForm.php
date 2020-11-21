@@ -13,7 +13,6 @@ $sql = 'SELECT *
  */
 $formFromQuery = $database->query($sql);
 
-
 echo '<ul>';
 foreach ($formFromQuery as $value) {
     ?>
