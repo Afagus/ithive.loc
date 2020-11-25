@@ -44,14 +44,12 @@ $typeOfValidations = $database->query($sqlTypesOfValidation);
                         </option>
                     <?php endforeach; ?>
                 </select></td>
-
         </tr>
         <tr>
             <td><b>Плейсхолдер поля</b></td>
             <td><input type="text" name="placeholderField">
             </td>
         </tr>
-
         <tr>
             <td><b>Тип валидации</b></td>
             <td><select name="validationField">
@@ -68,7 +66,6 @@ $typeOfValidations = $database->query($sqlTypesOfValidation);
             <td><input type="text" name="labelForLetterField">
             </td>
         </tr>
-
         <tr>
             <td><input type="submit" value="add field" name="create"></td>
         </tr>

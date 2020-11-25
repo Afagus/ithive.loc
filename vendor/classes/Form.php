@@ -38,8 +38,18 @@ class Form
         $sql = 'INSERT INTO main_form (nameOfForm)
         VALUES (\''.$name.'\')';
         $database->query($sql);
-        echo $sql;
+
         return $database->getLastId();
+    }
+
+    static public function deleteForm($nameOfForm)
+    {
+        $database = \database\singleConnect::getInstance();
+        $sql = "DELETE FROM main_form 
+         WHERE nameOfForm = ". '\'' .$nameOfForm . '\'';
+        $database->query($sql);
+        echo $sql;
+        return true;
     }
 
 

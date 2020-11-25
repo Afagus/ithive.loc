@@ -12,11 +12,22 @@ $formFromQuery = $database->query($sql);
 /**
  * Выводим список форм, которые находятся в базе данных в таблице main_form
  */
-echo '<ul>';
+echo '<table>';
+
 foreach ($formFromQuery as $value) {
     ?>
-    <li><a href="/ithive.loc/showForm/<?= $value['id'] ?>">Ссылка на
-            форму <?= $value['nameOfForm'] ?> </a></li>
+<tr>
+    <td><a href="/ithive.loc/showForm/<?= $value['id'] ?>">Ссылка на
+            форму <?= $value['nameOfForm'] ?> </a>
+    </td>
+    <td><form method="post" action="deleteForm/<?= $value['nameOfForm'] ?>">
+        <input type="submit" value="delete Form" name="deleteFormButton">
+            <input type="hidden" value="<?= $value['nameOfForm'] ?>">
+        </form>
+    </td>
+</tr>
     <?php
 }
-echo '</ul>';
+
+
+echo '</table>';

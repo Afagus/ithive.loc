@@ -54,6 +54,7 @@ CREATE TABLE table_form_building
     constraint table_form_building_ibfk_3
         foreign key (form_ID) references main_form (id)
 );
+ALTER TABLE `table_form_building` DROP FOREIGN KEY `table_form_building_ibfk_3`; ALTER TABLE `table_form_building` ADD CONSTRAINT `table_form_building_ibfk_3` FOREIGN KEY (`form_ID`) REFERENCES `main_form`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 CREATE INDEX type
     on table_form_building (type_ID);
