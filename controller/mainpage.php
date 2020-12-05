@@ -1,5 +1,6 @@
 <?php
 require_once 'vendor/loader.php';
+require_once 'content/header.php';
 ?>
 
 <h1>Выберите форму</h1>
@@ -20,14 +21,18 @@ foreach ($formFromQuery as $value) {
     <td><a href="/ithive.loc/showForm/<?= $value['id'] ?>">Ссылка на
             форму <?= $value['nameOfForm'] ?> </a>
     </td>
-    <td><form method="post" action="deleteForm/<?= $value['nameOfForm'] ?>">
+    <td><form method="post" action="deleteForm/<?= $value['id'] ?>">
         <input type="submit" value="delete Form" name="deleteFormButton">
-            <input type="hidden" value="<?= $value['nameOfForm'] ?>">
+            <input type="hidden" value="<?= $value['id'] ?>">
         </form>
     </td>
 </tr>
+    <tr>
+        <td>
     <?php
 }
+require_once 'content/form.php';
 
-
+echo '</td>';
+echo '</tr>';
 echo '</table>';

@@ -36,17 +36,17 @@ class Form
     {
         $database = \database\singleConnect::getInstance();
         $sql = 'INSERT INTO main_form (nameOfForm)
-        VALUES (\''.$name.'\')';
+        VALUES (\'' . $name . '\')';
         $database->query($sql);
 
         return $database->getLastId();
     }
 
-    static public function deleteForm($nameOfForm)
+    static public function deleteForm($id)
     {
         $database = \database\singleConnect::getInstance();
         $sql = "DELETE FROM main_form 
-         WHERE nameOfForm = ". '\'' .$nameOfForm . '\'';
+         WHERE id = " . '\'' . $id . '\'';
         $database->query($sql);
         echo $sql;
         return true;

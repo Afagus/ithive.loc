@@ -48,13 +48,12 @@ CREATE TABLE table_form_building
     title          char(30),
 
     constraint table_form_building_ibfk_1
-        foreign key (type_ID) references table_types_of_fields (id_types),
+        foreign key (type_ID) references table_types_of_fields (id_types) ON DELETE CASCADE ON UPDATE RESTRICT,
     constraint table_form_building_ibfk_2
-        foreign key (validation_ID) references type_of_validation (id_validation),
+        foreign key (validation_ID) references type_of_validation (id_validation) ON DELETE CASCADE ON UPDATE RESTRICT,
     constraint table_form_building_ibfk_3
-        foreign key (form_ID) references main_form (id)
+        foreign key (form_ID) references main_form (id) ON DELETE CASCADE ON UPDATE RESTRICT
 );
-ALTER TABLE `table_form_building` DROP FOREIGN KEY `table_form_building_ibfk_3`; ALTER TABLE `table_form_building` ADD CONSTRAINT `table_form_building_ibfk_3` FOREIGN KEY (`form_ID`) REFERENCES `main_form`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 CREATE INDEX type
     on table_form_building (type_ID);

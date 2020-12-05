@@ -1,5 +1,7 @@
 <?php
 require_once 'vendor/loader.php';
+require_once 'content/header.php';
+
 
 $formOutput = \vendor\classes\Form::getSingleForm(ROUTE[1]);
 $formOutput->viewForm();
@@ -22,3 +24,10 @@ foreach ($formFromQuery as $value) {
     <?php
 }
 echo '</ul>';
+
+?>
+<form action="/ithive.loc/construct/<?= ROUTE[1] ?>" method="post">
+                <input type="submit" value="Change form" name="changeForm">
+            </form>
+
+

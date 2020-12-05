@@ -1,5 +1,6 @@
 <?php
 require_once 'vendor/loader.php';
+require_once 'content/header.php';
 ?>
 <h1>Конструктор формы</h1>
 <?php
@@ -28,7 +29,7 @@ $typeOfValidations = $database->query($sqlTypesOfValidation);
     <?php }
 
     ?>
-    <form method="post" action="/ithive.loc/createField/<?= ROUTE[1] ?> ">
+    <form method="post" action="<?= BASE?>/createField/<?= ROUTE[1] ?> ">
         <tr>
             <td><b>Имя поля</b></td>
             <td><input type="text" name="nameField">
@@ -67,8 +68,19 @@ $typeOfValidations = $database->query($sqlTypesOfValidation);
             </td>
         </tr>
         <tr>
+            <td><b>Заполните поле для "Селекта"</b></td>
+            <td><textarea type="text" name="infoForSelect"></textarea>
+            </td>
+        </tr>
+        <tr>
             <td><input type="submit" value="add field" name="create"></td>
         </tr>
+    </form>
+    <tr>
+        <td>
+    <a href="/ithive.loc/showForm/<?= ROUTE[1]?>">На форму</a>
+        </td>
+    </tr>
     </form>
 </table>
 <br>

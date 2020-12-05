@@ -1,10 +1,16 @@
-html, body {
-    height: 100%;
+
+body{
+    padding-bottom: 120px;
+    clear: both;
+    position: relative;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
+
 
 h2, h4 {
     font-style: italic;
-
+margin-top: 0 ;
 }
 #main {
     min-height:100%;
