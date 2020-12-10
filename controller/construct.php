@@ -73,6 +73,17 @@ $typeOfValidations = $database->query($sqlTypesOfValidation);
             </td>
         </tr>
         <tr>
+            <td><b>Заполните поле для "Чекбокса"</b></td>
+            <td><textarea type="text" name="infoForCheckBox"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Заполните поле для "Радио"</b></td>
+            <td><textarea type="text" name="infoForRadioButton"></textarea>
+            </td>
+
+        </tr>
+        <tr>
             <td><input type="submit" value="add field" name="create"></td>
         </tr>
     </form>
