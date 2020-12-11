@@ -6,7 +6,7 @@ $stringSelect = implode(',' , $stringSelect);
 
 preg_match_all("#([^,\s]+):([^,\s]+)#s",$stringSelect,$out);
 $outSelect = array_combine($out[1],$out[2]) ;
-$outSelect = json_encode($outSelect);
+$outSelect = json_encode($outSelect, JSON_FORCE_OBJECT);
 
 
 
