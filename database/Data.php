@@ -62,8 +62,10 @@ $eee = [
         'type' => 'Checkbox',
         'name' => 'checkbox',
         'dataForCheckbox' => [
-            ['value' => 'valueOfItem1',
-            'list' => 'Check list №1'],
+            [
+'value' => 'valueOfItem1',
+'list' => 'Check list №1'
+ *],
 
             ['value' => 'valueOfItem2',
             'list' => 'Check list №2'],

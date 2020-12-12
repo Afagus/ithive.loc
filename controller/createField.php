@@ -1,5 +1,5 @@
 <?php
-mydebugger($_POST);
+
 
 $stringSelect = explode( PHP_EOL,$_POST['infoForSelect']);
 $stringSelect = implode(',' , $stringSelect);
@@ -7,8 +7,6 @@ $stringSelect = implode(',' , $stringSelect);
 preg_match_all("#([^,\s]+):([^,\s]+)#s",$stringSelect,$out);
 $outSelect = array_combine($out[1],$out[2]) ;
 $outSelect = json_encode($outSelect, JSON_FORCE_OBJECT);
-
-
 
 
 $database = \database\singleConnect::getInstance();
@@ -23,7 +21,7 @@ VALUES (" .
             '\''. $_POST['validationField']. '\''.', ' .
             '\''. $_POST['labelForLetterField']. '\''.', ' .
             '\''. $outSelect . '\''.', ' .
-            '\''. "NULL". '\''.
+            '\''. $_POST['placeholderField']. '\''.
              ")";
 $sqlFields = $database->query($sql);
 header("HTTP/1.1. 301 Moved Permanently");

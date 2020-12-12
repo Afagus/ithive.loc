@@ -4,17 +4,8 @@
 namespace vendor\classes;
 
 
-class Checkbox extends Field
+class Checkbox extends SelectorType
 {
-    private $options = [];
-    private $title = '';
-
-    public function __construct($form)
-    {
-        parent::__construct($form);
-        $this->options = json_decode($form['options'], JSON_FORCE_OBJECT);
-        $this->title = $form['title'];
-    }
 
     public function createMessage()
     {
@@ -33,12 +24,12 @@ class Checkbox extends Field
         ?>
         <p><b><?= $this->title ?></b></p>
         <p>
-        <?php foreach ($this->options as $item): ?>
+        <?php foreach ($this->options as $key => $item): ?>
         <input type="checkbox"
                name="<?= $this->name ?>[]"
-               value="<?= $item['value'] ?>"
-            <?= $this->value && in_array($item['value'], (is_array($this->value)?$this->value : (json_decode($this->value, JSON_FORCE_OBJECT)))) ? 'checked="checked"' : '';?>>
-        <?= $item['list'] ?><Br>
+               value="<?= $key?>"
+            <?= $this->value && in_array($item, (is_array($this->value) ? $this->value : (json_decode($this->value, JSON_FORCE_OBJECT)))) ? 'checked="checked"' : ''; ?>>
+        <?= $item ?><Br>
     <?php endforeach;
     }
 

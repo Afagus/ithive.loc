@@ -14,6 +14,7 @@ $sqlTypesOfValidation = 'SELECT * FROM form.type_of_validation';
 $tableTypes = $database->query($sqlChecked);
 $typeOfFields = $database->query($sqlTypesOfFields);
 $typeOfValidations = $database->query($sqlTypesOfValidation);
+
 ?>
 <table>
     <tr><?php foreach ($tableTypes
@@ -29,7 +30,7 @@ $typeOfValidations = $database->query($sqlTypesOfValidation);
     <?php }
 
     ?>
-    <form method="post" action="<?= BASE?>/createField/<?= ROUTE[1] ?> ">
+    <form method="post" action="<?= BASE ?>/createField/<?= ROUTE[1] ?> ">
         <tr>
             <td><b>Имя поля</b></td>
             <td><input type="text" name="nameField">
@@ -68,28 +69,16 @@ $typeOfValidations = $database->query($sqlTypesOfValidation);
             </td>
         </tr>
         <tr>
-            <td><b>Заполните поле для "Селекта"</b></td>
+            <td><b>Заполните поле для "Селекта, Радио или Чекбокса"</b></td>
             <td><textarea type="text" name="infoForSelect"></textarea>
             </td>
         </tr>
-        <tr>
-            <td><b>Заполните поле для "Чекбокса"</b></td>
-            <td><textarea type="text" name="infoForCheckBox"></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td><b>Заполните поле для "Радио"</b></td>
-            <td><textarea type="text" name="infoForRadioButton"></textarea>
-            </td>
-
-        </tr>
-        <tr>
-            <td><input type="submit" value="add field" name="create"></td>
+        <td><input type="submit" value="add field" name="create"></td>
         </tr>
     </form>
     <tr>
         <td>
-    <a href="/ithive.loc/showForm/<?= ROUTE[1]?>">На форму</a>
+            <a href="/ithive.loc/showForm/<?= ROUTE[1] ?>">На форму</a>
         </td>
     </tr>
     </form>

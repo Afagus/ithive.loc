@@ -85,12 +85,11 @@ VALUES (1, 'name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
        (1, 'email', 2, 'Enter e-mail', '', 2, 'Электронная почта', NULL, NULL),
        (1, 'message', 3, 'Input your message', '', 1, 'Сообщение', NULL, NULL),
        (1, 'select', 4, NULL, '', 3, 'Выбор из выпадающего списка',
-        '{"0":"Enter value","value1":1,"value2":2,"value3":3}', NULL),
+        '{"0":"Выберите значение","value1":"JavaScript","value2":"PHP","value3":"HTML"}', NULL),
        (1, 'checkbox', 5, NULL, '', 4, 'Чекбокс',
-        '{"0":{"value":"valueOfItem1","list":"Check value 1"},"1":{"value":"valueOfItem2","list":"Check value 2"},"2":{"value":"valueOfItem3","list":"Check value 3"}}',
+        '{"0":"Киев", "1":"Харьков","2":"Львов","3":"Одесса"}',
         'Поставьте галочку'),
-       (1, 'radio', 6, NULL, '', 5, 'Пол клиента', '{"0":{"id":"male","value":"male","view":"Male"},"1":{"id":"female",
-"value":"female","view":"Female"},"2":{"id":"other","value":"other","view":"Other"}}', 'Укажите Ваш пол'),
+       (1, 'radio', 6, NULL, '', 5, 'Пол клиента', '{"0":"male","1":"female","2":"Other"}', 'Укажите Ваш пол'),
         (2, 'name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
        (2, 'subject', 1, 'Enter subject', '', 1, 'Тема', NULL, NULL),
        (2, 'email', 2, 'Enter e-mail', '', 2, 'Электронная почта', NULL, NULL),
@@ -98,10 +97,9 @@ VALUES (1, 'name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
        (2, 'select', 4, NULL, '', 3, 'Выбор из выпадающего списка',
         '{"0":"Enter value","value1":1,"value2":2,"value3":3}', NULL),
        (2, 'checkbox', 5, NULL, '', 4, 'Чекбокс',
-        '{"0":{"value":"valueOfItem1","list":"Check value 1"},"1":{"value":"valueOfItem2","list":"Check value 2"},"2":{"value":"valueOfItem3","list":"Check value 3"}}',
+        '{"0":"Киев", "1":"Харьков","2":"Львов","3":"Одесса"}',
         'Поставьте галочку'),
-       (2, 'radio', 6, NULL, '', 5, 'Пол клиента', '{"0":{"id":"male","value":"male","view":"Male"},"1":{"id":"female",
-"value":"female","view":"Female"},"2":{"id":"other","value":"other","view":"Other"}}', 'Укажите Ваш пол');
+       (2, 'radio', 6, NULL, '', 5, 'Пол клиента', '{"0":"male","1":"female","2":"Other"}', 'Укажите Ваш пол');
 
 
 
