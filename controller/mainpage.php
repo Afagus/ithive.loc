@@ -1,6 +1,8 @@
 <?php
 require_once 'vendor/loader.php';
 require_once 'content/header.php';
+require_once 'router/router.php';
+
 ?>
 
 <h1>Выберите форму</h1>
@@ -35,11 +37,4 @@ require_once 'content/form.php';
 
 echo '</td>';
 echo '</tr>';
-?>
-<td><form method="post" action="gopa/1">
-        <input type="submit" value="Gopa" name="gopakkkkk">
-            <input type="hidden" value="gopa1">
-        </form>
-    </td>
-        <?php
 echo '</table>';
