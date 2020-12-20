@@ -1,15 +1,15 @@
 <?php
 
-function createNewField($typeOfFields, $typeOfValidations)
+function updateField($typeOfFields, $typeOfValidations, $field = [])
 {
-
+    mydebugger($field);
     ?>
 
     <table>
-        <form method="post" action="<?= BASE ?>/createField/<?= ROUTE[1] ?> ">
+        <form method="post" action="<?= BASE ?>/updateField/<?= $field[0]['id'] ?> ">
             <tr>
                 <td><b>Имя поля</b></td>
-                <td><input type="text" name="nameField">
+                <td><input type="text" name="nameField" value="<?= $field[0]['name']?>">
                 </td>
             </tr>
 
@@ -25,7 +25,7 @@ function createNewField($typeOfFields, $typeOfValidations)
             </tr>
             <tr>
                 <td><b>Плейсхолдер поля</b></td>
-                <td><input type="text" name="placeholderField">
+                <td><input type="text" name="placeholderField" value="<?= $field[0]['placeholder']?>">
                 </td>
             </tr>
             <tr>
@@ -41,7 +41,7 @@ function createNewField($typeOfFields, $typeOfValidations)
             </tr>
             <tr>
                 <td><b>Пометка для письма</b></td>
-                <td><input type="text" name="labelForLetterField">
+                <td><input type="text" name="labelForLetterField" value="<?= $field[0]['labelForLetter']?>">
                 </td>
             </tr>
             <tr>
@@ -49,7 +49,7 @@ function createNewField($typeOfFields, $typeOfValidations)
                 <td><textarea type="text" name="infoForSelect"></textarea>
                 </td>
             </tr>
-            <td><input type="submit" value="add field" name="create"></td>
+            <td><input type="submit" value="Update Field" name="update"></td>
             </tr>
         </form>
         <tr>
@@ -60,5 +60,5 @@ function createNewField($typeOfFields, $typeOfValidations)
         </form>
     </table>
     <?php
-
+    return $field;
 }

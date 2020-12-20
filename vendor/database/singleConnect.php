@@ -30,7 +30,11 @@ class singleConnect
 
     public function query($sql){
         $res = mysqli_query($this->connection, $sql);
-        return @mysqli_fetch_all($res, MYSQLI_ASSOC);
+        if(!$res){
+            print_r($sql.'<br/><b>'.mysqli_error($this->connection).'</b>');
+        }else{
+            return mysqli_fetch_all($res, MYSQLI_ASSOC);
+        }
     }
 
     public function getLastId(){
