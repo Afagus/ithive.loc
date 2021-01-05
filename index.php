@@ -9,4 +9,3 @@ require_once 'router/router.php';
 require_once 'content/aside.php';
 require_once 'content/footer.php';
 
-echo 'Changes for testing GIT';
