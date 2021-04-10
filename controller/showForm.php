@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/loader.php';
 require_once 'content/header.php';
+require_once 'content/footer.php';
 
 
 $formOutput = \vendor\classes\Form::getSingleForm(ROUTE[1]);

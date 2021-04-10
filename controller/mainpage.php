@@ -2,7 +2,7 @@
 require_once 'vendor/loader.php';
 require_once 'content/header.php';
 require_once 'router/router.php';
-
+require_once 'content/footer.php'
 ?>
 
 <h1>Выберите форму</h1>

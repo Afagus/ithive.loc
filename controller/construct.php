@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/loader.php';
 require_once 'content/header.php';
+require_once 'content/footer.php';
 ?>
 <h1>Конструктор формы</h1>
 <?php

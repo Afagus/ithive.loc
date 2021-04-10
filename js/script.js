@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.addEventListener("readystatechange", () => {
 
             if(xhr.readyState === 4 && xhr.status === 200) {
+                let lastId = xhr.responseText;
                 console.log(xhr.responseText);
             }
         });

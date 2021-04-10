@@ -4,7 +4,6 @@ require_once 'vendor/loader.php';
 
 $rootFolder = str_replace(DOCUMENT_ROOT, '', str_replace('\\', '/', DIR));
 define('BASE','/'.$rootFolder);
-mydebugger(BASE);
 
 $temp = rtrim(ltrim(REQUEST_URI, '/'), '/');
 $arrayQuery = str_replace($rootFolder, '', $temp);
