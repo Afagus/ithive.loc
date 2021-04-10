@@ -15,7 +15,7 @@ $formFromQuery = $database->query($sql);
 /**
  * Выводим список форм, которые находятся в базе данных в таблице main_form
  */
-echo '<table>';
+echo '<table id="myTable">';
 
 foreach ($formFromQuery as $value) {
     ?>
