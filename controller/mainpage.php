@@ -36,7 +36,6 @@ foreach ($formFromQuery as $value) {
     <?php
 }
 
-
 echo '</td>';
 echo '</tr>';
 echo '</table>';
