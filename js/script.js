@@ -24,10 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 addRow("myTable");
             }
         });
-
         xhr.send(params);
-
-
     })
 
 
