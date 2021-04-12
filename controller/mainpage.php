@@ -22,7 +22,7 @@ echo '<table id="myTable">';
 foreach ($formFromQuery as $value) {
     ?>
 <tr>
-    <td><a href="/ithive.loc/showForm/<?= $value['id'] ?>">Ссылка на
+    <td><a href="/<?= BASE ?>/showForm/<?= $value['id'] ?>">Ссылка на
             форму <?= $value['nameOfForm'] ?> </a>
     </td>
     <td><form method="post" action="deleteForm/<?= $value['id'] ?>">

@@ -6,7 +6,7 @@ function createNewField($typeOfFields, $typeOfValidations)
     ?>
 
     <table>
-        <form method="post" action="<?= BASE ?>/createField/<?= ROUTE[1] ?> ">
+        <form method="post" action="/<?= BASE ?>/createField/<?= ROUTE[1] ?> ">
             <tr>
                 <td><b>Имя поля</b></td>
                 <td><input type="text" name="nameField">

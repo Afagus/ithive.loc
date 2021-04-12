@@ -5,7 +5,7 @@ require_once 'vendor/loader.php';
 $rootFolder = str_replace(DOCUMENT_ROOT, '', str_replace('\\', '/', DIR));
 
 
-define('BASE','/'.$rootFolder);
+define('BASE', $rootFolder);
 
 $temp = rtrim(ltrim(REQUEST_URI, '/'), '/');
 

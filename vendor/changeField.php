@@ -6,7 +6,7 @@ function updateField($typeOfFields, $typeOfValidations, $field = [])
     ?>
 
     <table>
-        <form method="post" action="<?= BASE ?>/updateField/<?= $field[0]['id'] ?> ">
+        <form method="post" action="/<?= BASE ?>/updateField/<?= $field[0]['id'] ?> ">
             <tr>
                 <td><b>Имя поля</b></td>
                 <td><input type="text" name="nameField" value="<?= $field[0]['name']?>">
