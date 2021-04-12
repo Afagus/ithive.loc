@@ -15,6 +15,8 @@ $formFromQuery = $database->query($sql);
 /**
  * Выводим список форм, которые находятся в базе данных в таблице main_form
  */
+
+require_once 'content/form.php';
 echo '<table id="myTable">';
 
 foreach ($formFromQuery as $value) {
@@ -33,7 +35,7 @@ foreach ($formFromQuery as $value) {
         <td>
     <?php
 }
-require_once 'content/form.php';
+
 
 echo '</td>';
 echo '</tr>';

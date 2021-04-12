@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/loader.php';
-define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
+$tempDOCROOT = rtrim($_SERVER['DOCUMENT_ROOT'], '/').'/';
+define('DOCUMENT_ROOT', $tempDOCROOT);
 define('DIR', __DIR__);
 define('REQUEST_URI', $_SERVER['REQUEST_URI']);
 
