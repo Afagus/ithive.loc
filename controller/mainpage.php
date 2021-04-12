@@ -11,6 +11,7 @@ require_once 'content/footer.php'
 $database = \database\singleConnect::getInstance();
 $sql = 'SELECT * FROM main_form ';
 $formFromQuery = $database->query($sql);
+mydebugger($formFromQuery);
 
 /**
  * Выводим список форм, которые находятся в базе данных в таблице main_form
