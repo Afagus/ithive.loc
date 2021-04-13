@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log(xhr.responseText);
 
                 addRow("myTable");
+                setEmptyField();
+
             }
         });
         xhr.send(params);
@@ -40,6 +42,12 @@ function addRow(id) {
     row.appendChild(td1);
     row.appendChild(td2);
     tbody.appendChild(row);
+}
+
+function setEmptyField() {
+    var field= document.getElementById("fieldOfFormName");
+    field.value = '';
+    console.log(field);
 }
 
 function addStringOfHref() {

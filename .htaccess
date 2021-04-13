@@ -8,3 +8,10 @@ RewriteRule . /ithive.loc/index.php [L]
 #RewriteRule (.*) /ithive.loc/index.php?$1 [QSA,L]
 </IfModule>
 
+
+#Добавление слеша в конце RequestURI
+#RewriteEngine On
+#RewriteBase /
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_URI} !(.*)/$
+#RewriteRule ^(.*[^/])$ $1/ [L,R=301]

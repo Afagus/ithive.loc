@@ -1,6 +1,6 @@
 <?php
-mydebugger($_POST);
-$_POST['nameField']='dsfdsfsdfdsfasdasdsadasdasdasdasdsa';
+
+$_POST['nameField']='dsf';
 $database = \database\singleConnect::getInstance();
 $sql = "UPDATE table_form_building
 SET name = ".'\''. $_POST['nameField']. '\''."

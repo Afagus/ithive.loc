@@ -37,6 +37,7 @@ class Form
         $database = \database\singleConnect::getInstance();
         $sql = 'INSERT INTO main_form (nameOfForm)
         VALUES (\'' . $name . '\')';
+
         $database->query($sql);
 
         return $database->getLastId();
@@ -52,6 +53,15 @@ class Form
         return true;
     }
 
+    /**
+     * @return array|int
+     * Getting the list of forms from DB
+     */
+    static public function getListOfForms(){
+    $database = \database\singleConnect::getInstance();
+    $sql = 'SELECT * FROM main_form ';
+    return $database->query($sql);
+}
 
     /**
      * @return mixed

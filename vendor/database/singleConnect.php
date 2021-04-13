@@ -1,5 +1,4 @@
 <?php
-
 namespace database;
 const DB_HOST = 'localhost';
 const DB_LOGIN = 'root';
@@ -22,9 +21,8 @@ class singleConnect
     }
 
 
-    static function getInstance()
-    {
-        if (!self::$instance) {
+    static function getInstance(){
+        if(!self::$instance){
             self::$instance = new self();
         }
         return self::$instance;
@@ -40,13 +38,11 @@ class singleConnect
                 return 0;
             }
             return mysqli_fetch_all($res, MYSQLI_ASSOC);
-
         }
     }
 
-    public function getLastId()
-    {
-        return mysqli_insert_id($this->connection);
+    public function getLastId(){
+     return mysqli_insert_id($this->connection);
     }
 
 }
