@@ -24,32 +24,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 addForm("myTable");
                 setEmptyField();
-                
+
 
             }
         });
         xhr.send(params);
     })
 
-
-});
+})
 
 function addForm(id) {
     var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
     var row = document.createElement("TR")
     var td1 = document.createElement("TD")
     var a = document.createElement('a')
-    a.setAttribute('href',"showForm/"+ lastId);
-    a.innerHTML = "Ссылка на форму "+ inputFromUser;
+    a.setAttribute('href', "showForm/" + lastId);
+    a.innerHTML = "Ссылка на форму " + inputFromUser;
     td1.appendChild(a)
 
     var td2 = document.createElement("TD")
     deleteButton = document.createElement("button")
     deleteButton.innerText = "delete Form";
-    deleteButton.setAttribute('href',"deleteForm/"+ lastId)
-    document.addEventListener('click', function (e) {
-        
-    })
+    deleteButton.setAttribute('href', "deleteForm/" + lastId)
+
     td2.appendChild(deleteButton);
     row.appendChild(td1);
     row.appendChild(td2);
@@ -58,6 +55,6 @@ function addForm(id) {
 
 
 function setEmptyField() {
-    var field= document.getElementById("fieldOfFormName");
+    var field = document.getElementById("fieldOfFormName");
     field.value = '';
 }
