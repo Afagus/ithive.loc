@@ -19,7 +19,7 @@ $formFromQuery = $database->query($sql);
 echo '<ul>';
 foreach ($formFromQuery as $value) {
     ?>
-    <li><a href="/ithive.loc/showMessage/<?= $value['id'] ?>">Ссылка
+    <li><a href="/<?= BASE?>/showMessage/<?= $value['id'] ?>">Ссылка
             на сообщение <?= $value['id'] ?> от <?= $value['date'] ?> </a>
     </li>
     <?php
@@ -27,7 +27,7 @@ foreach ($formFromQuery as $value) {
 echo '</ul>';
 
 ?>
-<form action="/ithive.loc/construct/<?= ROUTE[1] ?>" method="post">
+<form action="/<?= BASE?>/construct/<?= ROUTE[1] ?>" method="post">
                 <input type="submit" value="Change form" name="changeForm">
             </form>
 

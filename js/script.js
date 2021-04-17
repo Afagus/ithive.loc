@@ -1,6 +1,7 @@
 let lastId;
 let inputFromUser;
 let createForm;
+let deleteButton;
 document.addEventListener("DOMContentLoaded", function () {
 
     createForm = document.getElementById("createForm");
@@ -21,8 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 lastId = xhr.responseText;
                 console.log(xhr.responseText);
 
-                addRow("myTable");
+                addForm("myTable");
                 setEmptyField();
+                
 
             }
         });
@@ -32,28 +34,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-function addRow(id) {
+function addForm(id) {
     var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
     var row = document.createElement("TR")
     var td1 = document.createElement("TD")
-    td1.appendChild(document.createTextNode(addStringOfHref()))
+    var a = document.createElement('a')
+    a.setAttribute('href',"showForm/"+ lastId);
+    a.innerHTML = "Ссылка на форму "+ inputFromUser;
+    td1.appendChild(a)
+
     var td2 = document.createElement("TD")
-    td2.appendChild(document.createTextNode(addDeleteBtn()))
+    deleteButton = document.createElement("button")
+    deleteButton.innerText = "delete Form";
+    deleteButton.setAttribute('href',"deleteForm/"+ lastId)
+    document.addEventListener('click', function (e) {
+        
+    })
+    td2.appendChild(deleteButton);
     row.appendChild(td1);
     row.appendChild(td2);
     tbody.appendChild(row);
 }
 
+
 function setEmptyField() {
     var field= document.getElementById("fieldOfFormName");
     field.value = '';
-    console.log(field);
-}
-
-function addStringOfHref() {
-    return 'I`m href';
-}
-
-function addDeleteBtn() {
-    return 'I`m deleter'
 }
