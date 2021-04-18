@@ -16,24 +16,21 @@ $formFromQuery = \vendor\classes\Form::getListOfForms();
 require_once 'content/form.php';
 echo '<table id="myTable">';
 
-foreach ($formFromQuery as $value) {
-    ?>
+foreach ( $formFromQuery as $value ) {
+	?>
     <tr>
         <td><a href="/<?= BASE ?>/showForm/<?= $value['id'] ?>">Ссылка на
                 форму <?= $value['nameOfForm'] ?></a>
         </td>
         <td>
-            <form method="post" action="deleteForm/<?= $value['id'] ?>">
-                <input type="submit" value="delete Form" name="deleteFormButton">
+            <form class="deleteFormButton" method="post" action="deleteForm/<?= $value['id'] ?>">
+                <input  type="submit" value="delete Form" name="deleteFormButton">
                 <input type="hidden" value="<?= $value['id'] ?>">
             </form>
         </td>
+
     </tr>
-    <tr>
-        <td>
-    <?php
+	<?php
 }
 
-echo '</td>';
-echo '</tr>';
 echo '</table>';

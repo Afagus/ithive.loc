@@ -49,7 +49,7 @@ class Form
         $sql = "DELETE FROM main_form 
          WHERE id = " . '\'' . $id . '\'';
         $database->query($sql);
-        echo $sql;
+
         return true;
     }
 
