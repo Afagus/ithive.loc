@@ -10,9 +10,7 @@ require_once 'vendor/DBTableInfo.php';
 $tableInfo= DBTableInfo();
 ?>
 <table>
-    <tr><?php foreach ($tableInfo['tableTypes']
-
-        as $tableType) { ?>
+    <tr><?php foreach ($tableInfo['tableTypes'] as $tableType) { ?>
         <td><?= 'Поле ' . '<b>' . $tableType['name'] . '</b>'; ?></td>
         <td>
             <form action="/ithive.loc/deleteField/<?= $tableType['id'] ?>" method="post">
@@ -24,10 +22,11 @@ $tableInfo= DBTableInfo();
                 <input type="submit" value="Change" name="change">
             </form>
         </td>
-    </tr>
+
     <?php }
 
     ?>
+
 </table>
 <?php require_once "vendor/createNewField.php";
 createNewField($tableInfo['typeOfFields'], $tableInfo['typeOfValidations']);

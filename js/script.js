@@ -83,5 +83,8 @@ function sendAjaxForm(form,callback) {
             callback(this.response,this)
         }
     };
+
     XHR.send(data);
 }
+
+
