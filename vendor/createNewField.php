@@ -4,9 +4,9 @@ function createNewField($typeOfFields, $typeOfValidations)
 {
 
     ?>
+    <form id="addField" method="post" action="/<?= BASE ?>/createField/<?= ROUTE[1] ?> ">
+        <table>
 
-    <table>
-        <form method="post" action="/<?= BASE ?>/createField/<?= ROUTE[1] ?> ">
             <tr>
                 <td><b>Имя поля</b></td>
                 <td><input type="text" name="nameField">
@@ -51,14 +51,13 @@ function createNewField($typeOfFields, $typeOfValidations)
             </tr>
             <td><input type="submit" value="add field" name="create"></td>
             </tr>
-        </form>
-        <tr>
-            <td>
-                <a href="/ithive.loc/showForm/<?= ROUTE[1] ?>">На форму</a>
-            </td>
-        </tr>
-        </form>
-    </table>
+            <tr>
+                <td>
+                    <a href="/<?= BASE ?>/showForm/<?= ROUTE[1] ?>">На форму</a>
+                </td>
+            </tr>
+        </table>
+    </form>
     <?php
 
 }

@@ -5,8 +5,8 @@ function updateField($typeOfFields, $typeOfValidations, $field = [])
     mydebugger($field);
     ?>
 
-    <table>
-        <form method="post" action="/<?= BASE ?>/updateField/<?= $field[0]['id'] ?> ">
+        <form method="post" action="/<?= BASE ?>/updateField/<?= $field[0]['id']?> ">
+            <table>
             <tr>
                 <td><b>Имя поля</b></td>
                 <td><input type="text" name="nameField" value="<?= $field[0]['name']?>">
@@ -51,14 +51,13 @@ function updateField($typeOfFields, $typeOfValidations, $field = [])
             </tr>
             <td><input type="submit" value="Update Field" name="update"></td>
             </tr>
-        </form>
         <tr>
             <td>
                 <a href="/ithive.loc/showForm/<?= ROUTE[1] ?>">На форму</a>
             </td>
         </tr>
-        </form>
     </table>
+        </form>
     <?php
     return $field;
 }

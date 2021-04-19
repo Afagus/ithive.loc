@@ -9,21 +9,24 @@ document.addEventListener("DOMContentLoaded", function () {
     for (var i = 0; i < buttonsAll.length; i++) {
         buttonsAll[i].onsubmit = deleteFormFunc;
     }
+    createField();
 
 });
 
 
 function addFormAjax() {
     createForm = document.getElementById("createForm");
-    createForm.addEventListener("submit", function () {
+    if (createForm) {
+        createForm.addEventListener("submit", function () {
 
-        event.preventDefault();
-        inputFromUser = createForm[0].value;
-        sendAjaxForm(this, function (data) {
-            addForm(data);
-            setEmptyField();
-        });
-    })
+            event.preventDefault();
+            inputFromUser = createForm[0].value;
+            sendAjaxForm(this, function (data) {
+                addForm(data);
+                setEmptyField();
+            });
+        })
+    }
 }
 
 function addForm(lastId) {
@@ -68,20 +71,57 @@ function deleteFormFunc(event) {
     event.preventDefault();
     var row = event.path[2];
 
-    sendAjaxForm(this,function() {
+    sendAjaxForm(this, function () {
         row.remove();
     });
 }
 
 
-function sendAjaxForm(form,callback) {
+function sendAjaxForm(form, callback) {
     var XHR = new XMLHttpRequest();
     var data = new FormData(form);
     XHR.open("POST", form.action, true);
     XHR.onreadystatechange = function (response) {
         if (this.readyState === 4 && this.status === 200) {
-            callback(this.response,this)
+            callback(this.response, this)
         }
     };
     XHR.send(data);
+}
+
+function createField() {
+    var addField = document.getElementById("addField");
+    if (addField) {
+        addField.addEventListener("submit", function () {
+            event.preventDefault();
+            sendAjaxForm(this, function () {
+                this.responseText;
+            })
+
+            addFieldFunc();
+
+
+
+        })
+    }
+}
+
+function addFieldFunc(lastId) {
+
+
+    var tbody = document.getElementById("tableOfFieldCreator").getElementsByTagName("TBODY")[0];
+    var row = document.createElement("TR");
+    var td1 = document.createElement("TD");
+    td1.innerText = "Поле";
+    var td2 = document.createElement("TD");
+    var td2Form = document.createElement("form");
+    td2Form.action = "deleteField/" + lastId;
+    td2.appendChild(td2Form);
+
+
+    row.append(td1);
+    row.append(td2);
+    tbody.appendChild(row);
+
+
 }
