@@ -101,7 +101,6 @@ function createField() {
             addFieldFunc();
 
 
-
         })
     }
 }
@@ -113,14 +112,34 @@ function addFieldFunc(lastId) {
     var row = document.createElement("TR");
     var td1 = document.createElement("TD");
     td1.innerText = "Поле";
+
     var td2 = document.createElement("TD");
     var td2Form = document.createElement("form");
     td2Form.action = "deleteField/" + lastId;
+    td2Form.method = "post";
+    var inputDelete = document.createElement("input");
+    inputDelete.type = "submit";
+    inputDelete.value = "Delete";
+    inputDelete.name = "delete";
+    var td3 = document.createElement("TD");
+    var td3Form = document.createElement("form");
+    td3Form.action = "changeField/" + lastId;
+    td3Form.method = "post";
+    var inputChange = document.createElement("input");
+    inputChange.type = "submit";
+    inputChange.value = "Change";
+    inputChange.name = "change";
+
+    td2Form.append(inputDelete);
+    td3Form.append(inputChange);
+
     td2.appendChild(td2Form);
+    td3.appendChild(td3Form);
 
 
     row.append(td1);
     row.append(td2);
+    row.append(td3);
     tbody.appendChild(row);
 
 
