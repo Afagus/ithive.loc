@@ -5,10 +5,8 @@ let deleteButton;
 let objFromFormDB;
 document.addEventListener("DOMContentLoaded", function () {
     addFormAjax();
-    var buttonsAll = document.getElementsByClassName("deleteFormButton");
-    for (var i = 0; i < buttonsAll.length; i++) {
-        buttonsAll[i].onsubmit = deleteFormFunc;
-    }
+    deleterForExisting("deleteFormButton")
+    deleterForExisting()
     createField();
 
 });
@@ -26,6 +24,12 @@ function addFormAjax() {
                 setEmptyField();
             });
         })
+    }
+}
+function deleterForExisting(className) {
+    var buttonsAll = document.getElementsByClassName(className);
+    for (var i = 0; i < buttonsAll.length; i++) {
+        buttonsAll[i].onsubmit = deleteFormFunc;
     }
 }
 
