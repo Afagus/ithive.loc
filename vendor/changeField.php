@@ -2,7 +2,7 @@
 
 function updateField($typeOfFields, $typeOfValidations, $field = [])
 {
-    mydebugger($field);
+
     ?>
 
         <form method="post" action="/<?= BASE ?>/updateField/<?= $field[0]['id']?> ">

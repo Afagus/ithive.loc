@@ -2,7 +2,7 @@ let lastId;
 let inputFromUser;
 let createForm;
 let deleteButton;
-
+let objFromFormDB;
 document.addEventListener("DOMContentLoaded", function () {
     addFormAjax();
     var buttonsAll = document.getElementsByClassName("deleteFormButton");
@@ -73,41 +73,46 @@ function deleteFormFunc(event) {
 
     sendAjaxForm(this, function () {
         row.remove();
-    });
+    }, true);
 }
 
 
-function sendAjaxForm(form, callback) {
+function sendAjaxForm(form, callback, json) {
     var XHR = new XMLHttpRequest();
     var data = new FormData(form);
+    XHR.responseType = json ? 'json' : 'text';
     XHR.open("POST", form.action, true);
     XHR.onreadystatechange = function (response) {
         if (this.readyState === 4 && this.status === 200) {
-            callback(this.response, this)
+            callback && callback(this.response, this)
         }
     };
     XHR.send(data);
 }
+
+function OBRABITCHIK_ZAPROSA(response) {
+    //console.log(response);
+    objFromFormDB = response;
+    addFieldFunc();
+}
+
 
 function createField() {
     var addField = document.getElementById("addField");
     if (addField) {
         addField.addEventListener("submit", function () {
             event.preventDefault();
-            sendAjaxForm(this, function () {
-                this.responseText;
-            })
+            sendAjaxForm(this,OBRABITCHIK_ZAPROSA , true)
 
-            addFieldFunc();
 
 
         })
     }
 }
 
-function addFieldFunc(lastId) {
+function addFieldFunc() {
 
-
+console.log(objFromFormDB);
     var tbody = document.getElementById("tableOfFieldCreator").getElementsByTagName("TBODY")[0];
     var row = document.createElement("TR");
     var td1 = document.createElement("TD");
@@ -115,15 +120,18 @@ function addFieldFunc(lastId) {
 
     var td2 = document.createElement("TD");
     var td2Form = document.createElement("form");
-    td2Form.action = "deleteField/" + lastId;
+    td2Form.action = "/ithive.loc/deleteField/"+ objFromFormDB[0].id;
     td2Form.method = "post";
+    td2Form.onsubmit = deleteFormFunc;
     var inputDelete = document.createElement("input");
     inputDelete.type = "submit";
     inputDelete.value = "Delete";
     inputDelete.name = "delete";
+
+
     var td3 = document.createElement("TD");
     var td3Form = document.createElement("form");
-    td3Form.action = "changeField/" + lastId;
+    td3Form.action = "/ithive.loc/changeField/" + lastId;
     td3Form.method = "post";
     var inputChange = document.createElement("input");
     inputChange.type = "submit";

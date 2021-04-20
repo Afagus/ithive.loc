@@ -10,9 +10,7 @@ require_once 'vendor/DBTableInfo.php';
 $tableInfo= DBTableInfo();
 ?>
 <table id="tableOfFieldCreator">
-    <tr><?php foreach ($tableInfo['tableTypes']
-
-        as $tableType) { ?>
+    <tr><?php foreach ($tableInfo['tableTypes'] as $tableType) { ?>
         <td><?= 'Поле ' . '<b>' . $tableType['name'] . '</b>'; ?></td>
         <td>
             <form action="/<?=BASE?>/deleteField/<?= $tableType['id'] ?>" method="post">
