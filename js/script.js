@@ -6,7 +6,7 @@ let objFromFormDB;
 document.addEventListener("DOMContentLoaded", function () {
     addFormAjax();
     deleterForExisting("deleteFormButton")
-    deleterForExisting()
+    deleterForExisting() //TODO сделать удалятор, присвоить класс кнопкам
     createField();
 
 });
