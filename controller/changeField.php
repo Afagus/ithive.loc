@@ -14,7 +14,7 @@ $typeOfFields = $tableTypes['typeOfFields'];
 
 ?>
 
-    <form method="post" action="/<?= BASE ?>/updateField/<?= $field[0]['id']?> ">
+    <form id="updateField" method="post" action="/<?= BASE ?>/updateField/<?= $field[0]['id']?> ">
         <table>
             <tr>
                 <td><b>Имя поля</b></td>
@@ -58,7 +58,7 @@ $typeOfFields = $tableTypes['typeOfFields'];
                 <td><textarea type="text" name="infoForSelect"></textarea>
                 </td>
             </tr>
-            <td><input type="submit" value="Update Field" name="update"></td>
+            <td><input  type="submit" value="Update Field" name="update"></td>
             </tr>
             <tr>
                 <td>

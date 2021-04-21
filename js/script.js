@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     deleterForExisting("deleteFormButton")
     deleterForExisting("deleteField")
     createField();
+    updateField();
+
 
 });
 
@@ -20,6 +22,7 @@ function addFormAjax() {
             inputFromUser = createForm[0].value;
             sendAjaxForm(this, function (data) {
                 addForm(data);
+
                 setEmptyField("fieldOfFormName");
             });
         })
@@ -100,7 +103,7 @@ function createField() {
     if (addField) {
         addField.addEventListener("submit", function () {
             var self = this;
-            console.log(self);
+
             event.preventDefault();
             sendAjaxForm(this, function (response) {
                 objFromFormDB = response;
@@ -115,7 +118,6 @@ function createField() {
 
 function addFieldFunc() {
 
-
     var tbody = document.getElementById("tableOfFieldCreator").getElementsByTagName("TBODY")[0];
     var row = document.createElement("TR");
     var td1 = document.createElement("TD");
@@ -126,6 +128,7 @@ function addFieldFunc() {
 
     var td2 = document.createElement("TD");
     var td2Form = document.createElement("form");
+
     td2Form.action = "/ithive.loc/deleteField/" + objFromFormDB[0].id;
     td2Form.method = "post";
     td2Form.onsubmit = deleteFormFunc;
@@ -155,6 +158,17 @@ function addFieldFunc() {
     row.append(td2);
     row.append(td3);
     tbody.appendChild(row);
+}
 
-
+function updateField() {
+//TODO сделать обновлятор полей
+    var updater = document.getElementById("updateField");
+    if (updater) {
+        updater.addEventListener("submit", function () {
+            event.preventDefault();
+            sendAjaxForm(this, function () {
+                alert("hello")
+            }, true);
+        })
+    }
 }
