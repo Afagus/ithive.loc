@@ -1,4 +1,3 @@
-let lastId;
 let inputFromUser;
 let createForm;
 let deleteButton;
@@ -6,7 +5,7 @@ let objFromFormDB;
 document.addEventListener("DOMContentLoaded", function () {
     addFormAjax();
     deleterForExisting("deleteFormButton")
-    deleterForExisting() //TODO сделать удалятор, присвоить класс кнопкам
+    deleterForExisting("deleteField")
     createField();
 
 });
@@ -21,11 +20,12 @@ function addFormAjax() {
             inputFromUser = createForm[0].value;
             sendAjaxForm(this, function (data) {
                 addForm(data);
-                setEmptyField();
+                setEmptyField("fieldOfFormName");
             });
         })
     }
 }
+
 function deleterForExisting(className) {
     var buttonsAll = document.getElementsByClassName(className);
     for (var i = 0; i < buttonsAll.length; i++) {
@@ -66,8 +66,8 @@ function addForm(lastId) {
 
 }
 
-function setEmptyField() {
-    var field = document.getElementById("fieldOfFormName");
+function setEmptyField(elementID) {
+    var field = document.getElementById(elementID);
     field.value = '';
 }
 
@@ -94,37 +94,39 @@ function sendAjaxForm(form, callback, json) {
     XHR.send(data);
 }
 
-function OBRABITCHIK_ZAPROSA(response) {
-    //console.log(response);
-    objFromFormDB = response;
-    addFieldFunc();
-}
-
 
 function createField() {
     var addField = document.getElementById("addField");
     if (addField) {
         addField.addEventListener("submit", function () {
+            var self = this;
+            console.log(self);
             event.preventDefault();
-            sendAjaxForm(this,OBRABITCHIK_ZAPROSA , true)
-
-
-
+            sendAjaxForm(this, function (response) {
+                objFromFormDB = response;
+                console.log(objFromFormDB[0].name);
+                addFieldFunc();
+                self.reset();
+            }, true)
         })
+
     }
 }
 
 function addFieldFunc() {
 
-console.log(objFromFormDB);
+
     var tbody = document.getElementById("tableOfFieldCreator").getElementsByTagName("TBODY")[0];
     var row = document.createElement("TR");
     var td1 = document.createElement("TD");
-    td1.innerText = "Поле";
+    td1.innerText = "Поле ";
+    var boldNameOfForm = document.createElement("b");
+    boldNameOfForm.innerText = objFromFormDB[0].name;
+    td1.appendChild(boldNameOfForm);
 
     var td2 = document.createElement("TD");
     var td2Form = document.createElement("form");
-    td2Form.action = "/ithive.loc/deleteField/"+ objFromFormDB[0].id;
+    td2Form.action = "/ithive.loc/deleteField/" + objFromFormDB[0].id;
     td2Form.method = "post";
     td2Form.onsubmit = deleteFormFunc;
     var inputDelete = document.createElement("input");
@@ -135,7 +137,7 @@ console.log(objFromFormDB);
 
     var td3 = document.createElement("TD");
     var td3Form = document.createElement("form");
-    td3Form.action = "/ithive.loc/changeField/" + lastId;
+    td3Form.action = "/ithive.loc/changeField/" + objFromFormDB[0].id;
     td3Form.method = "post";
     var inputChange = document.createElement("input");
     inputChange.type = "submit";

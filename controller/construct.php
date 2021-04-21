@@ -13,7 +13,7 @@ $tableInfo= DBTableInfo();
     <tr><?php foreach ($tableInfo['tableTypes'] as $tableType) { ?>
         <td><?= 'Поле ' . '<b>' . $tableType['name'] . '</b>'; ?></td>
         <td>
-            <form action="/<?=BASE?>/deleteField/<?= $tableType['id'] ?>" method="post">
+            <form class ="deleteField" action="/<?=BASE?>/deleteField/<?= $tableType['id'] ?>" method="post">
                 <input type="submit" value="Delete" name="delete">
             </form>
         </td>
