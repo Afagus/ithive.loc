@@ -182,6 +182,10 @@ function addFormToRedact() {
 
     var parent = document.getElementById("overTable");
     parent.appendChild(el);
+    el.style.backgroundColor = "#81e4d5";
+    el.style.display="inline-block";
+    var hideForm = document.getElementById("addField");
+    hideForm.style.display = "none";
     sendAjaxForm(this, function (response) {
 
         el.innerHTML = response;
