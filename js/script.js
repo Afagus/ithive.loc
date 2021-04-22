@@ -4,11 +4,11 @@ let deleteButton;
 let objFromFormDB;
 document.addEventListener("DOMContentLoaded", function () {
     addFormAjax();
-    deleterForExisting("deleteFormButton")
-    deleterForExisting("deleteField")
+    makeForExisting("deleteFormButton", deleteFormFunc)
+    makeForExisting("deleteField", deleteFormFunc)
     createField();
     updateField();
-
+    makeForExisting("changeField", addFormToRedact);
 
 });
 
@@ -22,17 +22,16 @@ function addFormAjax() {
             inputFromUser = createForm[0].value;
             sendAjaxForm(this, function (data) {
                 addForm(data);
-
                 setEmptyField("fieldOfFormName");
             });
         })
     }
 }
 
-function deleterForExisting(className) {
+function makeForExisting(className, whatWeDo) {
     var buttonsAll = document.getElementsByClassName(className);
     for (var i = 0; i < buttonsAll.length; i++) {
-        buttonsAll[i].onsubmit = deleteFormFunc;
+        buttonsAll[i].onsubmit = whatWeDo;
     }
 }
 
@@ -88,6 +87,7 @@ function sendAjaxForm(form, callback, json) {
     var XHR = new XMLHttpRequest();
     var data = new FormData(form);
     XHR.responseType = json ? 'json' : 'text';
+    //console.log(data);
     XHR.open("POST", form.action, true);
     XHR.onreadystatechange = function (response) {
         if (this.readyState === 4 && this.status === 200) {
@@ -107,7 +107,6 @@ function createField() {
             event.preventDefault();
             sendAjaxForm(this, function (response) {
                 objFromFormDB = response;
-                console.log(objFromFormDB[0].name);
                 addFieldFunc();
                 self.reset();
             }, true)
@@ -142,10 +141,13 @@ function addFieldFunc() {
     var td3Form = document.createElement("form");
     td3Form.action = "/ithive.loc/changeField/" + objFromFormDB[0].id;
     td3Form.method = "post";
+    td3Form.className = "changeField";
+
     var inputChange = document.createElement("input");
     inputChange.type = "submit";
     inputChange.value = "Change";
     inputChange.name = "change";
+
 
     td2Form.append(inputDelete);
     td3Form.append(inputChange);
@@ -161,14 +163,32 @@ function addFieldFunc() {
 }
 
 function updateField() {
-//TODO сделать обновлятор полей
+
     var updater = document.getElementById("updateField");
     if (updater) {
         updater.addEventListener("submit", function () {
+            var self = this;
             event.preventDefault();
             sendAjaxForm(this, function () {
-                alert("hello")
             }, true);
         })
     }
+}
+
+
+function addFormToRedact() {
+    event.preventDefault();
+    var el = document.createElement("div");
+
+    var parent = document.getElementById("overTable");
+    parent.appendChild(el);
+    sendAjaxForm(this, function (response) {
+
+        el.innerHTML = response;
+
+    });
+
+
+
+
 }

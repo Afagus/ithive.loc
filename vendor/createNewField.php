@@ -51,13 +51,9 @@ function createNewField($typeOfFields, $typeOfValidations)
             </tr>
             <td><input type="submit" value="add field" name="create"></td>
             </tr>
-            <tr>
-                <td>
-                    <a href="/<?= BASE ?>/showForm/<?= ROUTE[1] ?>">На форму</a>
-                </td>
-            </tr>
         </table>
     </form>
+    <a href="/<?= BASE ?>/showForm/<?= ROUTE[1] ?>">На форму</a>
     <?php
 
 }

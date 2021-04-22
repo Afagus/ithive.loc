@@ -9,6 +9,7 @@ require_once 'content/footer.php';
 require_once 'vendor/DBTableInfo.php';
 $tableInfo= DBTableInfo();
 ?>
+<div id="overTable">
 <table id="tableOfFieldCreator">
     <tr><?php foreach ($tableInfo['tableTypes'] as $tableType) { ?>
         <td><?= 'Поле ' . '<b>' . $tableType['name'] . '</b>'; ?></td>
@@ -18,7 +19,7 @@ $tableInfo= DBTableInfo();
             </form>
         </td>
         <td>
-            <form action="/<?=BASE?>/changeField/<?= $tableType['id'] ?>" method="post">
+            <form class ="changeField" action="/<?=BASE?>/changeField/<?= $tableType['id'] ?>" method="post">
                 <input type="submit" value="Change" name="change">
             </form>
         </td>
@@ -27,6 +28,7 @@ $tableInfo= DBTableInfo();
 
     ?>
 </table>
+</div>
 <?php require_once "vendor/createNewField.php";
 createNewField($tableInfo['typeOfFields'], $tableInfo['typeOfValidations']);
 ?>
