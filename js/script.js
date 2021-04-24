@@ -2,17 +2,22 @@ let inputFromUser;
 let createForm;
 let deleteButton;
 let objFromFormDB;
+
+/*Ожидает загрузки всего DOM, запускает перечень функций
+ */
 document.addEventListener("DOMContentLoaded", function () {
     addFormAjax();
     makeForExisting("deleteFormButton", deleteFormFunc)
     makeForExisting("deleteField", deleteFormFunc)
     createField();
-    updateField();
     makeForExisting("changeField", addFormToRedact);
 
 });
 
-
+/*
+*Создание новой формы (по нажатию на книпку "create"
+* и отображение поля с именем в списке форм на главной странице
+*/
 function addFormAjax() {
     createForm = document.getElementById("createForm");
     if (createForm) {
@@ -21,6 +26,7 @@ function addFormAjax() {
             event.preventDefault();
             inputFromUser = createForm[0].value;
             sendAjaxForm(this, function (data) {
+                console.log(this);
                 addForm(data);
                 setEmptyField("fieldOfFormName");
             });
@@ -28,6 +34,9 @@ function addFormAjax() {
     }
 }
 
+
+/*Бежим по формам (по их классам) и применяем всем им событие
+ */
 function makeForExisting(className, whatWeDo) {
     var buttonsAll = document.getElementsByClassName(className);
     for (var i = 0; i < buttonsAll.length; i++) {
@@ -91,6 +100,7 @@ function sendAjaxForm(form, callback, json) {
     XHR.open("POST", form.action, true);
     XHR.onreadystatechange = function (response) {
         if (this.readyState === 4 && this.status === 200) {
+
             callback && callback(this.response, this)
         }
     };
@@ -122,6 +132,7 @@ function addFieldFunc() {
     var td1 = document.createElement("TD");
     td1.innerText = "Поле ";
     var boldNameOfForm = document.createElement("b");
+    boldNameOfForm.id = "newNameForm";
     boldNameOfForm.innerText = objFromFormDB[0].name;
     td1.appendChild(boldNameOfForm);
 
@@ -131,6 +142,7 @@ function addFieldFunc() {
     td2Form.action = "/ithive.loc/deleteField/" + objFromFormDB[0].id;
     td2Form.method = "post";
     td2Form.onsubmit = deleteFormFunc;
+
     var inputDelete = document.createElement("input");
     inputDelete.type = "submit";
     inputDelete.value = "Delete";
@@ -142,6 +154,8 @@ function addFieldFunc() {
     td3Form.action = "/ithive.loc/changeField/" + objFromFormDB[0].id;
     td3Form.method = "post";
     td3Form.className = "changeField";
+    td3Form.onsubmit = addFormToRedact;
+
 
     var inputChange = document.createElement("input");
     inputChange.type = "submit";
@@ -166,13 +180,22 @@ function updateField() {
 
     var updater = document.getElementById("updateField");
     if (updater) {
-        updater.addEventListener("submit", function () {
+
+        updater.addEventListener("submit", function (event) {
             var self = this;
+
             event.preventDefault();
-            sendAjaxForm(this, function () {
+            sendAjaxForm(this, function (response) {
+
+
+                console.log(response);
+                updater.remove();
             }, true);
         })
+    } else {
+        //console.log("by")
     }
+
 }
 
 
@@ -183,16 +206,20 @@ function addFormToRedact() {
     var parent = document.getElementById("overTable");
     parent.appendChild(el);
     el.style.backgroundColor = "#81e4d5";
-    el.style.display="inline-block";
+    el.style.display = "inline-block";
     var hideForm = document.getElementById("addField");
-    hideForm.style.display = "none";
+    //hideForm.style.display = "none";
     sendAjaxForm(this, function (response) {
 
         el.innerHTML = response;
+        updateField();
+
 
     });
 
-
-
+    function updateNameOfField(name) {
+        var getEl = document.getElementById("newNameForm");
+        getEl.innerText = name;
+    }
 
 }
