@@ -22,11 +22,10 @@ function addFormAjax() {
     createForm = document.getElementById("createForm");
     if (createForm) {
         createForm.addEventListener("submit", function () {
-
             event.preventDefault();
             inputFromUser = createForm[0].value;
             sendAjaxForm(this, function (data) {
-                console.log(this);
+                console.log(data);
                 addForm(data);
                 setEmptyField("fieldOfFormName");
             });
@@ -43,7 +42,10 @@ function makeForExisting(className, whatWeDo) {
         buttonsAll[i].onsubmit = whatWeDo;
     }
 }
-
+/*
+Отрисовка ссылки на форму и кнопки удаления на
+странице с выбором форм
+ */
 function addForm(lastId) {
     var tbody = document.getElementById("myTable").getElementsByTagName("TBODY")[0];
     var row = document.createElement("TR");
@@ -76,44 +78,51 @@ function addForm(lastId) {
     tbody.appendChild(row);
 
 }
-
+/*
+Очищаем поле, применяем после отправки
+ */
 function setEmptyField(elementID) {
     var field = document.getElementById(elementID);
     field.value = '';
 }
 
+/*
+Удаляяем строку с именем поля и кнопкой удаления
+ */
 function deleteFormFunc(event) {
     event.preventDefault();
     var row = event.path[2];
-
     sendAjaxForm(this, function () {
         row.remove();
     }, true);
 }
 
-
+/*
+Главная функция AJAX, создание объекта для
+связи и обмена с сервером, а также создание объекта формы
+ */
 function sendAjaxForm(form, callback, json) {
     var XHR = new XMLHttpRequest();
     var data = new FormData(form);
     XHR.responseType = json ? 'json' : 'text';
-    //console.log(data);
     XHR.open("POST", form.action, true);
     XHR.onreadystatechange = function (response) {
         if (this.readyState === 4 && this.status === 200) {
-
             callback && callback(this.response, this)
         }
     };
     XHR.send(data);
 }
 
-
+/*
+При нажатии на ADD FIELD в Конструкторе формы  появляется новая строка
+с именем поля, и все характеристики поля, отправляются с помощью AJAX
+ */
 function createField() {
     var addField = document.getElementById("addField");
     if (addField) {
         addField.addEventListener("submit", function () {
             var self = this;
-
             event.preventDefault();
             sendAjaxForm(this, function (response) {
                 objFromFormDB = response;
@@ -125,6 +134,11 @@ function createField() {
     }
 }
 
+
+/*
+Отрисовка поля формы для списка, создание атрибутов,
+и присвоение им значений
+ */
 function addFieldFunc() {
 
     var tbody = document.getElementById("tableOfFieldCreator").getElementsByTagName("TBODY")[0];
@@ -132,7 +146,7 @@ function addFieldFunc() {
     var td1 = document.createElement("TD");
     td1.innerText = "Поле ";
     var boldNameOfForm = document.createElement("b");
-    boldNameOfForm.id = "newNameForm";
+    boldNameOfForm.id = objFromFormDB[0].id + "_change";
     boldNameOfForm.innerText = objFromFormDB[0].name;
     td1.appendChild(boldNameOfForm);
 
@@ -176,50 +190,50 @@ function addFieldFunc() {
     tbody.appendChild(row);
 }
 
+/*
+ Изменение полей формы, при нажатии на "update field"
+ отправляем данные полей аяксом, меняем название
+ поля в списке полей и убираем форму
+*/
 function updateField() {
-
-    var updater = document.getElementById("updateField");
-    if (updater) {
-
-        updater.addEventListener("submit", function (event) {
-            var self = this;
-
+    var updateField = document.getElementById("updateField");
+    if (updateField) {
+        updateField.addEventListener("submit", function (event) {
             event.preventDefault();
             sendAjaxForm(this, function (response) {
-
-
-                console.log(response);
-                updater.remove();
+                updateNameOfField(response);
+                updateField.remove();
             }, true);
         })
     } else {
-        //console.log("by")
-    }
 
+    }
+/*
+    Функция для изменения имени поля в списке полей
+*/
+    function updateNameOfField(response) {
+        if (response) {
+            var getEl = document.getElementById(response[0].id + "_change");
+            getEl.innerText = response[0].name;
+        }
+    }
 }
 
-
+/*
+Выводим форму для редактирования полей, добавляем стилизацию.
+Форму берем получая весь HTML из файла
+*/
 function addFormToRedact() {
     event.preventDefault();
     var el = document.createElement("div");
-
     var parent = document.getElementById("overTable");
     parent.appendChild(el);
     el.style.backgroundColor = "#81e4d5";
     el.style.display = "inline-block";
-    var hideForm = document.getElementById("addField");
-    //hideForm.style.display = "none";
     sendAjaxForm(this, function (response) {
-
         el.innerHTML = response;
         updateField();
-
-
     });
 
-    function updateNameOfField(name) {
-        var getEl = document.getElementById("newNameForm");
-        getEl.innerText = name;
-    }
 
 }

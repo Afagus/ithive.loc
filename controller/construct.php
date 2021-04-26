@@ -12,14 +12,14 @@ $tableInfo= DBTableInfo();
 <div id="overTable">
 <table id="tableOfFieldCreator">
     <tr><?php foreach ($tableInfo['tableTypes'] as $tableType) { ?>
-        <td><?= 'Поле ' . '<b>' . $tableType['name'] . '</b>'; ?></td>
+        <td>Поле <b id="<?= $tableType['id'] ?>_change"><?=$tableType['name']?></b></td>
         <td>
-            <form class ="deleteField" action="/<?=BASE?>/deleteField/<?= $tableType['id'] ?>" method="post">
+            <form id="<?= $tableType['id'] ?>_delete" class ="deleteField" action="/<?=BASE?>/deleteField/<?= $tableType['id'] ?>" method="post">
                 <input type="submit" value="Delete" name="delete">
             </form>
         </td>
         <td>
-            <form class ="changeField" action="/<?=BASE?>/changeField/<?= $tableType['id'] ?>" method="post">
+            <form  class ="changeField" action="/<?=BASE?>/changeField/<?= $tableType['id'] ?>" method="post">
                 <input type="submit" value="Change" name="change">
             </form>
         </td>
