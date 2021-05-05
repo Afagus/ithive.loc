@@ -5,6 +5,7 @@ DROP TABLE if exists type_of_validation;
 DROP TABLE if exists client_full_message;
 DROP TABLE if exists main_form;
 
+ALTER DATABASE form CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 
 CREATE TABLE table_types_of_fields

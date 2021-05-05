@@ -1,13 +1,10 @@
 <?php
-
-
 $stringSelect = explode( PHP_EOL,$_POST['infoForSelect']);
 $stringSelect = implode(',' , $stringSelect);
 
 preg_match_all("#([^,\s]+):([^,\s]+)#s",$stringSelect,$out);
 $outSelect = array_combine($out[1],$out[2]) ;
 $outSelect = json_encode($outSelect, JSON_FORCE_OBJECT);
-
 
 $database = \database\singleConnect::getInstance();
 $sql = "INSERT INTO table_form_building
@@ -29,14 +26,8 @@ $getRequestFromDB = 'SELECT *
                 FROM table_form_building
                 WHERE id = ' . $lastID;
 
-
 $sqlGet = $database->query($getRequestFromDB);
-
-
-
-
 echo json_encode($sqlGet);
-
 
 //header("HTTP/1.1. 301 Moved Permanently");
 //$string = "Location: $_SERVER[HTTP_REFERER]";

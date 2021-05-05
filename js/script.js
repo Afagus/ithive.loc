@@ -2,6 +2,7 @@ let inputFromUser;
 let createForm;
 let deleteButton;
 let objFromFormDB;
+alert("Я загрузилась :)");
 
 /*Ожидает загрузки всего DOM, запускает перечень функций
  */

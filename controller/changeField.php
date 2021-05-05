@@ -1,7 +1,4 @@
 <?php
-//require_once 'vendor/loader.php';
-//require_once 'content/header.php';
-//require_once 'content/footer.php';
 require_once 'vendor/DBTableInfo.php';
 
 $tableTypes = DBTableInfo();
@@ -11,7 +8,7 @@ $tableTypes = DBTableInfo();
 $field = $tableTypes['tableField'];
 $typeOfValidations = $tableTypes['typeOfValidations'];
 $typeOfFields = $tableTypes['typeOfFields'];
-//mydebugger($tableTypes);
+
 
 ?>
 

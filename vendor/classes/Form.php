@@ -133,7 +133,6 @@ class Form
      */
     public function viewForm()
     {
-        self::$counter++;//счетчик количества созданных форм
         ?>
         <h2><?php
             if (!empty($_POST) && ($_POST['nameOfForm'] == $this->nameOfForm) && !$this->validatorOfForm()) {
@@ -157,7 +156,7 @@ class Form
                 <tr>
                     <td>
                         <input type="hidden" name="nameOfForm" value="<?= $this->nameOfForm ?>">
-                        <input type="submit" value="Отправить данные формы № <?= self::$counter ?>">
+                        <input type="submit" value="Отправить данные формы">
                     </td>
 
                 </tr>

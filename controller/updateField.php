@@ -14,11 +14,6 @@ SET name = ".'\''. $_POST['nameField']. '\''." ,
     validation_ID = ".'\''. $_POST['validationField']. '\''.",
     labelForLetter = ".'\''. $_POST['labelForLetterField']. '\''."
 
-
-
-
-
-
 WHERE id = " . ROUTE[1];
 
 $sqlFields = $database->query($sql);
@@ -29,5 +24,4 @@ $sql2= 'SELECT name, id
                 WHERE id = ' . ROUTE[1];
 
 $lastName = $database->query($sql2);
-
 echo json_encode($lastName);
