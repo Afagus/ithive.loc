@@ -2,7 +2,7 @@ let inputFromUser;
 let createForm;
 let deleteButton;
 let objFromFormDB;
-alert("Я загрузилась :)");
+//alert("Я загрузилась :)");
 
 /*Ожидает загрузки всего DOM, запускает перечень функций
  */
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     makeForExisting("deleteField", deleteFormFunc)
     createField();
     makeForExisting("changeField", addFormToRedact);
-
+    formSenderValidator();
 });
 
 /*
@@ -43,6 +43,7 @@ function makeForExisting(className, whatWeDo) {
         buttonsAll[i].onsubmit = whatWeDo;
     }
 }
+
 /*
 Отрисовка ссылки на форму и кнопки удаления на
 странице с выбором форм
@@ -79,6 +80,7 @@ function addForm(lastId) {
     tbody.appendChild(row);
 
 }
+
 /*
 Очищаем поле, применяем после отправки
  */
@@ -209,9 +211,10 @@ function updateField() {
     } else {
 
     }
-/*
-    Функция для изменения имени поля в списке полей
-*/
+
+    /*
+        Функция для изменения имени поля в списке полей
+    */
     function updateNameOfField(response) {
         if (response) {
             var getEl = document.getElementById(response[0].id + "_change");
@@ -237,4 +240,16 @@ function addFormToRedact() {
     });
 
 
+}
+
+function formSenderValidator() {
+    var formForSend = document.getElementById("formForSend");
+    formForSend.addEventListener("submit", function () {
+        event.preventDefault();
+        sendAjaxForm(this, function (responce, responce1) {
+            console.log(responce);
+            console.log(responce1);
+    });
+        alert("hello");
+    })
 }
