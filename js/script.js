@@ -244,12 +244,14 @@ function addFormToRedact() {
 
 function formSenderValidator() {
     var formForSend = document.getElementById("formForSend");
-    formForSend.addEventListener("submit", function () {
-        event.preventDefault();
-        sendAjaxForm(this, function (responce, responce1) {
-            console.log(responce);
-            console.log(responce1);
-    });
-        alert("hello");
-    })
+
+        formForSend.addEventListener("submit", function () {
+            event.preventDefault();
+            sendAjaxForm(this, function (responce, responce1) {
+                console.log(responce);
+                console.log(responce1);
+            });
+            alert("hello");
+        })
+
 }

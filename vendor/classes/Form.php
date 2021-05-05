@@ -133,6 +133,7 @@ class Form
      */
     public function viewForm()
     {
+
         ?>
         <h2><?php
             if (!empty($_POST) && ($_POST['nameOfForm'] == $this->nameOfForm) && !$this->validatorOfForm()) {
@@ -141,17 +142,17 @@ class Form
                 echo 'Заполните форму для отправки сообщения';
             }
             ?></h2>
-        <form id="formForSend" action="" method="post">
+        <form action="" method="post">
             <table>
                 <?php
 
-                foreach ($this->arrayOfFields as $field) {
+                foreach ($this->arrayOfFields as $field):
 
                     echo '<tr><td>';
                     echo $field->render();
                     echo '</td></tr>';
 
-                }
+                endforeach;
                 ?>
                 <tr>
                     <td>
