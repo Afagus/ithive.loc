@@ -142,17 +142,17 @@ class Form
                 echo 'Заполните форму для отправки сообщения';
             }
             ?></h2>
-        <form action="" method="post">
+        <form id="formForSend" action="" method="post">
             <table>
                 <?php
 
-                foreach ($this->arrayOfFields as $field):
+                foreach ($this->arrayOfFields as $field):?>
 
-                    echo '<tr><td>';
-                    echo $field->render();
-                    echo '</td></tr>';
+                    <tr id="idFieldForValidation_<?=$field->id?>">
+                        <td><?php $field->render();?></td>
+                    </tr>
 
-                endforeach;
+                <?php endforeach;
                 ?>
                 <tr>
                     <td>

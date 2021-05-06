@@ -2,7 +2,7 @@ let inputFromUser;
 let createForm;
 let deleteButton;
 let objFromFormDB;
-//alert("Я загрузилась :)");
+alert("Я загрузилась :)");
 
 /*Ожидает загрузки всего DOM, запускает перечень функций
  */
@@ -243,15 +243,17 @@ function addFormToRedact() {
 }
 
 function formSenderValidator() {
+
     var formForSend = document.getElementById("formForSend");
+    if (formForSend) {
 
         formForSend.addEventListener("submit", function () {
             event.preventDefault();
-            sendAjaxForm(this, function (responce, responce1) {
-                console.log(responce);
-                console.log(responce1);
-            });
-            alert("hello");
+            sendAjaxForm(this, function (value1, value2) {
+                console.log(value1);
+                console.log(value2);
+            }, true);
+            alert("1");
         })
-
+    }
 }

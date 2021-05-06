@@ -5,15 +5,18 @@ require_once 'content/footer.php';
 
 
 $formOutput = \vendor\classes\Form::getSingleForm(ROUTE[1]);
+
 $formOutput->viewForm();
 
+
+/**
+ * Вывод списка сообщений из имеющихся в БД
+ */
 $database = \database\singleConnect::getInstance();
 $sql = 'SELECT * 
                 FROM client_full_message
                 WHERE form_ID = ' . ROUTE[1];
-/**
- * Вывод списка сообщений из имеющихся в БД
- */
+
 $formFromQuery = $database->query($sql);
 
 echo '<ul>';
