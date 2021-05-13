@@ -251,12 +251,13 @@ function formSenderValidator() {
             event.preventDefault();
             sendAjaxForm(this, function (response, value2) {
                 console.log(response);
-                //console.log(value2);
-                //console.log(this);
-                var tempOne = document.getElementsByClassName("fieldForValidation");
-                //console.log(tempOne);
+response.forEach(function (elem,index) {
+    var tempVal = document.getElementById(index);
+    var createTd = document.createElement("td");
+    tempVal.appendChild(createTd).innerText= elem;
+})
             }, false);
-            alert("formForSend");
+
         })
     }
 }

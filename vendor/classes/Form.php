@@ -150,9 +150,9 @@ class Form
 
                     foreach ($this->arrayOfFields as $field):?>
 
-                        <tr <?php if ($field->message) {
-                            echo 'class="fieldForValidation"';
-                        } ?>>
+                        <tr <?php
+                            echo "id='idFieldForValidation_$field->id'";
+                        ?>>
                             <td><?php $field->render(); ?></td>
                         </tr>
 
@@ -178,7 +178,7 @@ class Form
     {
         foreach ($this->arrayOfFields as $field) {
             if ($field->message) {
-                $setOfErrors[$field->id] = $field->message;
+                $setOfErrors["idFieldForValidation_".$field->id] = $field->message;
             }
         }
         print_r($setOfErrors);
