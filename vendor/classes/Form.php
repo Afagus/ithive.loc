@@ -57,11 +57,12 @@ class Form
      * @return array|int
      * Getting the list of forms from DB
      */
-    static public function getListOfForms(){
-    $database = \database\singleConnect::getInstance();
-    $sql = 'SELECT * FROM main_form ';
-    return $database->query($sql);
-}
+    static public function getListOfForms()
+    {
+        $database = \database\singleConnect::getInstance();
+        $sql = 'SELECT * FROM main_form ';
+        return $database->query($sql);
+    }
 
     /**
      * @return mixed
@@ -130,42 +131,59 @@ class Form
 
     /**
      * Выводим поля формы на экран
+     * @param $value
      */
-    public function viewForm()
+    public function viewForm($value)
     {
+        if (!$value) {
+            ?>
+            <h2><?php
+                if (!empty($_POST) && ($_POST['nameOfForm'] == $this->nameOfForm) && !$this->validatorOfForm()) {
+                    echo '<span class="warning">' . 'Форма не отправлена, проверьте правильность заполнения полей' . '<br>' . '</span>';
+                } else {
+                    echo 'Заполните форму для отправки сообщения';
+                }
+                ?></h2>
+            <form id="formForSend" action="" method="post">
+                <table>
+                    <?php
 
-        ?>
-        <h2><?php
-            if (!empty($_POST) && ($_POST['nameOfForm'] == $this->nameOfForm) && !$this->validatorOfForm()) {
-                echo '<span class="warning">' . 'Форма не отправлена, проверьте правильность заполнения полей' . '<br>' . '</span>';
-            } else {
-                echo 'Заполните форму для отправки сообщения';
-            }
-            ?></h2>
-        <form id="formForSend" action="" method="post">
-            <table>
-                <?php
+                    foreach ($this->arrayOfFields as $field):?>
 
-                foreach ($this->arrayOfFields as $field):?>
+                        <tr <?php if ($field->message) {
+                            echo 'class="fieldForValidation"';
+                        } ?>>
+                            <td><?php $field->render(); ?></td>
+                        </tr>
 
-                    <tr id="idFieldForValidation_<?=$field->id?>">
-                        <td><?php $field->render();?></td>
+                    <?php endforeach;
+                    ?>
+                    <tr>
+                        <td>
+                            <input type="hidden" name="nameOfForm" value="<?= $this->nameOfForm ?>">
+                            <input type="submit" value="Отправить данные формы">
+                        </td>
                     </tr>
+                </table>
+            </form>
 
-                <?php endforeach;
-                ?>
-                <tr>
-                    <td>
-                        <input type="hidden" name="nameOfForm" value="<?= $this->nameOfForm ?>">
-                        <input type="submit" value="Отправить данные формы">
-                    </td>
-
-                </tr>
-            </table>
-        </form>
-
-        <?php
+            <?php
+        } else {
+            $this->getListOfErrorsForJS();
+        }
     }
+
+
+    public function getListOfErrorsForJS()
+    {
+        foreach ($this->arrayOfFields as $field) {
+            if ($field->message) {
+                $setOfErrors[$field->id] = $field->message;
+            }
+        }
+        print_r($setOfErrors);
+    }
+
 
     public function compileMessage()
     {

@@ -249,11 +249,14 @@ function formSenderValidator() {
 
         formForSend.addEventListener("submit", function () {
             event.preventDefault();
-            sendAjaxForm(this, function (value1, value2) {
-                console.log(value1);
-                console.log(value2);
-            }, true);
-            alert("1");
+            sendAjaxForm(this, function (response, value2) {
+                console.log(response);
+                //console.log(value2);
+                //console.log(this);
+                var tempOne = document.getElementsByClassName("fieldForValidation");
+                //console.log(tempOne);
+            }, false);
+            alert("formForSend");
         })
     }
 }

@@ -18,7 +18,7 @@ Field::$listOfValidators['not_empty'] = function ($value) {
 
     return [
         'resultOfValid' => (bool)$value,
-        'message' => '<span style="color: red">The field is empty or not correct</span>'
+        'message' => 'The field is empty or not correct'
     ];
 };
 
@@ -32,7 +32,7 @@ Field::$listOfValidators['email'] = function ($value) {
 
     return [
         'resultOfValid' => (bool)$value,
-        'message' => '<span style="color: red">The field is empty or not correct</span>'
+        'message' => 'The field is empty or not correct'
     ];
 };
 
@@ -47,7 +47,7 @@ Field::$listOfValidators['radio'] = function ($value) {
 
     return [
         'resultOfValid' => (bool)$value,
-        'message' => '<span style="color: red">The field is empty or not correct</span>'
+        'message' => 'The field is empty or not correct'
     ];
 };
 
@@ -61,7 +61,7 @@ Field::$listOfValidators['select'] = function ($value) {
 
     return [
         'resultOfValid' => (bool)$value,
-        'message' => '<span style="color: red">The field is empty or not correct</span>'
+        'message' => 'The field is empty or not correct'
     ];
 };
 /**
@@ -74,7 +74,7 @@ Field::$listOfValidators['checkbox'] = function ($value) {
 
     return [
         'resultOfValid' => (bool)$value,
-        'message' => '<span style="color: red">The field is empty or not correct</span>'
+        'message' => 'The field is empty or not correct'
     ];
 };
 
