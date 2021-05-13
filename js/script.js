@@ -241,7 +241,7 @@ function addFormToRedact() {
 
 
 }
-
+//TODO Исправить гребаный Форич
 function formSenderValidator() {
 
     var formForSend = document.getElementById("formForSend");
