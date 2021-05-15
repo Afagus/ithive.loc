@@ -241,7 +241,7 @@ function addFormToRedact() {
 
 
 }
-//TODO Исправить гребаный Форич
+
 function formSenderValidator() {
 
     var formForSend = document.getElementById("formForSend");
@@ -249,15 +249,39 @@ function formSenderValidator() {
 
         formForSend.addEventListener("submit", function () {
             event.preventDefault();
-            sendAjaxForm(this, function (response, value2) {
-                console.log(response);
-response.forEach(function (elem,index) {
-    var tempVal = document.getElementById(index);
-    var createTd = document.createElement("td");
-    tempVal.appendChild(createTd).innerText= elem;
-})
-            }, false);
+            var thisForm = this;
+            sendAjaxForm(this, function (response) {
+                //console.log(response);
+                let counter = 0;
+                for (var key in response) {
+
+                    if (response[key]) {
+                        counter++;
+                    }
+
+                    var tempVal = document.getElementById(key);
+
+                    var fieldForMsg = tempVal.querySelector(".fieldForErrorMessage");
+
+                    fieldForMsg.innerHTML = response[key];
+                }
+                if (!counter) {
+                    console.log(this)
+                    createLinkToMessage();
+                    thisForm.reset();
+                }
+            }, true);
 
         })
     }
+}
+
+function createLinkToMessage() {
+    var listOfMessages = document.getElementById("listOfMessages");
+    var insertLi = document.createElement("li");
+    var insertA = document.createElement("a");
+    insertA.href = "/ithive.loc/showMessage/" + 1111;
+    insertA.innerText = "Ссылка на сообщение";
+    insertLi.appendChild(insertA);
+    listOfMessages.appendChild(insertLi);
 }

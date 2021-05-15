@@ -47,7 +47,7 @@ abstract class Field
         if ($this->validation) {
             $result = (self::$listOfValidators[$this->validation])($this->value);
             if (!$result['resultOfValid']) {
-                $this->message = $result['message'] . '<br>';
+                $this->message = $result['message'];
             }
             return $result['resultOfValid'];
         }

@@ -133,7 +133,7 @@ class Form
      * Выводим поля формы на экран
      * @param $value
      */
-    public function viewForm($value)
+    public function viewForm($value=0)
     {
         if (!$value) {
             ?>
@@ -149,11 +149,11 @@ class Form
                     <?php
 
                     foreach ($this->arrayOfFields as $field):?>
-
                         <tr <?php
                             echo "id='idFieldForValidation_$field->id'";
                         ?>>
-                            <td><?php $field->render(); ?></td>
+                            <td><?php $field->render();?></td>
+                            <td class="fieldForErrorMessage"></td>
                         </tr>
 
                     <?php endforeach;
@@ -177,11 +177,11 @@ class Form
     public function getListOfErrorsForJS()
     {
         foreach ($this->arrayOfFields as $field) {
-            if ($field->message) {
+
                 $setOfErrors["idFieldForValidation_".$field->id] = $field->message;
-            }
+
         }
-        print_r($setOfErrors);
+        echo json_encode($setOfErrors);
     }
 
 

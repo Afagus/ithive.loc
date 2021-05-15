@@ -23,7 +23,8 @@ if (!$_POST) {
 
     $formFromQuery = $database->query($sql);
 
-    echo '<ul>';
+
+    echo '<ul id="listOfMessages">';
     foreach ($formFromQuery as $value) {
         ?>
         <li><a href="/<?= BASE ?>/showMessage/<?= $value['id'] ?>">Ссылка
