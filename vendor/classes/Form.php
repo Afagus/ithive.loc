@@ -179,6 +179,7 @@ class Form
         foreach ($this->arrayOfFields as $field) {
 
                 $setOfErrors["idFieldForValidation_".$field->id] = $field->message;
+            //$setOfErrors["asdf"] = '$this->findMessageID';
 
         }
         echo json_encode($setOfErrors);

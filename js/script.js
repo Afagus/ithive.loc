@@ -251,7 +251,7 @@ function formSenderValidator() {
             event.preventDefault();
             var thisForm = this;
             sendAjaxForm(this, function (response) {
-                //console.log(response);
+                console.log(response);
                 let counter = 0;
                 for (var key in response) {
 
