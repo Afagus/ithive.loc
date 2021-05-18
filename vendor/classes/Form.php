@@ -3,6 +3,7 @@
 
 namespace vendor\classes;
 
+use database\singleConnect;
 use vendor\classes;
 
 require_once 'database/Data.php';
@@ -147,7 +148,6 @@ class Form
             <form id="formForSend" action="" method="post">
                 <table>
                     <?php
-
                     foreach ($this->arrayOfFields as $field):?>
                         <tr <?php
                             echo "id='idFieldForValidation_$field->id'";
@@ -155,7 +155,6 @@ class Form
                             <td><?php $field->render();?></td>
                             <td class="fieldForErrorMessage"></td>
                         </tr>
-
                     <?php endforeach;
                     ?>
                     <tr>
@@ -166,10 +165,11 @@ class Form
                     </tr>
                 </table>
             </form>
-
             <?php
         } else {
             $this->getListOfErrorsForJS();
+            $this->getMessageFromDB();
+
         }
     }
 
@@ -179,9 +179,7 @@ class Form
         foreach ($this->arrayOfFields as $field) {
 
                 $setOfErrors["idFieldForValidation_".$field->id] = $field->message;
-            //$setOfErrors["asdf"] = '$this->findMessageID';
-
-        }
+         }
         echo json_encode($setOfErrors);
     }
 
@@ -243,6 +241,7 @@ class Form
          
         VALUES $forSQL";
         $res = $link->query($sql);
+
     }
 
     /**
@@ -257,5 +256,16 @@ class Form
                 WHERE message_ID = ' . $this->findMessageID . ' AND field_ID = ' . $arrayOfField->field_ID;
             $link->query($sql);
         }
+    }
+
+//TODO исправить для получения id
+    public function getMessageFromDB(){
+        $database = \database\singleConnect::getInstance();
+        $sql = 'SELECT * 
+                FROM client_full_message
+                WHERE form_ID = ' . ROUTE[1];
+
+        $messageFromDB = $database->query($sql);
+        echo json_encode($messageFromDB);
     }
 }
