@@ -28,7 +28,3 @@ $getRequestFromDB = 'SELECT *
 
 $sqlGet = $database->query($getRequestFromDB);
 echo json_encode($sqlGet);
-
-//header("HTTP/1.1. 301 Moved Permanently");
-//$string = "Location: $_SERVER[HTTP_REFERER]";
-//header("$string");

@@ -8,21 +8,24 @@ if (!$_POST) {
 }
 
 
+/**
+ * Отображение формы для заполнения и отправки
+ */
+
 $formOutput = \vendor\classes\Form::getSingleForm(ROUTE[1]);
 $formOutput->viewForm($_POST);
 
-
 if (!$_POST) {
+    ?>
+    <form action="/<?= BASE ?>/construct/<?= ROUTE[1] ?>" method="post">
+        <input type="submit" value="Изменить форму" name="changeForm">
+    </form>
+    <?php
     /**
      * Вывод списка сообщений из имеющихся в БД
      */
-    $database = \database\singleConnect::getInstance();
-    $sql = 'SELECT * 
-                FROM client_full_message
-                WHERE form_ID = ' . ROUTE[1];
 
-    $formFromQuery = $database->query($sql);
-
+    $formFromQuery = \vendor\classes\Form::getMessageFromDB();
 
     echo '<ul id="listOfMessages">';
     foreach ($formFromQuery as $value) {
@@ -34,9 +37,6 @@ if (!$_POST) {
     }
     echo '</ul>';
 
-    ?>
-    <form action="/<?= BASE ?>/construct/<?= ROUTE[1] ?>" method="post">
-        <input type="submit" value="Change form" name="changeForm">
-    </form>
-<?php }
+
+}
 

@@ -134,7 +134,7 @@ class Form
      * Выводим поля формы на экран
      * @param $value
      */
-    public function viewForm($value=0)
+    public function viewForm($value = 0)
     {
         if (!$value) {
             ?>
@@ -150,9 +150,9 @@ class Form
                     <?php
                     foreach ($this->arrayOfFields as $field):?>
                         <tr <?php
-                            echo "id='idFieldForValidation_$field->id'";
+                        echo "id='idFieldForValidation_$field->id'";
                         ?>>
-                            <td><?php $field->render();?></td>
+                            <td><?php $field->render(); ?></td>
                             <td class="fieldForErrorMessage"></td>
                         </tr>
                     <?php endforeach;
@@ -168,8 +168,6 @@ class Form
             <?php
         } else {
             $this->getListOfErrorsForJS();
-            $this->getMessageFromDB();
-
         }
     }
 
@@ -178,8 +176,8 @@ class Form
     {
         foreach ($this->arrayOfFields as $field) {
 
-                $setOfErrors["idFieldForValidation_".$field->id] = $field->message;
-         }
+            $setOfErrors["idFieldForValidation_" . $field->id] = $field->message;
+        }
         echo json_encode($setOfErrors);
     }
 
@@ -216,7 +214,7 @@ class Form
     public function sendChoice($message)
     {
         if ($this->findMessageID == 0) {
-            $this->sendToDB($message);
+            $this->sendMessage($message);
         } else {
             $this->changeMessageInDB();
         }
@@ -225,7 +223,7 @@ class Form
     /**
      * TODO: Проверить идею, вставить сюда иф и запускать или этот функционал или метод changeMessageInDB() в зависимости от того есть ли занчение или нет в $findMessageID
      */
-    public function sendToDB($message)
+    public function sendMessage($message)
     {
         $link = \database\singleConnect::getInstance();
         $sql = "INSERT INTO client_full_message (form_ID, message)
@@ -241,7 +239,7 @@ class Form
          
         VALUES $forSQL";
         $res = $link->query($sql);
-
+        return $messageID;
     }
 
     /**
@@ -259,13 +257,14 @@ class Form
     }
 
 //TODO исправить для получения id
-    public function getMessageFromDB(){
+    static public function getMessageFromDB()
+    {
         $database = \database\singleConnect::getInstance();
-        $sql = 'SELECT * 
+
+        $sql = 'SELECT *
                 FROM client_full_message
                 WHERE form_ID = ' . ROUTE[1];
+        return $database->query($sql);
 
-        $messageFromDB = $database->query($sql);
-        echo json_encode($messageFromDB);
     }
 }
