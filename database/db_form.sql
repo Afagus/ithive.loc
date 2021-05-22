@@ -23,27 +23,27 @@ CREATE TABLE type_of_validation
 );
 CREATE TABLE main_form
 (
-    id          int auto_increment
+    id         int auto_increment
         primary key,
     nameOfForm varchar(30)
 );
 
 INSERT INTO main_form
-(nameOfForm)
+    (nameOfForm)
 VALUES ('article'),
        ('second')
 ;
 
 CREATE TABLE table_form_building
 (
-    id        int auto_increment
+    id             int auto_increment
         primary key,
-    form_ID int NOT NULL ,
+    form_ID        int      NOT NULL,
     name           char(20) not null,
-    type_ID           int      not null,
+    type_ID        int      not null,
     placeholder    char(20) null,
     value          char(50) null,
-    validation_ID     int      null,
+    validation_ID  int      null,
     labelForLetter char(50) null,
     options        TEXT,
     title          char(30),
@@ -91,7 +91,7 @@ VALUES (1, 'name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
         '{"0":"Киев", "1":"Харьков","2":"Львов","3":"Одесса"}',
         'Поставьте галочку'),
        (1, 'radio', 6, NULL, '', 5, 'Пол клиента', '{"0":"male","1":"female","2":"Other"}', 'Укажите Ваш пол'),
-        (2, 'name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
+       (2, 'name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
        (2, 'subject', 1, 'Enter subject', '', 1, 'Тема', NULL, NULL),
        (2, 'email', 2, 'Enter e-mail', '', 2, 'Электронная почта', NULL, NULL),
        (2, 'message', 3, 'Input your message', '', 1, 'Сообщение', NULL, NULL),
@@ -107,24 +107,24 @@ VALUES (1, 'name', 1, 'Enter name', '', 1, 'Имя', NULL, NULL),
 CREATE TABLE client_full_message
 (
     id      int auto_increment primary key,
-    form_ID int ,
+    form_ID int,
     message TEXT,
-    date DATETIME DEFAULT CURRENT_TIMESTAMP ,
+    date    DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     constraint client_full_message_ibfk_1
         foreign key (form_ID) references main_form (id)
 );
 
-CREATE TABLE  message_one_field
+CREATE TABLE message_one_field
 (
-    id int auto_increment primary key,
+    id         int auto_increment primary key,
     message_ID int,
-    field_ID int,
-    value TEXT,
+    field_ID   int,
+    value      TEXT,
 
-        constraint message_one_field_ibfk_1
+    constraint message_one_field_ibfk_1
         foreign key (field_ID) references table_form_building (id),
-        constraint message_one_field_ibfk_2
+    constraint message_one_field_ibfk_2
         foreign key (message_ID) references client_full_message (id)
-
+            ON DELETE CASCADE
 );

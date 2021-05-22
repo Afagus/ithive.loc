@@ -17,9 +17,11 @@ class Form
     private $nameOfForm;
     public $arrayOfFields = [];
     public $findMessageID;
+    public $formID;
 
     private function __construct($form, $nameOfForm, $findMessageID = 0)
     {
+        $this->formID = $form[0]['form_ID'];
         $this->findMessageID = $findMessageID;
         $this->form = $form;
         $this->nameOfForm = $nameOfForm;
@@ -179,6 +181,7 @@ class Form
             $setOfErrors["idFieldForValidation_" . $field->id] = $field->message;
         }
         echo json_encode($setOfErrors);
+
     }
 
 
@@ -239,7 +242,7 @@ class Form
          
         VALUES $forSQL";
         $res = $link->query($sql);
-        return $messageID;
+
     }
 
     /**
@@ -253,6 +256,7 @@ class Form
                 SET value = \'' . $arrayOfField->getValue() . '\'
                 WHERE message_ID = ' . $this->findMessageID . ' AND field_ID = ' . $arrayOfField->field_ID;
             $link->query($sql);
+            echo $this->findMessageID;
         }
     }
 
@@ -260,11 +264,30 @@ class Form
     static public function getMessageFromDB()
     {
         $database = \database\singleConnect::getInstance();
-
         $sql = 'SELECT *
                 FROM client_full_message
                 WHERE form_ID = ' . ROUTE[1];
         return $database->query($sql);
+    }
 
+    /*
+     * todo Сделать метод который возвращает ID Месседжа
+     * */
+    public function getFormID()
+    {
+        return $this->form;
+    }
+
+    /*
+     * метод для удаления сообщения
+     */
+
+    static public function deleteMessage($messageID)
+    {
+        $link = singleConnect::getInstance();
+        $sql = "DELETE FROM client_full_message
+                WHERE id = " . $messageID;
+        $link->query($sql);
+        return 1;
     }
 }

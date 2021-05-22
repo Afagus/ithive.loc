@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     createField();
     makeForExisting("changeField", addFormToRedact);
     formSenderValidator();
+    deleteMessage();
 });
 
 /*
@@ -115,6 +116,7 @@ function sendAjaxForm(form, callback, json) {
         }
     };
     XHR.send(data);
+
 }
 
 /*
@@ -254,24 +256,21 @@ function formSenderValidator() {
                 console.log(response);
                 let counter = 0;
                 for (var key in response) {
-
                     if (response[key]) {
                         counter++;
                     }
-
                     var tempVal = document.getElementById(key);
-
                     var fieldForMsg = tempVal.querySelector(".fieldForErrorMessage");
-
                     fieldForMsg.innerHTML = response[key];
                 }
                 if (!counter) {
                     console.log(this)
                     createLinkToMessage();
                     thisForm.reset();
+                    alert("Форма отправлена");
+                    formSenderValidator(); /*TODO What are fuck?*/
                 }
             }, true);
-
         })
     }
 }
@@ -284,4 +283,21 @@ function createLinkToMessage() {
     insertA.innerText = "Ссылка на сообщение";
     insertLi.appendChild(insertA);
     listOfMessages.appendChild(insertLi);
+
+}
+/*
+* TODO Проверить для window.history.back() чтобы переходилов случае успеха
+* */
+function deleteMessage() {
+    var elForDel = document.getElementById("elForDel");
+    if (elForDel) {
+        elForDel.addEventListener("submit", function () {
+            alert("hello");
+            event.preventDefault();
+            sendAjaxForm(this, function () {
+                window.history.back();
+
+            })
+        }, true)
+    }
 }
