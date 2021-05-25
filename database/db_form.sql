@@ -123,7 +123,8 @@ CREATE TABLE message_one_field
     value      TEXT,
 
     constraint message_one_field_ibfk_1
-        foreign key (field_ID) references table_form_building (id),
+        foreign key (field_ID) references table_form_building (id)
+            ON DELETE  CASCADE,
     constraint message_one_field_ibfk_2
         foreign key (message_ID) references client_full_message (id)
             ON DELETE CASCADE

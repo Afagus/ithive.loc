@@ -2,9 +2,11 @@ let inputFromUser;
 let createForm;
 let deleteButton;
 let objFromFormDB;
+let counterOfFieldErrors;
 //alert("Я загрузилась :)");
 
-/*Ожидает загрузки всего DOM, запускает перечень функций
+/**
+Ожидает загрузки всего DOM, запускает перечень функций
  */
 document.addEventListener("DOMContentLoaded", function () {
     addFormAjax();
@@ -16,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteMessage();
 });
 
-/*
+/**
 *Создание новой формы (по нажатию на книпку "create"
 * и отображение поля с именем в списке форм на главной странице
 */
@@ -36,7 +38,8 @@ function addFormAjax() {
 }
 
 
-/*Бежим по формам (по их классам) и применяем всем им событие
+/**
+ * Бежим по формам (по их классам) и применяем всем им событие
  */
 function makeForExisting(className, whatWeDo) {
     var buttonsAll = document.getElementsByClassName(className);
@@ -45,7 +48,8 @@ function makeForExisting(className, whatWeDo) {
     }
 }
 
-/*
+
+/**
 Отрисовка ссылки на форму и кнопки удаления на
 странице с выбором форм
  */
@@ -82,7 +86,8 @@ function addForm(lastId) {
 
 }
 
-/*
+
+/**
 Очищаем поле, применяем после отправки
  */
 function setEmptyField(elementID) {
@@ -90,7 +95,8 @@ function setEmptyField(elementID) {
     field.value = '';
 }
 
-/*
+
+/**
 Удаляяем строку с именем поля и кнопкой удаления
  */
 function deleteFormFunc(event) {
@@ -101,7 +107,8 @@ function deleteFormFunc(event) {
     }, true);
 }
 
-/*
+
+/**
 Главная функция AJAX, создание объекта для
 связи и обмена с сервером, а также создание объекта формы
  */
@@ -119,7 +126,8 @@ function sendAjaxForm(form, callback, json) {
 
 }
 
-/*
+
+/**
 При нажатии на ADD FIELD в Конструкторе формы  появляется новая строка
 с именем поля, и все характеристики поля, отправляются с помощью AJAX
  */
@@ -139,8 +147,7 @@ function createField() {
     }
 }
 
-
-/*
+/**
 Отрисовка поля формы для списка, создание атрибутов,
 и присвоение им значений
  */
@@ -195,7 +202,7 @@ function addFieldFunc() {
     tbody.appendChild(row);
 }
 
-/*
+/**
  Изменение полей формы, при нажатии на "update field"
  отправляем данные полей аяксом, меняем название
  поля в списке полей и убираем форму
@@ -225,7 +232,7 @@ function updateField() {
     }
 }
 
-/*
+/**
 Выводим форму для редактирования полей, добавляем стилизацию.
 Форму берем получая весь HTML из файла
 */
@@ -244,37 +251,39 @@ function addFormToRedact() {
 
 }
 
+/**
+ * Проверка есть ли в форме заполненной пользователем ошибки,
+ * при их отсутствии отправляет форму, и запускает функцию создания записи
+ * */
 function formSenderValidator() {
-
     var formForSend = document.getElementById("formForSend");
     if (formForSend) {
-
         formForSend.addEventListener("submit", function () {
             event.preventDefault();
             var thisForm = this;
             sendAjaxForm(this, function (response) {
-                console.log(response);
-                let counter = 0;
+                counterOfFieldErrors = 0;
                 for (var key in response) {
                     if (response[key]) {
-                        counter++;
+                        counterOfFieldErrors++;
                     }
                     var tempVal = document.getElementById(key);
                     var fieldForMsg = tempVal.querySelector(".fieldForErrorMessage");
                     fieldForMsg.innerHTML = response[key];
                 }
-                if (!counter) {
-                    console.log(this)
+                if (!counterOfFieldErrors) {
                     createLinkToMessage();
                     thisForm.reset();
                     alert("Форма отправлена");
-                    formSenderValidator(); /*TODO What are fuck?*/
                 }
             }, true);
         })
     }
 }
 
+/** Создание ссылки на сообщение
+ * TODO Получить id сообщения и сделать правильной ссылку
+ * */
 function createLinkToMessage() {
     var listOfMessages = document.getElementById("listOfMessages");
     var insertLi = document.createElement("li");
@@ -285,18 +294,16 @@ function createLinkToMessage() {
     listOfMessages.appendChild(insertLi);
 
 }
-/*
-* TODO Проверить для window.history.back() чтобы переходилов случае успеха
+/**
+* Удаляет сообщение через контроллер удаления и возвращается на страницу С формой и списком сообщений
 * */
 function deleteMessage() {
     var elForDel = document.getElementById("elForDel");
     if (elForDel) {
         elForDel.addEventListener("submit", function () {
-            alert("hello");
             event.preventDefault();
             sendAjaxForm(this, function () {
-                window.history.back();
-
+                window.location.href = document.referrer;
             })
         }, true)
     }

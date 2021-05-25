@@ -1,4 +1,5 @@
 <?php
+
 require_once 'vendor/loader.php';
 require_once 'content/header.php';
 require_once 'content/footer.php';
@@ -11,5 +12,4 @@ $qq->viewForm();
         <input  type="submit" value="Удалить сообщение" name="deleteMessage">
     </form>
 <?php
-/*TODO сделать в JS удаление а затем возврат к форме методом back()  из JS
-  * */
+
