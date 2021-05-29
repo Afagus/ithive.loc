@@ -6,7 +6,7 @@ let counterOfFieldErrors;
 //alert("Я загрузилась :)");
 
 /**
-Ожидает загрузки всего DOM, запускает перечень функций
+ Ожидает загрузки всего DOM, запускает перечень функций
  */
 document.addEventListener("DOMContentLoaded", function () {
     addFormAjax();
@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /**
-*Создание новой формы (по нажатию на книпку "create"
-* и отображение поля с именем в списке форм на главной странице
-*/
+ *Создание новой формы (по нажатию на книпку "create"
+ * и отображение поля с именем в списке форм на главной странице
+ */
 function addFormAjax() {
     createForm = document.getElementById("createForm");
     if (createForm) {
@@ -50,8 +50,8 @@ function makeForExisting(className, whatWeDo) {
 
 
 /**
-Отрисовка ссылки на форму и кнопки удаления на
-странице с выбором форм
+ Отрисовка ссылки на форму и кнопки удаления на
+ странице с выбором форм
  */
 function addForm(lastId) {
     var tbody = document.getElementById("myTable").getElementsByTagName("TBODY")[0];
@@ -88,7 +88,7 @@ function addForm(lastId) {
 
 
 /**
-Очищаем поле, применяем после отправки
+ Очищаем поле, применяем после отправки
  */
 function setEmptyField(elementID) {
     var field = document.getElementById(elementID);
@@ -97,7 +97,7 @@ function setEmptyField(elementID) {
 
 
 /**
-Удаляяем строку с именем поля и кнопкой удаления
+ Удаляяем строку с именем поля и кнопкой удаления
  */
 function deleteFormFunc(event) {
     event.preventDefault();
@@ -109,8 +109,8 @@ function deleteFormFunc(event) {
 
 
 /**
-Главная функция AJAX, создание объекта для
-связи и обмена с сервером, а также создание объекта формы
+ Главная функция AJAX, создание объекта для
+ связи и обмена с сервером, а также создание объекта формы
  */
 function sendAjaxForm(form, callback, json) {
     var XHR = new XMLHttpRequest();
@@ -128,8 +128,8 @@ function sendAjaxForm(form, callback, json) {
 
 
 /**
-При нажатии на ADD FIELD в Конструкторе формы  появляется новая строка
-с именем поля, и все характеристики поля, отправляются с помощью AJAX
+ При нажатии на ADD FIELD в Конструкторе формы  появляется новая строка
+ с именем поля, и все характеристики поля, отправляются с помощью AJAX
  */
 function createField() {
     var addField = document.getElementById("addField");
@@ -148,8 +148,8 @@ function createField() {
 }
 
 /**
-Отрисовка поля формы для списка, создание атрибутов,
-и присвоение им значений
+ Отрисовка поля формы для списка, создание атрибутов,
+ и присвоение им значений
  */
 function addFieldFunc() {
 
@@ -206,7 +206,7 @@ function addFieldFunc() {
  Изменение полей формы, при нажатии на "update field"
  отправляем данные полей аяксом, меняем название
  поля в списке полей и убираем форму
-*/
+ */
 function updateField() {
     var updateField = document.getElementById("updateField");
     if (updateField) {
@@ -220,22 +220,23 @@ function updateField() {
     } else {
 
     }
-
-    /*
-        Функция для изменения имени поля в списке полей
-    */
-    function updateNameOfField(response) {
-        if (response) {
-            var getEl = document.getElementById(response[0].id + "_change");
-            getEl.innerText = response[0].name;
-        }
-    }
 }
 
 /**
-Выводим форму для редактирования полей, добавляем стилизацию.
-Форму берем получая весь HTML из файла
-*/
+ Функция для изменения имени поля в списке полей
+ */
+function updateNameOfField(response) {
+    if (response) {
+        var getEl = document.getElementById(response[0].id + "_change");
+        getEl.innerText = response[0].name;
+    }
+}
+
+
+/**
+ Выводим форму для редактирования полей, добавляем стилизацию.
+ Форму берем получая весь HTML из файла
+ */
 function addFormToRedact() {
     event.preventDefault();
     var el = document.createElement("div");
@@ -263,18 +264,22 @@ function formSenderValidator() {
             var thisForm = this;
             sendAjaxForm(this, function (response) {
                 counterOfFieldErrors = 0;
-                for (var key in response) {
-                    if (response[key]) {
+                var messageID = response["messID"];
+                var timeOfMessCreation = response["timeMessCreation"];
+                for (var key in response.errors) {
+                    if (response.errors[key]) {
                         counterOfFieldErrors++;
                     }
                     var tempVal = document.getElementById(key);
+                    //console.log(tempVal);
                     var fieldForMsg = tempVal.querySelector(".fieldForErrorMessage");
-                    fieldForMsg.innerHTML = response[key];
+                    fieldForMsg.innerHTML = response.errors[key];
                 }
                 if (!counterOfFieldErrors) {
-                    createLinkToMessage();
+                    createLinkToMessage(messageID, timeOfMessCreation);
                     thisForm.reset();
                     alert("Форма отправлена");
+
                 }
             }, true);
         })
@@ -284,19 +289,20 @@ function formSenderValidator() {
 /** Создание ссылки на сообщение
  * TODO Получить id сообщения и сделать правильной ссылку
  * */
-function createLinkToMessage() {
+function createLinkToMessage(messID, timeOfCreation) {
     var listOfMessages = document.getElementById("listOfMessages");
     var insertLi = document.createElement("li");
     var insertA = document.createElement("a");
-    insertA.href = "/ithive.loc/showMessage/" + 1111;
-    insertA.innerText = "Ссылка на сообщение";
+    insertA.href = "/ithive.loc/showMessage/" + messID;
+    insertA.innerText = "Ссылка на сообщение "+ messID + " от "+ timeOfCreation;
     insertLi.appendChild(insertA);
     listOfMessages.appendChild(insertLi);
 
 }
+
 /**
-* Удаляет сообщение через контроллер удаления и возвращается на страницу С формой и списком сообщений
-* */
+ * Удаляет сообщение через контроллер удаления и возвращается на страницу С формой и списком сообщений
+ * */
 function deleteMessage() {
     var elForDel = document.getElementById("elForDel");
     if (elForDel) {

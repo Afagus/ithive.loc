@@ -14,6 +14,7 @@ if (!$_POST) {
 
 $formOutput = \vendor\classes\Form::getSingleForm(ROUTE[1]);
 $formOutput->viewForm($_POST);
+//echo json_encode($formOutput->lastMessageID);
 
 if (!$_POST) {
     ?>
@@ -30,8 +31,7 @@ if (!$_POST) {
     echo '<ul id="listOfMessages">';
     foreach ($formFromQuery as $value) {
         ?>
-        <li><a href="/<?= BASE ?>/showMessage/<?= $value['id'] ?>">Ссылка
-                на сообщение <?= $value['id'] ?> от <?= $value['date'] ?> </a>
+        <li><a href="/<?= BASE ?>/showMessage/<?= $value['id'] ?>">Ссылка на сообщение <?= $value['id'] ?> от <?= $value['date'] ?> </a>
         </li>
         <?php
     }

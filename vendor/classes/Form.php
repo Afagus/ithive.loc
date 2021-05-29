@@ -13,6 +13,7 @@ class Form
 {
 
     public static $counter;
+    public $lastMessageID = null;
     private $form;
     private $nameOfForm;
     public $arrayOfFields = [];
@@ -146,6 +147,7 @@ class Form
                 } else {
                     echo 'Заполните форму для отправки сообщения';
                 }
+
                 ?></h2>
             <form id="formForSend" action="" method="post">
                 <table>
@@ -176,13 +178,24 @@ class Form
 
     public function getListOfErrorsForJS()
     {
+        $setOfErrors =['errors'=>[]];
         foreach ($this->arrayOfFields as $field) {
 
-            $setOfErrors["idFieldForValidation_" . $field->id] = $field->message;
+            $setOfErrors['errors']["idFieldForValidation_" . $field->id] = $field->message;
+
         }
+        $setOfErrors['messID'] = $this->lastMessageID;
+        $setOfErrors['timeMessCreation'] = $this->getTimeMessCreation($this->lastMessageID);
         echo json_encode($setOfErrors);
 
     }
+
+public function getTimeMessCreation($id){
+    $database = \database\singleConnect::getInstance();
+    $sql = 'SELECT date FROM client_full_message 
+WHERE id =' . $id;
+    return $database->query($sql);
+}
 
 
     public function compileMessage()
@@ -232,10 +245,10 @@ class Form
         $sql = "INSERT INTO client_full_message (form_ID, message)
                 VALUES ($this->nameOfForm, '$message')";
         $link->query($sql);
-        $messageID = $link->getLastId();
+        $this->lastMessageID = $link->getLastId();
         $forSQL = '';
         foreach ($this->arrayOfFields as $arrayOfField) {
-            $forSQL .= '(' . $messageID . ',' . $arrayOfField->id . ',' . '\'' . $arrayOfField->getValue() . '\'' . ')' . ',';
+            $forSQL .= '(' . $this->lastMessageID . ',' . $arrayOfField->id . ',' . '\'' . $arrayOfField->getValue() . '\'' . ')' . ',';
         }
         $forSQL = mb_substr($forSQL, 0, -1);
         $sql = "INSERT INTO message_one_field (message_ID, field_ID, value)
