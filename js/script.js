@@ -264,6 +264,7 @@ function formSenderValidator() {
             var thisForm = this;
             sendAjaxForm(this, function (response) {
                 counterOfFieldErrors = 0;
+                //console.log(response);
                 var messageID = response["messID"];
                 var timeOfMessCreation = response["timeMessCreation"];
                 for (var key in response.errors) {
@@ -290,11 +291,12 @@ function formSenderValidator() {
  * TODO Получить id сообщения и сделать правильной ссылку
  * */
 function createLinkToMessage(messID, timeOfCreation) {
+
     var listOfMessages = document.getElementById("listOfMessages");
     var insertLi = document.createElement("li");
     var insertA = document.createElement("a");
     insertA.href = "/ithive.loc/showMessage/" + messID;
-    insertA.innerText = "Ссылка на сообщение "+ messID + " от "+ timeOfCreation;
+    insertA.innerText = "Ссылка на сообщение "+ messID + " от "+ timeOfCreation[0]['date'];
     insertLi.appendChild(insertA);
     listOfMessages.appendChild(insertLi);
 

@@ -191,10 +191,17 @@ class Form
     }
 
 public function getTimeMessCreation($id){
-    $database = \database\singleConnect::getInstance();
-    $sql = 'SELECT date FROM client_full_message 
-WHERE id =' . $id;
-    return $database->query($sql);
+        if ($id != null){
+            $database = \database\singleConnect::getInstance();
+            $sql = 'SELECT date FROM client_full_message 
+            WHERE id ='. $id ;
+            return $database->query($sql);
+        }else{
+            return 0;
+        }
+
+
+
 }
 
 
