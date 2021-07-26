@@ -5,9 +5,13 @@ namespace vendor\classes;
 
 use database\singleConnect;
 use vendor\classes;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 
 require_once 'database/Data.php';
-
+require_once 'PHPMailer/PHPMailer.php';
+require_once 'PHPMailer/SMTP.php';
 
 class Form
 {
@@ -229,6 +233,8 @@ public function getTimeMessCreation($id){
             $myMess = $this->compileMessage();
             $this->sendToFile($myMess);
             $this->sendChoice($myMess);
+            $this->mailer();
+
         } else {
             return false;
         }
@@ -309,5 +315,35 @@ public function getTimeMessCreation($id){
                 WHERE id = " . $messageID;
         $link->query($sql);
         return 1;
+    }
+
+
+    /**Fantastic----------------------------------------------------------
+    */
+    public function mailer(){
+        // Создаем письмо
+        $mail = new PHPMailer();
+        $mail->isSMTP();                   // Отправка через SMTP
+        $mail->Host   = 'smtp.gmail.com';  // Адрес SMTP сервера
+        $mail->SMTPAuth   = true;          // Enable SMTP authentication
+        $mail->Username   = 'afagus.13@gmail.com';       // ваше имя пользователя
+        $mail->Password   = 'Gg#2987103834';    // ваш пароль
+        $mail->SMTPSecure = 'ssl';         // шифрование ssl
+        $mail->Port   = 465;               // порт подключения
+
+        $mail->setFrom('login@ya.ru', 'Иван Иванов');    // от кого
+        $mail->addAddress('afagus.13@gmail.com', 'Вася Петров'); // кому
+
+        $mail->Subject = 'Тест';
+        $mail->msgHTML("<html><body>
+                <h1>Здравствуйте!</h1>
+                <p>Это тестовое письмо.</p>
+                </html></body>");
+// Отправляем
+        if ($mail->send()) {
+            echo 'Письмо отправлено!';
+        } else {
+            echo 'Ошибка: ' . $mail->ErrorInfo;
+        }
     }
 }
