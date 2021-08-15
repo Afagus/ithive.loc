@@ -296,7 +296,7 @@ function createLinkToMessage(messID, timeOfCreation) {
     var insertLi = document.createElement("li");
     var insertA = document.createElement("a");
     insertA.href = "/ithive.loc/showMessage/" + messID;
-    insertA.innerText = "Ссылка на сообщение "+ messID + " от "+ timeOfCreation[0]['date'];
+    insertA.innerText = "Ссылка на сообщение " + messID + " от " + timeOfCreation[0]['date'];
     insertLi.appendChild(insertA);
     listOfMessages.appendChild(insertLi);
 
