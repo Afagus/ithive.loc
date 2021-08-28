@@ -11,9 +11,11 @@ use PHPMailer\PHPMailer\SMTP;
 
 require_once 'database/Data.php';
 require_once 'vendor/sendMail.php';
+require_once 'vendor/sendLead.php';
 
 class Form
 {
+
 
     public static $counter;
     public $lastMessageID = null;
@@ -22,6 +24,7 @@ class Form
     public $arrayOfFields = [];
     public $findMessageID;
     public $formID;
+    public $currentValue = [];
 
     private function __construct($form, $nameOfForm, $findMessageID = 0)
     {
@@ -207,12 +210,21 @@ class Form
 
     }
 
+    public function getValuesFromUser()
+    {
+        foreach ($this->arrayOfFields as $field) {
+            $this->currentValue[$field->getName()] = $field->getValue();
+        }
+        return $this->currentValue;
+    }
+
 
     public function compileMessage()
     {
         $allMess = '';
         foreach ($this->arrayOfFields as $field) {
             $allMess .= $field->createMessage();
+
         }
         return $allMess .= '_______________________' . "\n";
 
@@ -232,8 +244,9 @@ class Form
             $myMess = $this->compileMessage();
             $this->sendToFile($myMess);
             $this->sendChoice($myMess);
-
-            sendmail("Jon Doe", 'nikolaj.agro@gmail.com', 'mysubject','.kdsjrhglkjdsf');
+            $this->getValuesFromUser();
+            sendmail($this->currentValue['name'], $this->currentValue['emailReceiver'], $this->currentValue['subject'], $this->currentValue['message']);
+            sendLead($this->currentValue['name'], $this->currentValue['email'], $this->currentValue['subject'],'1');
 
         } else {
             return false;
@@ -251,7 +264,6 @@ class Form
     }
 
     /**
-
      */
     public function sendMessage($message)
     {
