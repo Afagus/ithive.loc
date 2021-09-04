@@ -277,7 +277,7 @@ class Form
             $this->sendChoice($myMess);
             $this->getValuesFromUser();
             $this->sendMethod();
-            new emailSender($this->currentValue);
+            new EmailSender($this->currentValue);
 
 
         } else {
