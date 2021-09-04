@@ -326,3 +326,75 @@ _______________________
 Пол клиента : male
 Who will recieve the letter : nikolaj.agro@gmail.com
 _______________________
+Имя : MyName
+Тема : MyProject
+Электронная почта : myEmail@gmail.com
+Сообщение : je
+Выбор из выпадающего списка : value1
+Чекбокс : 0
+Пол клиента : female
+Who will recieve the letter : nikolaj.agro@gmail.com
+_______________________
+Имя : MyName
+Тема : MyProject
+Электронная почта : myEmail@gmail.com
+Сообщение : je
+Выбор из выпадающего списка : value1
+Чекбокс : 0
+Пол клиента : female
+Who will recieve the letter : nikolaj.agro@gmail.com
+_______________________
+Имя : MyName
+Тема : MyProject
+Электронная почта : myEmail@gmail.com
+Сообщение : je
+Выбор из выпадающего списка : value1
+Чекбокс : 0
+Пол клиента : female
+Who will recieve the letter : nikolaj.agro@gmail.com
+_______________________
+Имя : erg
+Тема : wregh
+Электронная почта : rthb
+Сообщение : rth
+Выбор из выпадающего списка : value1
+Чекбокс : 1
+Пол клиента : male
+Who will recieve the letter : nikolaj.agro@gmail.com
+_______________________
+Имя : erg
+Тема : wregh
+Электронная почта : rthb
+Сообщение : rth
+Выбор из выпадающего списка : value1
+Чекбокс : 1
+Пол клиента : male
+Who will recieve the letter : nikolaj.agro@gmail.com
+_______________________
+Имя : klsajhflksjdf
+Тема : rtlhglkfjgblrtk
+Электронная почта : /dfgbmoh
+Сообщение : sdfbfg,bn;ldf
+Выбор из выпадающего списка : value1
+Чекбокс : 1
+Пол клиента : male
+Who will recieve the letter : nikolaj.agro@gmail.com
+_______________________
+Имя : fthrfthj
+Тема : yjnhtyjn
+Электронная почта : tgyjntyjmn
+Сообщение : tgmntymn
+Выбор из выпадающего списка : value3
+Чекбокс : 1
+Пол клиента : male
+Who will recieve the letter : nikolaj.agro@gmail.com
+_______________________
+Имя : thsrth
+Тема : fshsfth
+Электронная почта : tj
+Сообщение : rtjjftjs
+Выбор из выпадающего списка : value1
+Чекбокс : 1
+Пол клиента : male
+Who will recieve the letter : nikolaj.agro@gmail.com
+_______________________

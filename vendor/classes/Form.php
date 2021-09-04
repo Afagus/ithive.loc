@@ -24,7 +24,20 @@ class Form
     public $arrayOfFields = [];
     public $findMessageID;
     public $formID;
+
+    /** Блок переменных входящих данных  от Юзера
+     */
     public $currentValue = [];
+    public $valueFromUserName = 'name';
+    public $valueFromUserEmailReceiver = 'emailReceiver';
+    public $valueFromUserSubject = 'subject';
+    public $valueFromUserMessage = 'message';
+    public $leadURL = 'https://b24-78brgk.bitrix24.ua/rest/1/m6gg0gd83iwdltd9/crm.lead.add.json';
+
+
+    /**
+     */
+
 
     private function __construct($form, $nameOfForm, $findMessageID = 0)
     {
@@ -238,6 +251,24 @@ class Form
 
     }
 
+    public function getCurrentValue($value)
+    {
+        return $this->currentValue[$value];
+    }
+
+    public function sendMethod()
+    {
+
+        sendmail(
+            $this->getCurrentValue($this->valueFromUserName),
+            $this->getCurrentValue($this->valueFromUserEmailReceiver),
+            $this->getCurrentValue($this->valueFromUserSubject),
+            $this->getCurrentValue($this->valueFromUserMessage)
+        );
+
+        //sendLead($this->leadURL, $this->currentValue['name'], $this->currentValue['email'], $this->currentValue['subject'],'1');
+    }
+
     public function toStartSending()
     {
         if ($this->validatorOfForm()) {
@@ -245,8 +276,9 @@ class Form
             $this->sendToFile($myMess);
             $this->sendChoice($myMess);
             $this->getValuesFromUser();
-            sendmail($this->currentValue['name'], $this->currentValue['emailReceiver'], $this->currentValue['subject'], $this->currentValue['message']);
-            sendLead($this->currentValue['name'], $this->currentValue['email'], $this->currentValue['subject'],'1');
+            $this->sendMethod();
+            new emailSender($this->currentValue);
+
 
         } else {
             return false;

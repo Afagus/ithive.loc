@@ -1,9 +1,9 @@
 <?php
 
-function sendLead($name, $email, $subject, $phone)
+function sendLead($url, $name, $email, $subject, $phone)
 {
 // формируем URL в переменной $queryUrl
-    $queryUrl = 'https://b24-78brgk.bitrix24.ua/rest/1/m6gg0gd83iwdltd9/crm.lead.add.json';
+    $queryUrl = $url;
 // формируем параметры для создания лида в переменной $queryData
     $queryData = http_build_query(array(
         'fields' => array(
