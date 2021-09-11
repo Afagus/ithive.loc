@@ -66,6 +66,14 @@ class Form
         return $database->getLastId();
     }
 
+    public function getCurrentNameOfForm($name)
+    {
+        $database = \database\singleConnect::getInstance();
+        $sql = 'SELECT * FROM main_form where id =' . $name;
+
+        return $database->query($sql);
+    }
+
     static public function deleteForm($id)
     {
         $database = \database\singleConnect::getInstance();
@@ -164,7 +172,12 @@ class Form
                 if (!empty($_POST) && ($_POST['nameOfForm'] == $this->nameOfForm) && !$this->validatorOfForm()) {
                     echo '<span class="warning">' . 'Форма не отправлена, проверьте правильность заполнения полей' . '<br>' . '</span>';
                 } else {
-                    echo 'Заполните форму для отправки сообщения';
+                    $currentName = $this->getCurrentNameOfForm($this->nameOfForm);
+                    echo 'Заполните форму для отправки сообщения' . '<br/>';
+
+                    echo '<span class="form_name">' . 'Имя формы: ' . $currentName[0]['nameOfForm'] . '</span>';
+
+
                 }
 
                 ?></h2>
@@ -185,6 +198,9 @@ class Form
                             <input type="hidden" name="nameOfForm" value="<?= $this->nameOfForm ?>">
                             <input type="submit" value="Отправить данные формы">
                         </td>
+                    </tr>
+                    <tr>
+
                     </tr>
                 </table>
             </form>
@@ -277,7 +293,8 @@ class Form
             $this->sendChoice($myMess);
             $this->getValuesFromUser();
             $this->sendMethod();
-            new EmailSender($this->currentValue);
+            $infoToSend = new EmailSender($this->currentValue);
+            $infoToSend->sendTypePostProcessorToDB('forpost');
 
 
         } else {

@@ -26,6 +26,12 @@ header {
 span.warning {
     color: red;
 }
+span.form_name{
+    color: black;
+    font-style: normal;
+    font-weight: bold;
+    ;
+}
 aside {
     float: right;
     margin: 20px;

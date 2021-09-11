@@ -129,3 +129,12 @@ CREATE TABLE message_one_field
         foreign key (message_ID) references client_full_message (id)
             ON DELETE CASCADE
 );
+
+create table receiver
+(
+    id            int auto_increment
+        primary key,
+    receiver_type int null,
+    constraint receiver_receiver_type_uindex
+        unique (receiver_type)
+);
