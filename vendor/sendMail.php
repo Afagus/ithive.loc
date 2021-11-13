@@ -13,8 +13,8 @@ function sendmail($name, $email, $subject, $message){
         $mail->isSMTP();                   // Отправка через SMTP
         $mail->Host = 'smtp.gmail.com';  // Адрес SMTP сервера
         $mail->SMTPAuth = true;          // Enable SMTP authentication
-        $mail->Username = 'afagus.13@gmail.com';       // ваше имя пользователя
-        $mail->Password = 'Gg#2987103834!';    // ваш пароль
+        $mail->Username = 'nikolaj.agro@gmail.com';       // ваше имя пользователя
+        $mail->Password = 'G#2987103834!';    // ваш пароль
         $mail->SMTPSecure = 'ssl';         // шифрование ssl
         $mail->Port = 465;               // порт подключения
         $mail->CharSet = 'UTF-8';
@@ -26,8 +26,8 @@ function sendmail($name, $email, $subject, $message){
             )
         );
 
-        $mail->setFrom('afagus.13@gmail.com', $name);    // от кого
-        $mail->addAddress('nikolaj.agro@gmail.com'); // кому
+        $mail->setFrom('nikolaj.agro@gmail.com', $name);    // от кого
+        $mail->addAddress('afagus.13@gmail.com'); // кому
 
         $mail->Subject = $subject;
         $mail->msgHTML("<html><body>
