@@ -134,7 +134,7 @@ create table receiver
 (
     id            int auto_increment
         primary key,
-    receiver_type int null,
+    receiver_type char(100) null,
     constraint receiver_receiver_type_uindex
         unique (receiver_type)
 );

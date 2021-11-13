@@ -19,16 +19,11 @@ abstract class PostProcessor
         $this->name = $getInfoFromUser['name'];
         $this->subject = $getInfoFromUser['subject'];
         $this->message = $getInfoFromUser['message'];
-        $this->emailReceiver = $getInfoFromUser['emailReceiver'];
         $this->emailSender = $getInfoFromUser['email'];
         $this->totalInfo = $getInfoFromUser;
 
     }
 
-    public function test($getInfoFromUser)
-    {
-        print_r($getInfoFromUser);
-    }
 
     public function sendTypePostProcessorToDB($data)
     {

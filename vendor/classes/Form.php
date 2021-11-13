@@ -29,7 +29,7 @@ class Form
      */
     public $currentValue = [];
     public $valueFromUserName = 'name';
-    public $valueFromUserEmailReceiver = 'emailReceiver';
+    public $valueFromUserEmail = 'email';
     public $valueFromUserSubject = 'subject';
     public $valueFromUserMessage = 'message';
     public $leadURL = 'https://b24-78brgk.bitrix24.ua/rest/1/m6gg0gd83iwdltd9/crm.lead.add.json';
@@ -277,13 +277,13 @@ class Form
 
         sendmail(
             $this->getCurrentValue($this->valueFromUserName),
-            $this->getCurrentValue($this->valueFromUserEmailReceiver),
+            $this->getCurrentValue($this->valueFromUserEmail),
             $this->getCurrentValue($this->valueFromUserSubject),
             $this->getCurrentValue($this->valueFromUserMessage)
         );
 
         //sendLead($this->leadURL, $this->currentValue['name'], $this->currentValue['email'], $this->currentValue['subject'],'1');
-    }
+   }
 
     public function toStartSending()
     {
@@ -294,7 +294,7 @@ class Form
             $this->getValuesFromUser();
             $this->sendMethod();
             $infoToSend = new EmailSender($this->currentValue);
-            $infoToSend->sendTypePostProcessorToDB('forpost');
+            $infoToSend->sendTypePostProcessorToDB('bob2');
 
 
         } else {
