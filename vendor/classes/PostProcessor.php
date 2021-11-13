@@ -8,10 +8,9 @@ use database\singleConnect;
 abstract class PostProcessor
 {
     public $name;
-    public $emailReceiver;
+    public $email;
     public $subject;
     public $message;
-    public $emailSender;
     public $totalInfo;
 
     public function __construct($getInfoFromUser)
@@ -19,7 +18,7 @@ abstract class PostProcessor
         $this->name = $getInfoFromUser['name'];
         $this->subject = $getInfoFromUser['subject'];
         $this->message = $getInfoFromUser['message'];
-        $this->emailSender = $getInfoFromUser['email'];
+        $this->email = $getInfoFromUser['email'];
         $this->totalInfo = $getInfoFromUser;
 
     }

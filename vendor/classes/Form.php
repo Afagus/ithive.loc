@@ -219,7 +219,7 @@ class Form
             $setOfErrors['errors']["idFieldForValidation_" . $field->id] = $field->message;
 
         }
-        $setOfErrors['messID'] = $this->lastMessageID;
+        $setOfErrors['messID'] = $this->lastMessageID ?:'';
         $setOfErrors['timeMessCreation'] = $this->getTimeMessCreation($this->lastMessageID);
         echo json_encode($setOfErrors);
 
@@ -274,6 +274,7 @@ class Form
 
     public function sendMethod()
     {
+//        emailSender::sendmail($this->valueFromUserName, $this->valueFromUserEmail, $this->valueFromUserSubject, $this->valueFromUserMessage);
 
         sendmail(
             $this->getCurrentValue($this->valueFromUserName),
@@ -283,7 +284,7 @@ class Form
         );
 
         //sendLead($this->leadURL, $this->currentValue['name'], $this->currentValue['email'], $this->currentValue['subject'],'1');
-   }
+    }
 
     public function toStartSending()
     {
@@ -293,8 +294,8 @@ class Form
             $this->sendChoice($myMess);
             $this->getValuesFromUser();
             $this->sendMethod();
-            $infoToSend = new EmailSender($this->currentValue);
-            $infoToSend->sendTypePostProcessorToDB('bob2');
+            //$infoToSend = new EmailSender($this->currentValue);
+           //$infoToSend->sendTypePostProcessorToDB(rand(100, 999));/**изменить параметр на нужный, убрать заглушку**/
 
 
         } else {
