@@ -32,7 +32,7 @@ class Form
     public $valueFromUserEmail = 'email';
     public $valueFromUserSubject = 'subject';
     public $valueFromUserMessage = 'message';
-    public $leadURL = 'https://b24-78brgk.bitrix24.ua/rest/1/m6gg0gd83iwdltd9/crm.lead.add.json';
+    public $leadURL = 'https://b24-8cz0d4.bitrix24.ua/rest/1/as6hnmrk44heet5v/crm.lead.add.json';
 
 
     /**
@@ -274,16 +274,19 @@ class Form
 
     public function sendMethod()
     {
-//        emailSender::sendmail($this->valueFromUserName, $this->valueFromUserEmail, $this->valueFromUserSubject, $this->valueFromUserMessage);
+       emailSender::sendmail(
+                            $this->getCurrentValue($this->valueFromUserName),
+                            $this->getCurrentValue($this->valueFromUserEmail),
+                            $this->getCurrentValue($this->valueFromUserSubject),
+                            $this->getCurrentValue($this->valueFromUserMessage)
+                            );
+        LeadSender::sender($this->leadURL,
+                            $this->getCurrentValue($this->valueFromUserName),
+                            'afagus@gmail.com',
+                            $this->getCurrentValue($this->valueFromUserSubject),
+                        '0800500500'
+                             );
 
-        sendmail(
-            $this->getCurrentValue($this->valueFromUserName),
-            $this->getCurrentValue($this->valueFromUserEmail),
-            $this->getCurrentValue($this->valueFromUserSubject),
-            $this->getCurrentValue($this->valueFromUserMessage)
-        );
-
-        //sendLead($this->leadURL, $this->currentValue['name'], $this->currentValue['email'], $this->currentValue['subject'],'1');
     }
 
     public function toStartSending()
