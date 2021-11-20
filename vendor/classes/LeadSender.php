@@ -19,6 +19,7 @@ class LeadSender extends PostProcessor
         $this->email = $getForm->currentValue['email'];
         $this->subject = $getForm->currentValue['subject'];
         $this->message = $getForm->currentValue['message'];
+        $this->phone = $getForm->currentValue['phone']?:'';
     }
 
     public function send()
@@ -38,7 +39,7 @@ class LeadSender extends PostProcessor
             ),
             'PHONE' => array(
                 "n0" => array(
-                    "VALUE" => "60606060606060",
+                    "VALUE" => "$this->phone",
                     "VALUE_TYPE" => "WORK",
                 ),
             ),
