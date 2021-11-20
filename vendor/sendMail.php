@@ -7,7 +7,11 @@ require 'phpmailer/src/PHPMailer.php';
 require 'phpmailer/src/POP3.php';
 require 'phpmailer/src/SMTP.php';
 
+
+
+
 function sendmail($name, $email, $subject, $message){
+
 
         $mail = new PHPMailer;
         $mail->isSMTP();                   // Отправка через SMTP

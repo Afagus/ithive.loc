@@ -32,7 +32,7 @@ class Form
     public $valueFromUserEmail = 'email';
     public $valueFromUserSubject = 'subject';
     public $valueFromUserMessage = 'message';
-    public $leadURL = 'https://b24-8cz0d4.bitrix24.ua/rest/1/as6hnmrk44heet5v/crm.lead.add.json';
+
 
 
     /**
@@ -219,7 +219,7 @@ class Form
             $setOfErrors['errors']["idFieldForValidation_" . $field->id] = $field->message;
 
         }
-        $setOfErrors['messID'] = $this->lastMessageID ?:'';
+        $setOfErrors['messID'] = $this->lastMessageID ?: '';
         $setOfErrors['timeMessCreation'] = $this->getTimeMessCreation($this->lastMessageID);
         echo json_encode($setOfErrors);
 
@@ -274,20 +274,12 @@ class Form
 
     public function sendMethod()
     {
-       emailSender::sendmail(
-                            $this->getCurrentValue($this->valueFromUserName),
-                            $this->getCurrentValue($this->valueFromUserEmail),
-                            $this->getCurrentValue($this->valueFromUserSubject),
-                            $this->getCurrentValue($this->valueFromUserMessage)
-                            );
-        LeadSender::sender($this->leadURL,
-                            $this->getCurrentValue($this->valueFromUserName),
-                            'afagus@gmail.com',
-                            $this->getCurrentValue($this->valueFromUserSubject),
-                        '0800500500'
-                             );
-
+        foreach (PostProcessor::createArrayObject($this) as $pprocessor) {
+            $pprocessor->send();
+        }
     }
+
+
 
     public function toStartSending()
     {
@@ -297,8 +289,6 @@ class Form
             $this->sendChoice($myMess);
             $this->getValuesFromUser();
             $this->sendMethod();
-            //$infoToSend = new EmailSender($this->currentValue);
-           //$infoToSend->sendTypePostProcessorToDB(rand(100, 999));/**изменить параметр на нужный, убрать заглушку**/
 
 
         } else {

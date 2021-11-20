@@ -139,3 +139,14 @@ create table receiver
     constraint receiver_receiver_type_uindex
         unique (receiver_type)
 );
+
+create table postprocessing
+(
+    id                 int auto_increment
+        primary key,
+    postprocessor_type char(50)  null,
+    form               int       null,
+    active_yes_no      int       null,
+    preferences        text      null,
+    fields             char(100) null
+);

@@ -6,25 +6,39 @@ namespace vendor\classes;
 
 class LeadSender extends PostProcessor
 {
+    public $name;
+    public $email;
+    public $subject;
+    public $message;
+    public $phone;
+    public $url = 'https://b24-owmhqi.bitrix24.ua/rest/1/9zvysf6apwynveis/crm.lead.add.json';
 
-    static public function sender($url, $name, $email, $subject, $phone)
+    public function __construct($getForm, $getPostProc)
+    {
+        $this->name = $getForm->currentValue['name'];
+        $this->email = $getForm->currentValue['email'];
+        $this->subject = $getForm->currentValue['subject'];
+        $this->message = $getForm->currentValue['message'];
+    }
+
+    public function send()
     {
 
-    $queryUrl = $url;
+    $queryUrl = $this->url;
 // формируем параметры для создания лида в переменной $queryData
     $queryData = http_build_query(array(
         'fields' => array(
-            'TITLE' => $subject,
-            'NAME' => $name,
+            'TITLE' => "$this->subject",
+            'NAME' => "$this->name",
             'EMAIL' => array(
                 "n0" => array(
-                    "VALUE" => "$email",
+                    "VALUE" => "$this->email",
                     "VALUE_TYPE" => "WORK",
                 ),
             ),
             'PHONE' => array(
                 "n0" => array(
-                    "VALUE" => "$phone",
+                    "VALUE" => "60606060606060",
                     "VALUE_TYPE" => "WORK",
                 ),
             ),

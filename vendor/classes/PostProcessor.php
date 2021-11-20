@@ -7,21 +7,13 @@ use database\singleConnect;
 
 abstract class PostProcessor
 {
+
     public $name;
     public $email;
     public $subject;
     public $message;
-    public $totalInfo;
 
-    public function __construct($getInfoFromUser)
-    {
-        $this->name = $getInfoFromUser['name'];
-        $this->subject = $getInfoFromUser['subject'];
-        $this->message = $getInfoFromUser['message'];
-        $this->email = $getInfoFromUser['email'];
-        $this->totalInfo = $getInfoFromUser;
-
-    }
+    abstract public function send();
 
 
     public function sendTypePostProcessorToDB($data)
@@ -42,6 +34,26 @@ abstract class PostProcessor
         from receiver";
         return $database->query($sql);
 
+    }
+
+
+    public static function createArrayObject($formObject)
+    {
+
+        $database = singleConnect::getInstance();
+        $sql = "Select * 
+        from postprocessing
+        WHERE form = " . $formObject->formID;
+        $result = $database->query($sql);
+
+
+        foreach ($result as $element) {
+
+            $className = "\\vendor\classes\\" . $element['postprocessor_type'];
+
+            $arrayOfPProc[] = new $className($formObject, $result);
+        }
+        return $arrayOfPProc;
     }
 
 

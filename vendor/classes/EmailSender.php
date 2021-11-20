@@ -13,7 +13,19 @@ require_once 'phpmailer/src/SMTP.php';
 class emailSender extends PostProcessor
 {
 
-    static public function sendmail($name, $email, $subject, $message){
+
+
+    public function __construct($getForm, $getPostProc)
+    {
+        $this->name = $getForm->currentValue['name'];
+        $this->email = $getForm->currentValue['email'];
+        $this->subject = $getForm->currentValue['subject'];
+        $this->message = $getForm->currentValue['message'];
+
+    }
+
+
+    public function send(){
 
         $mail = new PHPMailer;
         $mail->isSMTP();                   // Отправка через SMTP
@@ -32,12 +44,12 @@ class emailSender extends PostProcessor
             )
         );
 
-        $mail->setFrom('afagus.dev@gmail.com', $name);    // от кого
+        $mail->setFrom('afagus.dev@gmail.com', $this->name);    // от кого
         $mail->addAddress('afagus.13@gmail.com'); // кому
 
-        $mail->Subject = $subject;
+        $mail->Subject = $this->subject;
         $mail->msgHTML("<html><body>
-                ".$message."
+                ".$this->message."
                 </body></html>");
 
         $mail->send();
