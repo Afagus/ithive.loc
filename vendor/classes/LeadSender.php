@@ -4,6 +4,11 @@
 namespace vendor\classes;
 
 
+/**
+ * Class LeadSender
+ * @package vendor\classes
+ * Класс постобработчика, отвечающий за отправку сообщения в виде лида в  CRM Битрикс24
+ */
 class LeadSender extends PostProcessor
 {
     public $name;
@@ -19,9 +24,12 @@ class LeadSender extends PostProcessor
         $this->email = $getForm->currentValue['email'];
         $this->subject = $getForm->currentValue['subject'];
         $this->message = $getForm->currentValue['message'];
-        $this->phone = $getForm->currentValue['phone']?:'';
+        //$this->phone = $getForm->currentValue['phone']?:'';
     }
 
+    /**
+     *Метод отправки лида в Битрикс24
+     */
     public function send()
     {
 
