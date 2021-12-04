@@ -46,13 +46,14 @@ abstract class PostProcessor
         WHERE form = " . $formObject->formID;
         $result = $database->query($sql);
 
-
+        $arrayOfPProc = [];
         foreach ($result as $element) {
 
             $className = "\\vendor\classes\\" . $element['postprocessor_type'];
 
-            $arrayOfPProc[] = new $className($formObject, $result);
+            $arrayOfPProc = new $className($formObject, $result);
         }
+
         return $arrayOfPProc;
     }
 
