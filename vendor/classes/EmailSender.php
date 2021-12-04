@@ -15,17 +15,13 @@ class emailSender extends PostProcessor
 
 
 
-    public function __construct($getForm, $getPostProc)
-    {
-        $this->name = $getForm->currentValue['name'];
-        $this->email = $getForm->currentValue['email'];
-        $this->subject = $getForm->currentValue['subject'];
-        $this->message = $getForm->currentValue['message'];
-
-    }
-
+public function __construct($getForm, $data)
+{
+    parent::__construct($getForm, $data);
+}
 
     public function send(){
+        $fields = $this->preferenses['fields'];
 
         $mail = new PHPMailer;
         $mail->isSMTP();                   // Отправка через SMTP
@@ -44,12 +40,12 @@ class emailSender extends PostProcessor
             )
         );
 
-        $mail->setFrom('afagus.dev@gmail.com', $this->name);    // от кого
-        $mail->addAddress('afagus.13@gmail.com'); // кому
+        $mail->setFrom('afagus.dev@gmail.com', $this->form->currentValue[$fields['NAME']]);    // от кого
+        $mail->addAddress('nikolaj.agro@gmail.com'); // кому
 
-        $mail->Subject = $this->subject;
+        $mail->Subject = $this->form->currentValue[$fields['SUBJECT']];
         $mail->msgHTML("<html><body>
-                ".$this->message."
+                ".$this->form->currentValue[$fields['NAME']]."
                 </body></html>");
 
         $mail->send();

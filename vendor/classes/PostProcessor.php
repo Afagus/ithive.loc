@@ -8,10 +8,15 @@ use database\singleConnect;
 abstract class PostProcessor
 {
 
-    public $name;
-    public $email;
-    public $subject;
-    public $message;
+    public $form;
+    public $preferences;
+
+
+    public function __construct($getForm, $data)
+    {
+        $this->preferences = $data['preferences'];
+        $this->form = $getForm;
+    }
 
     abstract public function send();
 
@@ -48,10 +53,17 @@ abstract class PostProcessor
 
         $arrayOfPProc = [];
         foreach ($result as $element) {
+            $element['preferenses'] = [
+                'fields' => [
+                    'NAME' => 'name',
+                    'EMAIL' => 'email',
+                    'PHONE' => 'phone'
+                ]
+            ];
 
             $className = "\\vendor\classes\\" . $element['postprocessor_type'];
 
-            $arrayOfPProc = new $className($formObject, $result);
+            $arrayOfPProc = new $className($formObject, $element);
         }
 
         return $arrayOfPProc;
