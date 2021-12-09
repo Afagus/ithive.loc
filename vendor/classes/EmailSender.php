@@ -15,20 +15,17 @@ class emailSender extends PostProcessor
 
 
 
-public function __construct($getForm, $data)
-{
-    parent::__construct($getForm, $data);
-}
+
 
     public function send(){
-        $fields = $this->preferenses['fields'];
+        $fields = $this->preferences['fields'];
 
         $mail = new PHPMailer;
         $mail->isSMTP();                   // Отправка через SMTP
         $mail->Host = 'smtp.gmail.com';  // Адрес SMTP сервера
         $mail->SMTPAuth = true;          // Enable SMTP authentication
-        $mail->Username = 'afagus.dev@gmail.com';       // ваше имя пользователя
-        $mail->Password = 'Gg#2987103834!';    // ваш пароль
+        $mail->Username = 'afagus.inv@gmail.com';       // ваше имя пользователя
+        $mail->Password = 'G#inv2987103834!';    // ваш пароль
         $mail->SMTPSecure = 'ssl';         // шифрование ssl
         $mail->Port = 465;               // порт подключения
         $mail->CharSet = 'UTF-8';
@@ -40,8 +37,8 @@ public function __construct($getForm, $data)
             )
         );
 
-        $mail->setFrom('afagus.dev@gmail.com', $this->form->currentValue[$fields['NAME']]);    // от кого
-        $mail->addAddress('nikolaj.agro@gmail.com'); // кому
+        $mail->setFrom('afagus.inv@gmail.com', $this->form->currentValue[$fields['NAME']]);    // от кого
+        $mail->addAddress('afagus.13@gmail.com'); // кому
 
         $mail->Subject = $this->form->currentValue[$fields['SUBJECT']];
         $mail->msgHTML("<html><body>

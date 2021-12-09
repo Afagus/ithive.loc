@@ -16,10 +16,7 @@ class LeadSender extends PostProcessor
 
 
 
-    public function __construct($getForm, $data)
-    {
-        parent::__construct($getForm, $data);
-    }
+
 
     /**
      *Метод отправки лида в Битрикс24

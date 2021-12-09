@@ -28,12 +28,6 @@ class Form
     /** Блок переменных входящих данных  от Юзера
      */
     public $currentValue = [];
-    public $valueFromUserName = 'name';
-    public $valueFromUserEmail = 'email';
-    public $valueFromUserSubject = 'subject';
-    public $valueFromUserMessage = 'message';
-
-
 
     /**
      */
@@ -275,7 +269,9 @@ class Form
     public function sendMethod()
     {
         foreach (PostProcessor::createArrayObject($this) as $pprocessor) {
+
             $pprocessor->send();
+
         }
     }
 

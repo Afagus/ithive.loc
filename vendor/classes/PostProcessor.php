@@ -40,7 +40,17 @@ abstract class PostProcessor
         return $database->query($sql);
 
     }
+    /***
+     * Временный код для заноса данных в базу
+     */
 
+
+
+    /**
+     *
+     *Конец временный код для заноса данных в базу
+     *
+     **/
 
     public static function createArrayObject($formObject)
     {
@@ -53,17 +63,18 @@ abstract class PostProcessor
 
         $arrayOfPProc = [];
         foreach ($result as $element) {
-            $element['preferenses'] = [
+            $element['preferences'] = [
                 'fields' => [
                     'NAME' => 'name',
                     'EMAIL' => 'email',
-                    'PHONE' => 'phone'
+                    'PHONE' => 'phone',
+                    'MESSAGE' => 'message',
                 ]
             ];
 
             $className = "\\vendor\classes\\" . $element['postprocessor_type'];
 
-            $arrayOfPProc = new $className($formObject, $element);
+            $arrayOfPProc[] = new $className($formObject, $element);
         }
 
         return $arrayOfPProc;
