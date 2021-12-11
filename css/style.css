@@ -47,5 +47,8 @@ footer {
     text-align: center;
 }
 
-
-
+.admin_penguin img {
+    vertical-align: middle;
+    width: 20px;
+    height: auto
+}

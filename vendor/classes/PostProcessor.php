@@ -24,7 +24,7 @@ abstract class PostProcessor
     public function sendTypePostProcessorToDB($data)
     {
         $database = \database\singleConnect::getInstance();
-        $sql = "INSERT INTO receiver (receiver_type)
+        $sql = "INSERT INTO receiver (postprocessor_type)
         VALUES ('$data')";
 
         $database->query($sql);
@@ -35,28 +35,22 @@ abstract class PostProcessor
     static public function getListOfReceivers()
     {
         $database = singleConnect::getInstance();
-        $sql = "Select receiver_type 
+        $sql = "Select postprocessor_type 
         from receiver";
         return $database->query($sql);
 
     }
-    /***
-     * Временный код для заноса данных в базу
-     */
-
-
 
     /**
      *
-     *Конец временный код для заноса данных в базу
+     *Создание массива из объектов постобработчиков
      *
      **/
-
     public static function createArrayObject($formObject)
     {
 
-        $database = singleConnect::getInstance();
-        $sql = "Select * 
+        $database = singleConnect::getInstance();   /*соединение с базой данных*/
+        $sql = "Select *                            /*запрос в базу и получение всех постпроцессоров относящихся к текущей форме*/ 
         from postprocessing
         WHERE form = " . $formObject->formID;
         $result = $database->query($sql);
@@ -69,6 +63,8 @@ abstract class PostProcessor
                     'EMAIL' => 'email',
                     'PHONE' => 'phone',
                     'MESSAGE' => 'message',
+                    'SUBJECT' => 'subject',
+                    'TITLE' => 'title'
                 ]
             ];
 
@@ -76,9 +72,22 @@ abstract class PostProcessor
 
             $arrayOfPProc[] = new $className($formObject, $element);
         }
-
         return $arrayOfPProc;
     }
 
 
+    public static function createHandler($data)
+    {
+
+        $database = singleConnect::getInstance();
+        $pp_data = $data['postprocessor_type'];
+        $pp_form = $data['formID'];
+        $pp_preferences = $data['preferences'];
+        $sql = "INSERT INTO postprocessing (postprocessor_type, form, preferences)
+        VALUES ('$pp_data','$pp_form', '$pp_preferences' )";
+
+        $database->query($sql);
+
+        return $database->getLastId();
+    }
 }

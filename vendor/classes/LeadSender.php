@@ -23,7 +23,7 @@ class LeadSender extends PostProcessor
      */
     public function send()
     {
-        $fields = $this->preferenses['fields'];
+        $fields = $this->preferences['fields'];
         $queryUrl = $this->url;
 // формируем параметры для создания лида в переменной $queryData
         $queryData = http_build_query(array(

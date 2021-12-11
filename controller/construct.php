@@ -33,40 +33,36 @@ $tableInfo = DBTableInfo();
         <tr>
             <td><span><hr></span></td>
         </tr>
-        <tr>
-            <td><p>Выберите возможного получателя данных: </p></td>
-        </tr>
-        <tr>
-            <td>
-                <form action="#">
-                    <?php
-                    /** Макет-прототип--нужно менять  в JS расположение ------------------------------------------------------------
-                     */
-
-                    foreach (\vendor\classes\PostProcessor::getListOfReceivers() as $receiver):?>
-
-                        <input type="checkbox"
-                               name=""
-                               value=""><?php echo $receiver['receiver_type'] ?><br/>
-                    <?php endforeach;
-                    /**
-                     * __________________________________________________________________________________________________________
-                     */
-                    ?>
-                    <input type="submit" value="Сохранить получателей" name="receiver">
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td><span><hr></span></td>
-        </tr>
     </table>
 </div>
 <?php require_once "vendor/createNewField.php";
 createNewField($tableInfo['typeOfFields'], $tableInfo['typeOfValidations']);
 
 ?>
+<br><br><br>
+
+
+<form method="post" action="/<?= BASE ?>/createHandler/<?= ROUTE[1] ?>">
+
+
+    <select name="postprocessor">
+        <option>Выберите обработчик</option>
+        >
+        <?php
+        foreach (\vendor\classes\PostProcessor::getListOfReceivers() as $receiver):?>
+            <option value="<?= $receiver['postprocessor_type'] ?>"><?= $receiver['postprocessor_type'] ?></option>
+
+        <?php endforeach; ?>
+
+    </select>
+
+    <input type="hidden">
+    <p>
+        <button type="submit" class="admin_penguin"><img src="/<?= BASE ?>/images/goose.gif" alt="admin_penguin"
+            ><b>Create handler</b></button>
+</form>
 <br>
-<br>
+
+
 
 

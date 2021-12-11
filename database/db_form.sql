@@ -133,11 +133,11 @@ CREATE TABLE message_one_field
 
 create table receiver
 (
-    id            int auto_increment
+    id                 int auto_increment
         primary key,
-    receiver_type char(100) null,
+    postprocessor_type char(100) null,
     constraint receiver_receiver_type_uindex
-        unique (receiver_type)
+        unique (postprocessor_type)
 );
 
 create table postprocessing
