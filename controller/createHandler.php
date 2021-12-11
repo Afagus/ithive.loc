@@ -12,4 +12,3 @@ $data = [
             'preferences' => 'some data'
         ];
 $lastHandler = \vendor\classes\PostProcessor::createHandler($data);
-print_r($lastHandler);
