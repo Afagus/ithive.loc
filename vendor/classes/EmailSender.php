@@ -14,10 +14,8 @@ class emailSender extends PostProcessor
 {
 
 
-
-
-
-    public function send(){
+    public function send()
+    {
         $fields = $this->preferences['fields'];
 
         $mail = new PHPMailer;
@@ -42,11 +40,13 @@ class emailSender extends PostProcessor
 
         $mail->Subject = $this->form->currentValue[$fields['SUBJECT']];
         $mail->msgHTML("<html><body>
-                ".$this->form->currentValue[$fields['NAME']]."
+                " . $this->form->currentValue[$fields['NAME']] . "
                 </body></html>");
 
         $mail->send();
 
     }
+
+
 
 }

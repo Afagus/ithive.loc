@@ -46,7 +46,7 @@ abstract class PostProcessor
      *Создание массива из объектов постобработчиков
      *
      **/
-    public static function createArrayObject($formObject)
+    public static function createArrayObject($formObject): array
     {
 
         $database = singleConnect::getInstance();   /*соединение с базой данных*/
@@ -89,5 +89,37 @@ abstract class PostProcessor
         $database->query($sql);
 
         return $database->getLastId();
+    }
+
+    public static function viewListFields()
+    {
+        ?>
+        <select name="fieldList" id="fieldList">
+            <?php foreach (\vendor\classes\Form::getListOfFields() as $field): ?>
+                <option value="<?= $field['name'] ?>"><?= $field['name'] ?></option>
+            <?php endforeach; ?>
+        </select>
+        <input type="submit" name="saveHandler" value="Save">
+        </form>
+        <?php
+    }
+
+    static public function generateFormHandler($itemId)
+    {
+        ?>
+        <form action="" method="post">
+        <table style="border: 1px solid black">
+            <tr>
+                <td style="border: 2px solid black">wfewrfewf</td>
+                <td> <?php self::viewListFields(); ?></td>
+
+            </tr>
+        </table>
+
+
+        <form action="../construct/<?= $itemId ?>" method="post">
+            <input type="submit" name="backToForm" value="Back">
+        </form>
+        <?php
     }
 }

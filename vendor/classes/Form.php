@@ -35,7 +35,7 @@ class Form
 
     private function __construct($form, $nameOfForm, $findMessageID = 0)
     {
-        $this->formID = $form[0]['form_ID'];
+        $this->formID = $form[0]['form_ID'] ?? '';
         $this->findMessageID = $findMessageID;
         $this->form = $form;
         $this->nameOfForm = $nameOfForm;
@@ -276,7 +276,6 @@ class Form
     }
 
 
-
     public function toStartSending()
     {
         if ($this->validatorOfForm()) {
@@ -367,5 +366,15 @@ class Form
                 WHERE id = " . $messageID;
         $link->query($sql);
         return 1;
+    }
+
+    static public function getListOfFields()
+    {
+        $link = singleConnect::getInstance();
+        $sql = "SELECT name 
+        FROM table_form_building
+        WHERE form_ID = ". ROUTE[1];
+        return $link->query($sql);
+
     }
 }
