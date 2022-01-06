@@ -12,25 +12,16 @@ abstract class PostProcessor
     public $preferences;
 
 
+
     public function __construct($getForm, $data)
     {
         $this->preferences = $data['preferences'];
+
         $this->form = $getForm;
     }
 
     abstract public function send();
 
-
-    public function sendTypePostProcessorToDB($data)
-    {
-        $database = \database\singleConnect::getInstance();
-        $sql = "INSERT INTO receiver (postprocessor_type)
-        VALUES ('$data')";
-
-        $database->query($sql);
-
-        return $database->getLastId();
-    }
 
     static public function getListOfReceivers()
     {
@@ -44,7 +35,7 @@ abstract class PostProcessor
     /**
      *
      *Создание массива из объектов постобработчиков
-     *
+     * нужно переделать содав запрос из базы данных и убрать хардкод
      **/
     public static function createArrayObject($formObject): array
     {
@@ -54,6 +45,7 @@ abstract class PostProcessor
         from postprocessing
         WHERE form = " . $formObject->formID;
         $result = $database->query($sql);
+        var_dump($result);
 
         $arrayOfPProc = [];
         foreach ($result as $element) {
@@ -80,11 +72,13 @@ abstract class PostProcessor
     {
 
         $database = singleConnect::getInstance();
+        mydebugger($data);
+        $pp_title = $data['titleHandler'];
         $pp_data = $data['postprocessor_type'];
         $pp_form = $data['formID'];
         $pp_preferences = $data['preferences'];
-        $sql = "INSERT INTO postprocessing (postprocessor_type, form, preferences)
-        VALUES ('$pp_data','$pp_form', '$pp_preferences' )";
+        $sql = "INSERT INTO postprocessing (title_handler, postprocessor_type, form, preferences)
+        VALUES ('$pp_title','$pp_data','$pp_form','$pp_preferences' )";
 
         $database->query($sql);
 
@@ -99,27 +93,48 @@ abstract class PostProcessor
                 <option value="<?= $field['name'] ?>"><?= $field['name'] ?></option>
             <?php endforeach; ?>
         </select>
-        <input type="submit" name="saveHandler" value="Save">
-        </form>
+
         <?php
     }
 
-    static public function generateFormHandler($itemId)
+    static public function generateFormHandler($itemId, $handlersFields)
     {
+        $preferences = $handlersFields['preferences'];
+        $typeHandler = $handlersFields['typeHandler'];
         ?>
         <form action="" method="post">
-        <table style="border: 1px solid black">
-            <tr>
-                <td style="border: 2px solid black">wfewrfewf</td>
-                <td> <?php self::viewListFields(); ?></td>
+            <table style="border: 1px solid black">
+                <tr>
+                    <td>Enter a name of Handler</td>
+                    <td>
+                        <input type="text" name="titleHandler">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Type of Handler</td>
+                    <td><?= $typeHandler?></td>
+                </tr>
 
-            </tr>
-        </table>
+                <?php foreach ($preferences as $key => $field): ?>
+                    <tr>
+                        <td><?= $key ?></td>
+                        <td> <?php self::viewListFields(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
 
 
+            </table>
+            <input type="submit" name="saveHandler" value="Save">
+
+        </form>
+        <br>
         <form action="../construct/<?= $itemId ?>" method="post">
             <input type="submit" name="backToForm" value="Back">
         </form>
         <?php
+    }
+
+    public function getFields(){
+        return $this->handlersFields;
     }
 }

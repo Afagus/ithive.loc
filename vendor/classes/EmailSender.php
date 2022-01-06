@@ -13,10 +13,10 @@ require_once 'phpmailer/src/SMTP.php';
 class emailSender extends PostProcessor
 {
 
-
     public function send()
     {
-        $fields = $this->preferences['fields'];
+        $fields = $this->preferences;
+        mydebugger($fields);
 
         $mail = new PHPMailer;
         $mail->isSMTP();                   // Отправка через SMTP
@@ -46,7 +46,6 @@ class emailSender extends PostProcessor
         $mail->send();
 
     }
-
 
 
 }

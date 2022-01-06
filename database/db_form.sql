@@ -5,6 +5,7 @@ DROP TABLE if exists type_of_validation;
 DROP TABLE if exists client_full_message;
 DROP TABLE if exists main_form;
 DROP TABLE if exists receiver;
+DROP TABLE if exists postprocessing;
 
 ALTER DATABASE form CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
@@ -144,6 +145,7 @@ create table postprocessing
 (
     id                 int auto_increment
         primary key,
+    title_handler char (50) null,
     postprocessor_type char(50)  null,
     form               int       null,
     active_yes_no      int       null,

@@ -15,9 +15,6 @@ class LeadSender extends PostProcessor
     public $url = 'https://b24-owmhqi.bitrix24.ua/rest/1/9zvysf6apwynveis/crm.lead.add.json';
 
 
-
-
-
     /**
      *Метод отправки лида в Битрикс24
      */

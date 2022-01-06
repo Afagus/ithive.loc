@@ -10,9 +10,6 @@ use PHPMailer\PHPMailer\SMTP;
 
 
 require_once 'database/Data.php';
-require_once 'vendor/sendMail.php';
-require_once 'vendor/sendLead.php';
-
 class Form
 {
 
