@@ -12,6 +12,17 @@ namespace vendor\classes;
 class LeadSender extends PostProcessor
 {
 
+    const handlersFields = [
+
+        'preferences' => [
+            'NAME' => 'name',
+            'EMAIL' => 'email',
+            'PHONE' => 'phone',
+            'MESSAGE' => 'message',
+            'SUBJECT' => 'subject',
+            'TITLE' => 'title']
+
+    ];
     public $url = 'https://b24-owmhqi.bitrix24.ua/rest/1/9zvysf6apwynveis/crm.lead.add.json';
 
 
@@ -58,4 +69,49 @@ class LeadSender extends PostProcessor
         if (array_key_exists('error', $result)) echo "Ошибка при сохранении лида: " . $result['error_description'] .
             "<br/>";
     }
+
+    static public function generateFormHandler($itemId, $typeHandler)
+    {
+        $preferences = static::handlersFields['preferences'];
+
+        ?>
+        <form action="/<?= BASE ?>/saveHandler/<?= $itemId ?>" method="post">
+            <table style="border: 1px solid black">
+                <tr>
+                    <td><label for="titleHandler">Enter a name of Handler</label></td>
+                    <td>
+                        <input type="text" name="titleHandler" id="titleHandler">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="type-of-handler">Type of Handler</label></td>
+                    <td><input style="Border: none; outline: none; color: red" name="type-of-handler" id="type-of-handler" value="<?= $typeHandler ?>"></td>
+                </tr>
+                <tr>
+                    <td>
+                    <label for="lead-url">Input URL</label></td>
+                     </td>
+                    <td>
+                        <input type="text" name="lead-url" id="lead-url">
+                    </td>
+                </tr>
+                <?php foreach ($preferences as $key => $field): ?>
+                    <tr>
+                        <td><label for="<?= $key?>"><?= $key ?></label></td>
+                        <td><?php self::viewListFields($key);?></td>
+                    </tr>
+                <?php endforeach; ?>
+
+
+            </table>
+            <input type="submit" value="Save">
+
+        </form>
+        <br>
+        <form action="../construct/<?= $itemId ?>" method="post">
+            <input type="submit" name="backToForm" value="Back">
+        </form>
+        <?php
+    }
+
 }

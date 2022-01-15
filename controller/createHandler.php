@@ -20,23 +20,9 @@ if (key_exists('saveHandler', $_POST)) {
 
 $typeHandler = $_POST['postprocessor'];
 $formId = ROUTE[1];
-$handlersFields = [
 
-    'preferences' => [
-        'NAME' => 'name',
-        'EMAIL' => 'email',
-        'PHONE' => 'phone',
-        'MESSAGE' => 'message',
-        'SUBJECT' => 'subject',
-        'TITLE' => 'title'
-
-    ],
-    'typeHandler' => $typeHandler
-];
 
 $className = "\\vendor\classes\\" . $typeHandler;
-$newHandler = new $className($formId, $handlersFields);
-
-PostProcessor::generateFormHandler(ROUTE[1], $handlersFields);
+$className::generateFormHandler(ROUTE[1],$typeHandler);
 
 

@@ -10,17 +10,20 @@ abstract class PostProcessor
 
     public $form;
     public $preferences;
+    const handlersFields = '';
 
 
 
-    public function __construct($getForm, $data)
+    public function __construct($getForm)
     {
-        $this->preferences = $data['preferences'];
+
 
         $this->form = $getForm;
     }
 
+    abstract static public function generateFormHandler($itemId,$typeHandler);
     abstract public function send();
+
 
 
     static public function getListOfReceivers()
@@ -68,73 +71,30 @@ abstract class PostProcessor
     }
 
 
-    public static function createHandler($data)
-    {
+//    public static function createHandler($data)
+//    {
+//        $database = singleConnect::getInstance();
+//        mydebugger($data);
+//        $pp_title = $data['titleHandler'];
+//        $pp_data = $data['postprocessor_type'];
+//        $pp_form = $data['formID'];
+//        $pp_preferences = $data['preferences'];
+//        $sql = "INSERT INTO postprocessing (postprocessor_type, form, preferences)
+//        VALUES ('$pp_title','$pp_data','$pp_form','$pp_preferences' )";
+//
+//        $database->query($sql);
+//
+//        return $database->getLastId();
+//    }
 
-        $database = singleConnect::getInstance();
-        mydebugger($data);
-        $pp_title = $data['titleHandler'];
-        $pp_data = $data['postprocessor_type'];
-        $pp_form = $data['formID'];
-        $pp_preferences = $data['preferences'];
-        $sql = "INSERT INTO postprocessing (title_handler, postprocessor_type, form, preferences)
-        VALUES ('$pp_title','$pp_data','$pp_form','$pp_preferences' )";
-
-        $database->query($sql);
-
-        return $database->getLastId();
-    }
-
-    public static function viewListFields()
+    public static function viewListFields($key)
     {
         ?>
-        <select name="fieldList" id="fieldList">
+        <select name="<?=$key?>" id="fieldList">
             <?php foreach (\vendor\classes\Form::getListOfFields() as $field): ?>
                 <option value="<?= $field['name'] ?>"><?= $field['name'] ?></option>
             <?php endforeach; ?>
         </select>
-
         <?php
-    }
-
-    static public function generateFormHandler($itemId, $handlersFields)
-    {
-        $preferences = $handlersFields['preferences'];
-        $typeHandler = $handlersFields['typeHandler'];
-        ?>
-        <form action="" method="post">
-            <table style="border: 1px solid black">
-                <tr>
-                    <td>Enter a name of Handler</td>
-                    <td>
-                        <input type="text" name="titleHandler">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Type of Handler</td>
-                    <td><?= $typeHandler?></td>
-                </tr>
-
-                <?php foreach ($preferences as $key => $field): ?>
-                    <tr>
-                        <td><?= $key ?></td>
-                        <td> <?php self::viewListFields(); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-
-
-            </table>
-            <input type="submit" name="saveHandler" value="Save">
-
-        </form>
-        <br>
-        <form action="../construct/<?= $itemId ?>" method="post">
-            <input type="submit" name="backToForm" value="Back">
-        </form>
-        <?php
-    }
-
-    public function getFields(){
-        return $this->handlersFields;
     }
 }

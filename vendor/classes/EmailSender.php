@@ -12,6 +12,14 @@ require_once 'phpmailer/src/SMTP.php';
 
 class emailSender extends PostProcessor
 {
+    const handlersFields = [
+
+        'preferences' => [
+            'NAME' => 'name',
+            'SUBJECT' => 'subject',
+        ]
+
+    ];
 
     public function send()
     {
@@ -47,5 +55,56 @@ class emailSender extends PostProcessor
 
     }
 
+    static public function generateFormHandler($itemId, $typeHandler)
+    {
+        $preferences = static::handlersFields['preferences'];
+
+        ?>
+        <form action="" method="post">
+            <table style="border: 1px solid black">
+                <tr>
+                    <td>Enter a name of Handler</td>
+                    <td>
+                        <input type="text" name="titleHandler">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="">Type of Handler</label></td>
+                    <td style="color: red"><?= $typeHandler ?></td>
+                </tr>
+                <tr>
+                    <td>
+                        Enter Username for SMTP
+                    </td>
+                    <td>
+                        <input type="text" name="smtp-User">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Enter password for SMTP
+                    </td>
+                    <td>
+                        <input type="password" name="smtp-password">
+                    </td>
+                </tr>
+                <?php foreach ($preferences as $key => $field): ?>
+                    <tr>
+                        <td><?= $key ?></td>
+                        <td> <?php self::viewListFields(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+
+
+            </table>
+            <input type="submit" name="saveHandler" value="Save">
+
+        </form>
+        <br>
+        <form action="../construct/<?= $itemId ?>" method="post">
+            <input type="submit" name="backToForm" value="Back">
+        </form>
+        <?php
+    }
 
 }
