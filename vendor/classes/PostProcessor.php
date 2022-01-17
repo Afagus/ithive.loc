@@ -26,11 +26,20 @@ abstract class PostProcessor
 
 
 
-    static public function getListOfReceivers()
+    static public function getReceivers($form)
+    {
+        $database = singleConnect::getInstance();
+        $sql = "Select * 
+        from postprocessing
+        where form = ". $form;
+        return $database->query($sql);
+
+    }    static public function getListOfReceivers()
     {
         $database = singleConnect::getInstance();
         $sql = "Select postprocessor_type 
         from receiver";
+
         return $database->query($sql);
 
     }

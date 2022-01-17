@@ -150,5 +150,6 @@ create table postprocessing
     form               int       null,
     active_yes_no      int       null,
     preferences        text      null,
-    fields             char(100) null
+    fields             char(100) null,
+    title              char (20) unique
 );

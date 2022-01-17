@@ -1,22 +1,24 @@
 <?php
 
 mydebugger($_POST);
-$preferences = json_encode($_POST, JSON_HEX_APOS );
+$preferences = json_encode($_POST, JSON_HEX_APOS);
 $postprocessorType = $_POST['type-of-handler'];
 $formID = ROUTE[1];
+$titleHandler = $_POST['titleHandler'];
 
 mydebugger($preferences);
 $database = \database\singleConnect::getInstance();
 $sql = "INSERT INTO postprocessing
-(postprocessor_type, form, preferences)
+(postprocessor_type, form, preferences, title)
 VALUES (" .
-    '\''. $postprocessorType. '\''.', ' .
-    '\''. $formID. '\''.', ' .
-    '\''. $preferences. '\''.
+    '\'' . $postprocessorType . '\'' . ', ' .
+    '\'' . $formID . '\'' . ', ' .
+    '\'' . $preferences . '\'' . ',' .
+    '\'' . $titleHandler . '\'' .
     ")";
 
 echo('
-'.$sql.'
+' . $sql . '
 ');
 $sqlFields = $database->query($sql);
 $lastID = $database->getLastId();
@@ -27,5 +29,6 @@ $getRequestFromDB = 'SELECT *
 $sqlGet = $database->query($getRequestFromDB);
 
 
-$new_url = ;
+$new_url = $_SERVER['HTTP_ORIGIN'].'/'.BASE."/construct/" . ROUTE[1];
 header('Location: ' . $new_url);
+exit;
