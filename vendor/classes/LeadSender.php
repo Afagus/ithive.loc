@@ -15,12 +15,12 @@ class LeadSender extends PostProcessor
     const handlersFields = [
 
         'preferences' => [
-            'NAME' => 'name',
-            'EMAIL' => 'email',
-            'PHONE' => 'phone',
-            'MESSAGE' => 'message',
-            'SUBJECT' => 'subject',
-            'TITLE' => 'title']
+            'NAME' => '',
+            'EMAIL' => '',
+            'PHONE' => '',
+            'MESSAGE' => '',
+            'SUBJECT' => '',
+            'TITLE' => '']
 
     ];
     public $url = 'https://b24-owmhqi.bitrix24.ua/rest/1/9zvysf6apwynveis/crm.lead.add.json';

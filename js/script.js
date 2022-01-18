@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     makeForExisting("changeField", addFormToRedact);
     formSenderValidator();
     deleteMessage();
+
 });
 
 /**
@@ -316,3 +317,9 @@ function deleteMessage() {
         }, true)
     }
 }
+
+/***
+ * Функция удаления постобработчика в списке постобработчиков привязаных к форме
+ *
+ * */
+//todo Сделать удалялку для постобработчика

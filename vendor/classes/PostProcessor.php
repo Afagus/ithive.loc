@@ -13,7 +13,6 @@ abstract class PostProcessor
     const handlersFields = '';
 
 
-
     public function __construct($getForm)
     {
 
@@ -21,20 +20,33 @@ abstract class PostProcessor
         $this->form = $getForm;
     }
 
-    abstract static public function generateFormHandler($itemId,$typeHandler);
+    abstract static public function generateFormHandler($itemId, $typeHandler);
+
     abstract public function send();
 
 
+    static public function deleteHandler($id)
+    {
+        $database = singleConnect::getInstance();
+        $sqlQuery = 'DELETE 
+    from postprocessing
+    WHERE id = ' . $id;
+        $database->query($sqlQuery);
+        return $database->getLastId();
+
+    }
 
     static public function getReceivers($form)
     {
         $database = singleConnect::getInstance();
         $sql = "Select * 
         from postprocessing
-        where form = ". $form;
+        where form = " . $form;
         return $database->query($sql);
 
-    }    static public function getListOfReceivers()
+    }
+
+    static public function getListOfReceivers()
     {
         $database = singleConnect::getInstance();
         $sql = "Select postprocessor_type 
@@ -99,7 +111,7 @@ abstract class PostProcessor
     public static function viewListFields($key)
     {
         ?>
-        <select name="<?=$key?>" id="fieldList">
+        <select name="<?= $key ?>" id="fieldList">
             <?php foreach (\vendor\classes\Form::getListOfFields() as $field): ?>
                 <option value="<?= $field['name'] ?>"><?= $field['name'] ?></option>
             <?php endforeach; ?>

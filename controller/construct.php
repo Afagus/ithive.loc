@@ -33,7 +33,7 @@ $tableInfo = DBTableInfo();
             <td><span><hr></span></td>
         </tr>
     </table>
-    <table>
+    <table id="tableOfHandleCreator">
         <th>List of Handlers</th>
         <?php if (empty(\vendor\classes\PostProcessor::getReceivers(ROUTE[1]))) {
             echo '<tr><td style="color: red">';
@@ -44,13 +44,17 @@ $tableInfo = DBTableInfo();
         <?php foreach (\vendor\classes\PostProcessor::getReceivers(ROUTE[1]) as $handler): ?>
             <tr>
 
-                <td><?= $handler['title'];?></td>
-                <td><form id="<?= $handler['id'] ?>_delete_handler" class="deleteHandler"
+                <td><?= $handler['title']; ?></td>
+                <td>
+                    <form id="<?= $handler['id'] ?>_delete_handler" class="deleteHandler"
                           action="/<?= BASE ?>/deleteHandler/<?= $handler['id'] ?>" method="post">
                         <input type="submit" value="Delete" name="delete">
+                        <input type="hidden" value="<?= $handler['form']; ?>" name="idForm">
                     </form>
                 </td>
-                <td><button>Change/заглушка</button></td>
+                <td>
+                    <button>Change/заглушка</button>
+                </td>
 
             </tr>
         <?php endforeach; ?>
@@ -66,23 +70,22 @@ createNewField($tableInfo['typeOfFields'], $tableInfo['typeOfValidations']);
 
 
 <form method="post" action="/<?= BASE ?>/createHandler/<?= ROUTE[1] ?>">
+    <div>
+        <p><b>Choose Handler</b></p>
+        <div style="display: flex">
+            <select name="postprocessor">
+                <?php
+                foreach (\vendor\classes\PostProcessor::getListOfReceivers() as $receiver):?>
+                    <option value="<?= $receiver['postprocessor_type'] ?>"><?= $receiver['postprocessor_type'] ?></option>
+                <?php endforeach; ?>
+            </select>
 
+            <input type="hidden">
 
-    <select name="postprocessor">
-        <option>Выберите обработчик</option>
-
-        <?php
-        foreach (\vendor\classes\PostProcessor::getListOfReceivers() as $receiver):?>
-            <option value="<?= $receiver['postprocessor_type'] ?>"><?= $receiver['postprocessor_type'] ?></option>
-
-        <?php endforeach; ?>
-
-    </select>
-
-    <input type="hidden">
-    <p>
-        <button type="submit" class="admin_penguin"><img src="/<?= BASE ?>/images/goose.gif" alt="admin_penguin"
-            ><b>Create handler</b></button>
+            <button type="submit" class="admin_penguin"><img src="/<?= BASE ?>/images/goose.gif" alt="admin_penguin"
+                ><b>Create handler</b></button>
+        </div>
+    </div>
 </form>
 <br>
 

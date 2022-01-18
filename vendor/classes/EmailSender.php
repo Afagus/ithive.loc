@@ -60,7 +60,7 @@ class emailSender extends PostProcessor
         $preferences = static::handlersFields['preferences'];
 
         ?>
-        <form action="" method="post">
+        <form action="/<?= BASE ?>/saveHandler/<?= $itemId ?>" method="post">
             <table style="border: 1px solid black">
                 <tr>
                     <td>Enter a name of Handler</td>
@@ -91,7 +91,7 @@ class emailSender extends PostProcessor
                 <?php foreach ($preferences as $key => $field): ?>
                     <tr>
                         <td><?= $key ?></td>
-                        <td> <?php self::viewListFields(); ?></td>
+                        <td> <?php self::viewListFields($key); ?></td>
                     </tr>
                 <?php endforeach; ?>
 
