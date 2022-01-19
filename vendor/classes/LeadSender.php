@@ -23,30 +23,31 @@ class LeadSender extends PostProcessor
             'TITLE' => '']
 
     ];
-    public $url = 'https://b24-owmhqi.bitrix24.ua/rest/1/9zvysf6apwynveis/crm.lead.add.json';
-
 
     /**
      *Метод отправки лида в Битрикс24
      */
     public function send()
     {
-        $fields = $this->preferences['fields'];
-        $queryUrl = $this->url;
+
+        $fields = $this->preferences;
+            mydebugger($this->preferences);
+
+        $queryUrl = $fields['lead-url'];
 // формируем параметры для создания лида в переменной $queryData
         $queryData = http_build_query(array(
             'fields' => array(
-                'TITLE' => $this->form->currentValue[$fields['TITLE']],
-                'NAME' => $this->form->currentValue[$fields['NAME']],
+                'TITLE' => $fields['TITLE'],
+                'NAME' => $fields['NAME'],
                 'EMAIL' => array(
                     "n0" => array(
-                        "VALUE" => $this->form->currentValue[$fields['EMAIL']],
-                        "VALUE_TYPE" => "WORK",
+                        "VALUE" => $fields['EMAIL'],
+                        "VALUE_TYPE" => $fields['EMAIL'],
                     ),
                 ),
                 'PHONE' => array(
                     "n0" => array(
-                        "VALUE" => $this->form->currentValue[$fields['PHONE']],
+                        "VALUE" => $fields['PHONE'],
                         "VALUE_TYPE" => "WORK",
                     ),
                 ),
@@ -65,6 +66,25 @@ class LeadSender extends PostProcessor
         ));
         $result = curl_exec($curl);
         curl_close($curl);
+     print_r(array(
+         'fields' => array(
+             'TITLE' => $fields['TITLE'],
+             'NAME' => $fields['NAME'],
+             'EMAIL' => array(
+                 "n0" => array(
+                     "VALUE" => $fields['EMAIL'],
+                     "VALUE_TYPE" => $fields['EMAIL'],
+                 ),
+             ),
+             'PHONE' => array(
+                 "n0" => array(
+                     "VALUE" => $fields['PHONE'],
+                     "VALUE_TYPE" => "WORK",
+                 ),
+             ),
+         ),
+         'params' => array("REGISTER_SONET_EVENT" => "Y")
+     ));
         $result = json_decode($result, 1);
         if (array_key_exists('error', $result)) echo "Ошибка при сохранении лида: " . $result['error_description'] .
             "<br/>";
@@ -85,20 +105,21 @@ class LeadSender extends PostProcessor
                 </tr>
                 <tr>
                     <td><label for="type-of-handler">Type of Handler</label></td>
-                    <td><input style="Border: none; outline: none; color: red" name="type-of-handler" id="type-of-handler" value="<?= $typeHandler ?>"></td>
+                    <td><input style="Border: none; outline: none; color: red" name="type-of-handler"
+                               id="type-of-handler" value="<?= $typeHandler ?>"></td>
                 </tr>
                 <tr>
                     <td>
-                    <label for="lead-url">Input URL</label></td>
-                     </td>
+                        <label for="lead-url">Input URL</label></td>
+                    </td>
                     <td>
                         <input type="text" name="lead-url" id="lead-url">
                     </td>
                 </tr>
                 <?php foreach ($preferences as $key => $field): ?>
                     <tr>
-                        <td><label for="<?= $key?>"><?= $key ?></label></td>
-                        <td><?php self::viewListFields($key);?></td>
+                        <td><label for="<?= $key ?>"><?= $key ?></label></td>
+                        <td><?php self::viewListFields($key); ?></td>
                     </tr>
                 <?php endforeach; ?>
 

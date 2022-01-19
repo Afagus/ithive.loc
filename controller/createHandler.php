@@ -7,7 +7,7 @@ require_once 'content/header.php';
 require_once 'content/footer.php';
 
 
-mydebugger($_POST);
+
 if (key_exists('saveHandler', $_POST)) {
 //    $data = [
 //        'formID' => ROUTE[1],

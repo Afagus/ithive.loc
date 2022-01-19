@@ -24,7 +24,7 @@ class emailSender extends PostProcessor
     public function send()
     {
         $fields = $this->preferences;
-        mydebugger($fields);
+
 
         $mail = new PHPMailer;
         $mail->isSMTP();                   // Отправка через SMTP
