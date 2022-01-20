@@ -85,10 +85,11 @@ abstract class PostProcessor
 
     public static function viewListFields($key)
     {
+
         ?>
         <select name="<?= $key ?>" id="fieldList">
             <?php foreach (\vendor\classes\Form::getListOfFields() as $field): ?>
-                <option value="<?= $field['name'] ?>"><?= $field['id'] ?></option>
+                <option value="<?= $field['id'] ?>"><?= $field['name'] ?></option>
             <?php endforeach; ?>
         </select>
         <?php

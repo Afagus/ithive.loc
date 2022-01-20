@@ -1,6 +1,7 @@
 <?php
 
 
+
 $preferences = json_encode($_POST, JSON_HEX_APOS);
 $postprocessorType = $_POST['type-of-handler'];
 $formID = ROUTE[1];

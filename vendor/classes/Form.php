@@ -10,6 +10,7 @@ use PHPMailer\PHPMailer\SMTP;
 
 
 require_once 'database/Data.php';
+
 class Form
 {
 
@@ -44,7 +45,7 @@ class Form
     }
 
     /**
-     * Creation of form
+     * Запись имени формы в базу данных
      **/
     static public function createForm($name)
     {
@@ -56,6 +57,8 @@ class Form
 
         return $database->getLastId();
     }
+
+
 
     public function getCurrentNameOfForm($name)
     {
@@ -335,12 +338,12 @@ class Form
     }
 
 //TODO исправить для получения id
-    static public function getMessageFromDB()
+    static public function getMessageFromDB($route)
     {
         $database = \database\singleConnect::getInstance();
         $sql = 'SELECT *
                 FROM client_full_message
-                WHERE form_ID = ' . ROUTE[1];
+                WHERE form_ID = ' . $route;
         return $database->query($sql);
     }
 
@@ -368,10 +371,23 @@ class Form
     static public function getListOfFields()
     {
         $link = singleConnect::getInstance();
-        $sql = "SELECT name 
+        $sql = "SELECT *
         FROM table_form_building
-        WHERE form_ID = ". ROUTE[1];
+        WHERE form_ID = " . ROUTE[1];
         return $link->query($sql);
+
+    }
+
+    public function getNameFieldById($id)
+    {
+        $value = null;
+        foreach ($this->arrayOfFields as $field){
+            if($field->id == $id){
+                $value = $field->value;
+                break;
+            }
+        }
+        return $value;
 
     }
 }

@@ -11,14 +11,14 @@ if (!$_POST) {
 /**
  * Отображение формы для заполнения и отправки
  */
-
-$formOutput = \vendor\classes\Form::getSingleForm(ROUTE[1]);
+$route = ROUTE[1];
+$formOutput = \vendor\classes\Form::getSingleForm($route);
 $formOutput->viewForm($_POST);
 //echo json_encode($formOutput->lastMessageID);
 
 if (!$_POST) {
     ?>
-    <form action="/<?= BASE ?>/construct/<?= ROUTE[1] ?>" method="post">
+    <form action="/<?= BASE ?>/construct/<?= $route ?>" method="post">
         <input type="submit" value="Изменить форму" name="changeForm">
     </form>
     <?php
@@ -26,7 +26,7 @@ if (!$_POST) {
      * Вывод списка сообщений из имеющихся в БД
      */
 
-    $formFromQuery = \vendor\classes\Form::getMessageFromDB();
+    $formFromQuery = \vendor\classes\Form::getMessageFromDB($route);
 
     echo '<ul id="listOfMessages">';
     foreach ($formFromQuery as $value) {

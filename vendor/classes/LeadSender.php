@@ -31,29 +31,27 @@ class LeadSender extends PostProcessor
     {
 
         $fields = $this->preferences;
-            mydebugger($this->preferences);
-
         $queryUrl = $fields['lead-url'];
 // формируем параметры для создания лида в переменной $queryData
-        $queryData = http_build_query(array(
+        $queryData = array(
             'fields' => array(
-                'TITLE' => $fields['TITLE'],
-                'NAME' => $fields['NAME'],
+                'TITLE' => $this->form->getNameFieldById($fields['TITLE']),
+                'NAME' => $this->form->getNameFieldById($fields['NAME']),
                 'EMAIL' => array(
                     "n0" => array(
-                        "VALUE" => $fields['EMAIL'],
-                        "VALUE_TYPE" => $fields['EMAIL'],
+                        "VALUE" => $this->form->getNameFieldById($fields['EMAIL']),
+                        "VALUE_TYPE" => 'EMAIL',
                     ),
                 ),
                 'PHONE' => array(
                     "n0" => array(
-                        "VALUE" => $fields['PHONE'],
+                        "VALUE" => $this->form->getNameFieldById($fields['PHONE']),
                         "VALUE_TYPE" => "WORK",
                     ),
                 ),
             ),
             'params' => array("REGISTER_SONET_EVENT" => "Y")
-        ));
+        );
 // обращаемся к Битрикс24 при помощи функции curl_exec
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -62,29 +60,10 @@ class LeadSender extends PostProcessor
             CURLOPT_HEADER => 0,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $queryUrl,
-            CURLOPT_POSTFIELDS => $queryData,
+            CURLOPT_POSTFIELDS => http_build_query($queryData),
         ));
         $result = curl_exec($curl);
         curl_close($curl);
-     print_r(array(
-         'fields' => array(
-             'TITLE' => $fields['TITLE'],
-             'NAME' => $fields['NAME'],
-             'EMAIL' => array(
-                 "n0" => array(
-                     "VALUE" => $fields['EMAIL'],
-                     "VALUE_TYPE" => $fields['EMAIL'],
-                 ),
-             ),
-             'PHONE' => array(
-                 "n0" => array(
-                     "VALUE" => $fields['PHONE'],
-                     "VALUE_TYPE" => "WORK",
-                 ),
-             ),
-         ),
-         'params' => array("REGISTER_SONET_EVENT" => "Y")
-     ));
         $result = json_decode($result, 1);
         if (array_key_exists('error', $result)) echo "Ошибка при сохранении лида: " . $result['error_description'] .
             "<br/>";
@@ -92,6 +71,8 @@ class LeadSender extends PostProcessor
 
     static public function generateFormHandler($itemId, $typeHandler)
     {
+
+
         $preferences = static::handlersFields['preferences'];
 
         ?>
