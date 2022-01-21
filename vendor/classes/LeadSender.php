@@ -24,6 +24,8 @@ class LeadSender extends PostProcessor
 
     ];
 
+
+
     /**
      *Метод отправки лида в Битрикс24
      */

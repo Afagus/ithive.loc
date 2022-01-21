@@ -153,3 +153,8 @@ create table postprocessing
     fields             char(100) null,
     title              char (20) unique
 );
+
+INSERT INTO receiver(postprocessor_type)
+VALUES ('EmailSender'),
+       ('LeadSender'),
+       ('TelegramSender');
