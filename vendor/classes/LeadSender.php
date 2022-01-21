@@ -118,4 +118,7 @@ class LeadSender extends PostProcessor
         <?php
     }
 
+    //TODO: переделать метод, чтобы вставка урла лида была более комфортной,
+    // добавлять автоматом в конец add.crm.json
+
 }
