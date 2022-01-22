@@ -79,7 +79,7 @@ class Form
     static public function getSingleForm($formId)
     {
         $database = \database\singleConnect::getInstance();
-        $sql = 'SELECT * FROM table_form_building 
+        $sql = 'SELECT *, table_form_building.id as id FROM table_form_building 
     JOIN table_types_of_fields ttof on ttof.id_types = table_form_building.type_ID
     JOIN type_of_validation tov on tov.id_validation = table_form_building.validation_ID 
     JOIN main_form mf on table_form_building.form_ID = mf.id
@@ -136,6 +136,7 @@ class Form
                     $errors++;
                 }
             }
+
             return !(bool)$errors;
         }
 
