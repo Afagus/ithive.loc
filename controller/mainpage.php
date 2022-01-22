@@ -11,7 +11,7 @@ echo "<h1>Выберите форму</h1>";
 /**
  * Выводим список форм, которые находятся в базе данных в таблице main_form
  */
-$formFromQuery = \vendor\classes\Form::getListOfForms();
+$formFromQuery = \vendor\classes\Form::getFormsCollection();
 
 require_once 'content/form.php';
 echo '<table id="myTable">';

@@ -13,32 +13,22 @@ require_once 'database/Data.php';
 
 class Form
 {
-
-
-    public static $counter;
     public $lastMessageID = null;
     private $form;
-    private $nameOfForm;
+    private $formId;
     public $arrayOfFields = [];
     public $findMessageID;
-    public $formID;
-
-    /** Блок переменных входящих данных  от Юзера
-     */
+    public $formName;
     public $currentValue = [];
 
-    /**
-     */
-
-
-    private function __construct($form, $nameOfForm, $findMessageID = 0)
+    private function __construct($form, $formId, $findMessageID = 0)
     {
-        $this->formID = $form[0]['form_ID'] ?? '';
+        $this->formName = $form[0]['nameOfForm'];
         $this->findMessageID = $findMessageID;
         $this->form = $form;
-        $this->nameOfForm = $nameOfForm;
-        $this->createArraysOfFields($this->form);
-        $this->validatorOfForm();
+        $this->formId = $formId;
+        $this->createFieldsCollection($this->form);
+        $this->formValidator();
         $this->toStartSending();
 
 
@@ -59,15 +49,9 @@ class Form
     }
 
 
-
-    public function getCurrentNameOfForm($name)
-    {
-        $database = \database\singleConnect::getInstance();
-        $sql = 'SELECT * FROM main_form where id =' . $name;
-
-        return $database->query($sql);
-    }
-
+    /**
+     * Удаление формы по указанному ID
+     */
     static public function deleteForm($id)
     {
         $database = \database\singleConnect::getInstance();
@@ -82,7 +66,7 @@ class Form
      * @return array|int
      * Getting the list of forms from DB
      */
-    static public function getListOfForms()
+    static public function getFormsCollection()
     {
         $database = \database\singleConnect::getInstance();
         $sql = 'SELECT * FROM main_form ';
@@ -90,17 +74,19 @@ class Form
     }
 
     /**
-     * @return mixed
+     * Создание формы по полям полученным из базы данных, возвращает объект формы
      */
-    static public function getSingleForm($nameOfForm)
+    static public function getSingleForm($formId)
     {
         $database = \database\singleConnect::getInstance();
         $sql = 'SELECT * FROM table_form_building 
     JOIN table_types_of_fields ttof on ttof.id_types = table_form_building.type_ID
     JOIN type_of_validation tov on tov.id_validation = table_form_building.validation_ID 
-    WHERE form_ID = ' . $nameOfForm;
+    JOIN main_form mf on table_form_building.form_ID = mf.id
+    WHERE form_ID = ' . $formId;
         $form = $database->query($sql);
-        return new self($form, $nameOfForm);
+
+        return new self($form, $formId);
     }
 
     static public function getFromDB($messageID)
@@ -115,20 +101,21 @@ class Form
         WHERE cfm.id = ' . $messageID;
 
         $form = $database->query($sql);
+        $formId = $form[0]['form_ID'];
 
-        return new self($form, $form[0]['form_ID'], $messageID);
+        return new self($form, $formId, $messageID);
     }
 
     /**
      * @param $form
      * Создаем массив из объектов полей
      */
-    public function createArraysOfFields($form)
+    public function createFieldsCollection($form)
     {
         foreach ($form as $element) {
             $className = "\\vendor\classes\\" . $element['type'];
-            //$element['value'] = '';
-            if (!empty($_POST) && $_POST['nameOfForm'] == $this->nameOfForm) {
+
+            if (!empty($_POST) && $_POST['nameOfForm'] == $this->formId) {
                 $element['value'] = isset($_POST[$element['name']]) ? $_POST[$element['name']] : '';
             }
             $this->arrayOfFields[] = new $className($element);
@@ -140,9 +127,9 @@ class Form
      * и возвращает булевое значение
      */
 
-    public function validatorOfForm()
+    public function formValidator()
     {
-        if (!empty($_POST) && $_POST['nameOfForm'] == $this->nameOfForm) {
+        if (!empty($_POST) && $_POST['nameOfForm'] == $this->formId) {
             $errors = 0;
             foreach ($this->arrayOfFields as $field) {
                 if (!$field->validate()) {
@@ -163,13 +150,14 @@ class Form
         if (!$value) {
             ?>
             <h2><?php
-                if (!empty($_POST) && ($_POST['nameOfForm'] == $this->nameOfForm) && !$this->validatorOfForm()) {
+                if (!empty($_POST) && ($_POST['nameOfForm'] == $this->formId) && !$this->formValidator()) {
                     echo '<span class="warning">' . 'Форма не отправлена, проверьте правильность заполнения полей' . '<br>' . '</span>';
                 } else {
-                    $currentName = $this->getCurrentNameOfForm($this->nameOfForm);
+
+
                     echo 'Заполните форму для отправки сообщения' . '<br/>';
 
-                    echo '<span class="form_name">' . 'Имя формы: ' . $currentName[0]['nameOfForm'] . '</span>';
+                    echo '<span class="form_name">' . 'Имя формы: ' . $this->formName . '</span>';
 
 
                 }
@@ -189,7 +177,7 @@ class Form
                     ?>
                     <tr>
                         <td>
-                            <input type="hidden" name="nameOfForm" value="<?= $this->nameOfForm ?>">
+                            <input type="hidden" name="nameOfForm" value="<?= $this->formId ?>">
                             <input type="submit" value="Отправить данные формы">
                         </td>
                     </tr>
@@ -200,12 +188,12 @@ class Form
             </form>
             <?php
         } else {
-            $this->getListOfErrorsForJS();
+            $this->getJSValidator();
         }
     }
 
 
-    public function getListOfErrorsForJS()
+    public function getJSValidator()
     {
         $setOfErrors = ['errors' => []];
         foreach ($this->arrayOfFields as $field) {
@@ -235,9 +223,12 @@ class Form
 
     public function getValuesFromUser()
     {
+
         foreach ($this->arrayOfFields as $field) {
             $this->currentValue[$field->getName()] = $field->getValue();
         }
+
+
         return $this->currentValue;
     }
 
@@ -255,19 +246,15 @@ class Form
 
     public function sendToFile($allMess)
     {
-        $fp = fopen($this->nameOfForm . '.txt', 'a');
+        $fp = fopen($this->formId . '.txt', 'a');
         fwrite($fp, $allMess);
         fclose($fp);
 
     }
 
-    public function getCurrentValue($value)
-    {
-        return $this->currentValue[$value];
-    }
-
     public function sendMethod()
     {
+
         foreach (PostProcessor::createArrayObject($this) as $pprocessor) {
 
             $pprocessor->send();
@@ -278,7 +265,7 @@ class Form
 
     public function toStartSending()
     {
-        if ($this->validatorOfForm()) {
+        if ($this->formValidator()) {
             $myMess = $this->compileMessage();
             $this->sendToFile($myMess);
             $this->sendChoice($myMess);
@@ -307,7 +294,7 @@ class Form
     {
         $link = \database\singleConnect::getInstance();
         $sql = "INSERT INTO client_full_message (form_ID, message)
-                VALUES ($this->nameOfForm, '$message')";
+                VALUES ($this->formId, '$message')";
         $link->query($sql);
         $this->lastMessageID = $link->getLastId();
         $forSQL = '';
@@ -337,7 +324,6 @@ class Form
         }
     }
 
-//TODO исправить для получения id
     static public function getMessageFromDB($route)
     {
         $database = \database\singleConnect::getInstance();
@@ -352,7 +338,7 @@ class Form
      * */
     public function getFormID()
     {
-        return $this->form;
+        return $this->formId;
     }
 
     /*
@@ -368,12 +354,12 @@ class Form
         return 1;
     }
 
-    static public function getListOfFields()
+    static public function getFieldsCollection($currentRoute)
     {
         $link = singleConnect::getInstance();
         $sql = "SELECT *
         FROM table_form_building
-        WHERE form_ID = " . ROUTE[1];
+        WHERE form_ID = " . $currentRoute;
         return $link->query($sql);
 
     }
@@ -381,8 +367,8 @@ class Form
     public function getNameFieldById($id)
     {
         $value = null;
-        foreach ($this->arrayOfFields as $field){
-            if($field->id == $id){
+        foreach ($this->arrayOfFields as $field) {
+            if ($field->id == $id) {
                 $value = $field->value;
                 break;
             }

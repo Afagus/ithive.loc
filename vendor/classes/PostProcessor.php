@@ -20,7 +20,7 @@ abstract class PostProcessor
         $this->form = $getForm;
     }
 
-    abstract static public function generateFormHandler($itemId, $typeHandler);
+    abstract static public function generateFormHandler($itemId, $typeHandler, $currentRoute);
 
     abstract public function send();
 
@@ -36,6 +36,9 @@ abstract class PostProcessor
 
     }
 
+    /**
+     * Получение списка постобработчиков, которые относятся к конкретной форме
+     */
     static public function getReceivers($form)
     {
         $database = singleConnect::getInstance();
@@ -46,7 +49,10 @@ abstract class PostProcessor
 
     }
 
-    static public function getListOfReceivers()
+    /**
+     * Получение списка типов всех постобработчиков находящихся в базе
+     * */
+    static public function getRecieversList()
     {
         $database = singleConnect::getInstance();
         $sql = "Select postprocessor_type 
@@ -57,38 +63,27 @@ abstract class PostProcessor
     }
 
     /**
-     *
      *Создание массива из объектов постобработчиков
-     * нужно переделать содав запрос из базы данных и убрать хардкод
      **/
     public static function createArrayObject($formObject): array
     {
-
-
-        $database = singleConnect::getInstance();   /*соединение с базой данных*/
-        $sql = "Select *                            /*запрос в базу и получение всех постпроцессоров относящихся к текущей форме*/ 
-        from postprocessing
-        WHERE form = " . $formObject->formID;
-        $result = $database->query($sql);
-
-
+        $idForm = $formObject->getFormId();
+        $result = self::getReceivers($idForm);
         $arrayOfPProc = [];
+
         foreach ($result as $element) {
             $className = "\\vendor\classes\\" . $element['postprocessor_type'];
             $arrayOfPProc[] = new $className($formObject, $element);
-
         }
-
         return $arrayOfPProc;
     }
 
 
-    public static function viewListFields($key)
+    public static function viewListFields($key, $currentRoute)
     {
-
         ?>
         <select name="<?= $key ?>" id="fieldList">
-            <?php foreach (\vendor\classes\Form::getListOfFields() as $field): ?>
+            <?php foreach (\vendor\classes\Form::getFieldsCollection($currentRoute) as $field): ?>
                 <option value="<?= $field['id'] ?>"><?= $field['name'] ?></option>
             <?php endforeach; ?>
         </select>

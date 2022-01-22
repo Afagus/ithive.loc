@@ -8,7 +8,7 @@ require_once 'vendor/DBTableInfo.php';
 <?php
 
 $tableInfo = DBTableInfo();
-
+$currentRoute = ROUTE[1];
 ?>
 <div id="overTable">
     <table id="tableOfFieldCreator">
@@ -35,13 +35,13 @@ $tableInfo = DBTableInfo();
     </table>
     <table id="tableOfHandleCreator">
         <th>List of Handlers</th>
-        <?php if (empty(\vendor\classes\PostProcessor::getReceivers(ROUTE[1]))) {
+        <?php if (empty(\vendor\classes\PostProcessor::getReceivers($currentRoute))) {
             echo '<tr><td style="color: red">';
             echo 'Please add Handler';
             echo '<td><tr>';
         }; ?>
 
-        <?php foreach (\vendor\classes\PostProcessor::getReceivers(ROUTE[1]) as $handler): ?>
+        <?php foreach (\vendor\classes\PostProcessor::getReceivers($currentRoute) as $handler): ?>
             <tr>
 
                 <td><?= $handler['title']; ?></td>
@@ -69,13 +69,13 @@ createNewField($tableInfo['typeOfFields'], $tableInfo['typeOfValidations']);
 <br><br><br>
 
 
-<form method="post" action="/<?= BASE ?>/createHandler/<?= ROUTE[1] ?>">
+<form method="post" action="/<?= BASE ?>/createHandler/<?= $currentRoute ?>">
     <div>
         <p><b>Choose Handler</b></p>
         <div style="display: flex">
             <select name="postprocessor">
                 <?php
-                foreach (\vendor\classes\PostProcessor::getListOfReceivers() as $receiver):?>
+                foreach (\vendor\classes\PostProcessor::getRecieversList() as $receiver):?>
                     <option value="<?= $receiver['postprocessor_type'] ?>"><?= $receiver['postprocessor_type'] ?></option>
                 <?php endforeach; ?>
             </select>

@@ -33,7 +33,7 @@ class LeadSender extends PostProcessor
     {
 
         $fields = $this->preferences;
-        $queryUrl = $fields['lead-url'];
+        $queryUrl = $fields['lead-url'].'crm.lead.add.json';
 // формируем параметры для создания лида в переменной $queryData
         $queryData = array(
             'fields' => array(
@@ -71,7 +71,7 @@ class LeadSender extends PostProcessor
             "<br/>";
     }
 
-    static public function generateFormHandler($itemId, $typeHandler)
+    static public function generateFormHandler($itemId, $typeHandler, $currentRoute)
     {
 
 
@@ -102,7 +102,7 @@ class LeadSender extends PostProcessor
                 <?php foreach ($preferences as $key => $field): ?>
                     <tr>
                         <td><label for="<?= $key ?>"><?= $key ?></label></td>
-                        <td><?php self::viewListFields($key); ?></td>
+                        <td><?php self::viewListFields($key, $currentRoute); ?></td>
                     </tr>
                 <?php endforeach; ?>
 

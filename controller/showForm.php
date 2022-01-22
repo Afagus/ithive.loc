@@ -13,8 +13,9 @@ if (!$_POST) {
  */
 $route = ROUTE[1];
 $formOutput = \vendor\classes\Form::getSingleForm($route);
+
 $formOutput->viewForm($_POST);
-//echo json_encode($formOutput->lastMessageID);
+
 
 if (!$_POST) {
     ?>
