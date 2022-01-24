@@ -15,8 +15,10 @@ class emailSender extends PostProcessor
     const handlersFields = [
 
         'preferences' => [
-            'NAME' => 'name',
-            'SUBJECT' => 'subject',
+            'NAME' => '',
+            'SUBJECT' => '',
+            'MESSAGE' => '',
+            'EMAIL' =>'',
         ]
 
     ];
@@ -30,8 +32,8 @@ class emailSender extends PostProcessor
         $mail->isSMTP();                   // Отправка через SMTP
         $mail->Host = 'smtp.gmail.com';  // Адрес SMTP сервера
         $mail->SMTPAuth = true;          // Enable SMTP authentication
-        $mail->Username = 'afagus.inv@gmail.com';       // ваше имя пользователя
-        $mail->Password = 'G#inv2987103834!';    // ваш пароль
+        $mail->Username = 'afagus.inv@gmail.com';       // ваше имя пользователя //TODO: заменить на адрес введенный при создании хендлера
+        $mail->Password = 'G#inv2987103834!';    // ваш пароль ////TODO: заменить на адрес введенный при создании хендлера
         $mail->SMTPSecure = 'ssl';         // шифрование ssl
         $mail->Port = 465;               // порт подключения
         $mail->CharSet = 'UTF-8';
@@ -43,19 +45,19 @@ class emailSender extends PostProcessor
             )
         );
 
-        $mail->setFrom('afagus.inv@gmail.com', $this->form->currentValue[$fields['NAME']]);    // от кого
-        $mail->addAddress('afagus.13@gmail.com'); // кому
+        $mail->setFrom($this->form->getNameFieldById($fields['EMAIL'], $this->form->getNameFieldById($fields['NAME'])));    // от кого
 
-        $mail->Subject = $this->form->currentValue[$fields['SUBJECT']];
+        $mail->addAddress('afagus.13@gmail.com'); // кому
+//TODO: Сделать возможной отправку на несколько адресов, возможно загнать всб функцию в цикл, с подставлением адресов
+        $mail->Subject = $this->form->getNameFieldById($fields['SUBJECT']);
         $mail->msgHTML("<html><body>
-                " . $this->form->currentValue[$fields['NAME']] . "
+                " . $this->form->getNameFieldById($fields['MESSAGE']) . "
                 </body></html>");
 
         $mail->send();
-
     }
 
-    static public function generateFormHandler($itemId, $typeHandler)
+    static public function generateFormHandler($itemId, $typeHandler, $currentRoute)
     {
         $preferences = static::handlersFields['preferences'];
 
@@ -69,8 +71,9 @@ class emailSender extends PostProcessor
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="">Type of Handler</label></td>
-                    <td style="color: red"><?= $typeHandler ?></td>
+                    <td><label for="type-of-handler">Type of Handler</label></td>
+                    <td><input style="Border: none; outline: none; color: red" name="type-of-handler"
+                               id="type-of-handler" value="<?= $typeHandler ?>"></td>
                 </tr>
                 <tr>
                     <td>
@@ -91,7 +94,7 @@ class emailSender extends PostProcessor
                 <?php foreach ($preferences as $key => $field): ?>
                     <tr>
                         <td><?= $key ?></td>
-                        <td> <?php self::viewListFields($key); ?></td>
+                        <td> <?php self::viewListFields($key, $currentRoute); ?></td>
                     </tr>
                 <?php endforeach; ?>
 

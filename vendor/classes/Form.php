@@ -23,7 +23,8 @@ class Form
 
     private function __construct($form, $formId, $findMessageID = 0)
     {
-        $this->formName = $form[0]['nameOfForm'];
+        
+        $this->formName = $form[0]['nameOfForm']??'Форма пустая, для создания добавьте хоть одно поле';
         $this->findMessageID = $findMessageID;
         $this->form = $form;
         $this->formId = $formId;

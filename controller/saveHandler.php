@@ -18,9 +18,7 @@ VALUES (" .
     '\'' . $titleHandler . '\'' .
     ")";
 
-echo('
-' . $sql . '
-');
+
 $sqlFields = $database->query($sql);
 $lastID = $database->getLastId();
 $getRequestFromDB = 'SELECT * 

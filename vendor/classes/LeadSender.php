@@ -31,7 +31,7 @@ class LeadSender extends PostProcessor
      */
     public function send()
     {
-
+        mydebugger($this->form);
         $fields = $this->preferences;
         $queryUrl = $fields['lead-url'].'crm.lead.add.json';
 // формируем параметры для создания лида в переменной $queryData
@@ -117,8 +117,5 @@ class LeadSender extends PostProcessor
         </form>
         <?php
     }
-
-    //TODO: переделать метод, чтобы вставка урла лида была более комфортной,
-    // добавлять автоматом в конец add.crm.json
 
 }

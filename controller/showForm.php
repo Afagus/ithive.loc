@@ -11,6 +11,7 @@ if (!$_POST) {
 /**
  * Отображение формы для заполнения и отправки
  */
+
 $route = ROUTE[1];
 $formOutput = \vendor\classes\Form::getSingleForm($route);
 
