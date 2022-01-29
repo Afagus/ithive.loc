@@ -13,12 +13,29 @@ require_once 'phpmailer/src/SMTP.php';
 class emailSender extends PostProcessor
 {
     const handlersFields = [
+        'required_parameter' => [
+            [
+                'type' => 'text',
+                'name' => 'smtp-User',
+                'label' => 'Enter Username for SMTP'
+            ],
+            [
+                'type' => 'password',
+                'name' => 'smtp-password',
+                'label' => 'Enter password for SMTP'
+            ]
+        ],
 
         'preferences' => [
+
             'NAME' => '',
             'SUBJECT' => '',
             'MESSAGE' => '',
-            'EMAIL' =>'',
+            'EMAIL' => '',
+            'PHONE' => '',
+            'SELECT' => '',
+            'CHECKBOX' => '',
+            'RADIO' => '',
         ]
 
     ];
@@ -26,8 +43,10 @@ class emailSender extends PostProcessor
     public function send()
     {
         $fields = $this->preferences;
+        mydebugger($fields);
+        mydebugger($this->form->getNameFieldById($fields));
 
-
+exit;
         $mail = new PHPMailer;
         $mail->isSMTP();                   // Отправка через SMTP
         $mail->Host = 'smtp.gmail.com';  // Адрес SMTP сервера
@@ -59,6 +78,7 @@ class emailSender extends PostProcessor
 
     static public function generateFormHandler($itemId, $typeHandler, $currentRoute)
     {
+
         $preferences = static::handlersFields['preferences'];
 
         ?>
@@ -69,32 +89,27 @@ class emailSender extends PostProcessor
                     <td>
                         <input type="text" name="titleHandler">
                     </td>
-                </tr>
                 <tr>
-                    <td><label for="type-of-handler">Type of Handler</label></td>
+                    <td><label>Type of Handler</label></td>
+
                     <td><input style="Border: none; outline: none; color: red" name="type-of-handler"
                                id="type-of-handler" value="<?= $typeHandler ?>"></td>
-                </tr>
+
+                    <?php
+                    foreach (self::handlersFields['required_parameter'] as $field): ?>
                 <tr>
-                    <td>
-                        Enter Username for SMTP
-                    </td>
-                    <td>
-                        <input type="text" name="smtp-User">
-                    </td>
+                    <td><label for="<?= $field['name'] ?>"><?= $field['label'] ?></label></td>
+                    <td><input type="<?= $field['type'] ?>" name="<?= $field['name'] ?>" id="<?= $field['name'] ?>"></td>
                 </tr>
-                <tr>
-                    <td>
-                        Enter password for SMTP
-                    </td>
-                    <td>
-                        <input type="password" name="smtp-password">
-                    </td>
-                </tr>
-                <?php foreach ($preferences as $key => $field): ?>
+                <?php endforeach;?>
+
+
+
+
+                <?php foreach (\vendor\classes\Form::getFieldsCollection($currentRoute) as $field): ?>
                     <tr>
-                        <td><?= $key ?></td>
-                        <td> <?php self::viewListFields($key, $currentRoute); ?></td>
+                        <td><?= $field['name']?></td>
+                        <td><input type="checkbox" id="coding" name="checked_fields[]" value="<?= $field['id'] ?>"></td>
                     </tr>
                 <?php endforeach; ?>
 

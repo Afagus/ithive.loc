@@ -82,7 +82,7 @@ abstract class PostProcessor
     public static function viewListFields($key, $currentRoute)
     {
         ?>
-        <select name="<?= $key ?>" id="fieldList">
+        <select name="fields[<?= $key ?>]" id="fieldList">
             <?php foreach (\vendor\classes\Form::getFieldsCollection($currentRoute) as $field): ?>
                 <option value="<?= $field['id'] ?>"><?= $field['name'] ?></option>
             <?php endforeach; ?>
