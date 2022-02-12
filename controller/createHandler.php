@@ -11,6 +11,6 @@ $formId = ROUTE[1];
 
 
 $className = "\\vendor\classes\\" . $typeHandler;
-$className::generateFormHandler($formId,$typeHandler, $formId);
+$className::generateFormHandler($formId,$typeHandler);
 
 

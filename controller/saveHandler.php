@@ -5,13 +5,6 @@
 $postprocessorType = $_POST['type-of-handler'];
 $formID = ROUTE[1];
 $titleHandler = $_POST['titleHandler'];
-//$allFields = $_POST['fields'];
-//$needFields = array_flip($_POST['check_handler']);
-//$find = array_intersect_key($allFields, $needFields);
-//$combInfo = $_POST;
-//$combInfo['fields'] = $find;
-//
-//
 $preferences = json_encode($_POST, JSON_HEX_APOS);
 
 

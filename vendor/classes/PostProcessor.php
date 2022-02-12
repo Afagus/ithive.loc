@@ -20,7 +20,7 @@ abstract class PostProcessor
         $this->form = $getForm;
     }
 
-    abstract static public function generateFormHandler($itemId, $typeHandler, $currentRoute);
+    abstract static public function generateFormHandler($formId, $typeHandler, $editData = '');
 
     abstract public function send();
 

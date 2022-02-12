@@ -12,22 +12,23 @@ require_once 'phpmailer/src/SMTP.php';
 
 class emailSender extends PostProcessor
 {
-    const handlersFields = [
-        'required_parameter' => [
+    const HANDLERSFIELDS = [
+        'required_parameter' =>
             [
-                'type' => 'text',
-                'name' => 'smtp-User',
-                'label' => 'Enter Username for SMTP'
+                [
+                    'type' => 'text',
+                    'name' => 'smtp-User',
+                    'label' => 'Enter Username for SMTP'
+                ],
+                [
+                    'type' => 'password',
+                    'name' => 'smtp-password',
+                    'label' => 'Enter password for SMTP'
+                ]
             ],
+
+        'preferences' =>
             [
-                'type' => 'password',
-                'name' => 'smtp-password',
-                'label' => 'Enter password for SMTP'
-            ]
-        ],
-
-        'preferences' => [
-
             'NAME' => '',
             'SUBJECT' => '',
             'MESSAGE' => '',
@@ -35,8 +36,8 @@ class emailSender extends PostProcessor
             'PHONE' => '',
             'SELECT' => '',
             'CHECKBOX' => '',
-            'RADIO' => '',
-        ]
+            'RADIO' => ''
+            ]
 
     ];
 
@@ -67,7 +68,7 @@ exit;
         $mail->setFrom($this->form->getNameFieldById($fields['EMAIL'], $this->form->getNameFieldById($fields['NAME'])));    // от кого
 
         $mail->addAddress('afagus.13@gmail.com'); // кому
-//TODO: Сделать возможной отправку на несколько адресов, возможно загнать всб функцию в цикл, с подставлением адресов
+
         $mail->Subject = $this->form->getNameFieldById($fields['SUBJECT']);
         $mail->msgHTML("<html><body>
                 " . $this->form->getNameFieldById($fields['MESSAGE']) . "
@@ -76,10 +77,10 @@ exit;
         $mail->send();
     }
 
-    static public function generateFormHandler($itemId, $typeHandler, $currentRoute)
+    static public function generateFormHandler($itemId, $typeHandler, $editData = '')
     {
 
-        $preferences = static::handlersFields['preferences'];
+        //$preferences = static::handlersFields['preferences'];
 
         ?>
         <form action="/<?= BASE ?>/saveHandler/<?= $itemId ?>" method="post">
@@ -87,7 +88,7 @@ exit;
                 <tr>
                     <td>Enter a name of Handler</td>
                     <td>
-                        <input type="text" name="titleHandler">
+                        <input type="text" name="titleHandler" value="<?= $editData['titleHandler'] ?? '';?>">
                     </td>
                 <tr>
                     <td><label>Type of Handler</label></td>
@@ -96,20 +97,19 @@ exit;
                                id="type-of-handler" value="<?= $typeHandler ?>"></td>
 
                     <?php
-                    foreach (self::handlersFields['required_parameter'] as $field): ?>
+                    foreach (self::HANDLERSFIELDS['required_parameter'] as $field): ?>
                 <tr>
                     <td><label for="<?= $field['name'] ?>"><?= $field['label'] ?></label></td>
-                    <td><input type="<?= $field['type'] ?>" name="<?= $field['name'] ?>" id="<?= $field['name'] ?>"></td>
+                    <td><input type="<?= $field['type'] ?>" name="<?= $field['name'] ?>" id="<?= $field['name'] ?>" value="<?= $editData[$field['name']] ?? '';?>"></td>
                 </tr>
                 <?php endforeach;?>
 
-
-
-
-                <?php foreach (\vendor\classes\Form::getFieldsCollection($currentRoute) as $field): ?>
+                <?php foreach (\vendor\classes\Form::getFieldsCollection($itemId) as $field): ?>
                     <tr>
-                        <td><?= $field['name']?></td>
-                        <td><input type="checkbox" id="coding" name="checked_fields[]" value="<?= $field['id'] ?>"></td>
+                        <td><?= $field['name'];?></td>
+                        <td><input type="checkbox" id="coding" name="checked_fields[]" value="<?=$field['id']; ?>"
+                                <?php if($editData):echo (in_array($field['id'], $editData['checked_fields'])? 'checked': '');endif;?>>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
 
@@ -124,5 +124,5 @@ exit;
         </form>
         <?php
     }
-
+//TODO Сделать упдейтер измененной формы
 }

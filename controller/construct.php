@@ -53,7 +53,10 @@ $currentRoute = ROUTE[1];
                     </form>
                 </td>
                 <td>
-                    <button>Change/заглушка</button>
+                    <form action="/<?= BASE ?>/editHandler/<?= $handler['id'] ?>" method="post">
+                        <input type="submit" value="edit" name="edit">
+                    </form>
+
                 </td>
 
             </tr>

@@ -71,7 +71,7 @@ class LeadSender extends PostProcessor
             "<br/>";
     }
 
-    static public function generateFormHandler($itemId, $typeHandler, $currentRoute)
+    static public function generateFormHandler($itemId, $typeHandler, $editData = '')
     {
 
 
@@ -102,7 +102,7 @@ class LeadSender extends PostProcessor
                 <?php foreach ($preferences as $key => $field): ?>
                     <tr>
                         <td><label for="<?= $key ?>"><?= $key ?></label></td>
-                        <td><?php self::viewListFields($key, $currentRoute); ?></td>
+                        <td><?php self::viewListFields($key, $itemId); ?></td>
                     </tr>
                 <?php endforeach; ?>
 
