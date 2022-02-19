@@ -29,14 +29,14 @@ class emailSender extends PostProcessor
 
         'preferences' =>
             [
-            'NAME' => '',
-            'SUBJECT' => '',
-            'MESSAGE' => '',
-            'EMAIL' => '',
-            'PHONE' => '',
-            'SELECT' => '',
-            'CHECKBOX' => '',
-            'RADIO' => ''
+                'NAME' => '',
+                'SUBJECT' => '',
+                'MESSAGE' => '',
+                'EMAIL' => '',
+                'PHONE' => '',
+                'SELECT' => '',
+                'CHECKBOX' => '',
+                'RADIO' => ''
             ]
 
     ];
@@ -47,7 +47,7 @@ class emailSender extends PostProcessor
         mydebugger($fields);
         mydebugger($this->form->getNameFieldById($fields));
 
-exit;
+        exit;
         $mail = new PHPMailer;
         $mail->isSMTP();                   // Отправка через SMTP
         $mail->Host = 'smtp.gmail.com';  // Адрес SMTP сервера
@@ -77,18 +77,18 @@ exit;
         $mail->send();
     }
 
-    static public function generateFormHandler($itemId, $typeHandler, $editData = '')
+    static public function generateFormHandler($formId, $handlerID, $typeHandler, $editData = '')
     {
 
         //$preferences = static::handlersFields['preferences'];
 
         ?>
-        <form action="/<?= BASE ?>/saveHandler/<?= $itemId ?>" method="post">
+        <form action="/<?= BASE ?>/<?= $editData ? 'updateHandler' : 'saveHandler' ?>/<?= $editData ? $handlerID: $formId ?>" method="post">
             <table style="border: 1px solid black">
                 <tr>
                     <td>Enter a name of Handler</td>
                     <td>
-                        <input type="text" name="titleHandler" value="<?= $editData['titleHandler'] ?? '';?>">
+                        <input type="text" name="titleHandler" value="<?= $editData['titleHandler'] ?? ''; ?>">
                     </td>
                 <tr>
                     <td><label>Type of Handler</label></td>
@@ -100,15 +100,17 @@ exit;
                     foreach (self::HANDLERSFIELDS['required_parameter'] as $field): ?>
                 <tr>
                     <td><label for="<?= $field['name'] ?>"><?= $field['label'] ?></label></td>
-                    <td><input type="<?= $field['type'] ?>" name="<?= $field['name'] ?>" id="<?= $field['name'] ?>" value="<?= $editData[$field['name']] ?? '';?>"></td>
+                    <td><input type="<?= $field['type'] ?>" name="<?= $field['name'] ?>" id="<?= $field['name'] ?>"
+                               value="<?= $editData[$field['name']] ?? ''; ?>"></td>
                 </tr>
-                <?php endforeach;?>
+                <?php endforeach;
+                ?>
 
-                <?php foreach (\vendor\classes\Form::getFieldsCollection($itemId) as $field): ?>
+                <?php foreach (\vendor\classes\Form::getFieldsCollection($formId) as $field): ?>
                     <tr>
-                        <td><?= $field['name'];?></td>
-                        <td><input type="checkbox" id="coding" name="checked_fields[]" value="<?=$field['id']; ?>"
-                                <?php if($editData):echo (in_array($field['id'], $editData['checked_fields'])? 'checked': '');endif;?>>
+                        <td><?= $field['name']; ?></td>
+                        <td><input type="checkbox" id="coding" name="checked_fields[]" value="<?= $field['id']; ?>"
+                                <?php if ($editData):echo(in_array($field['id'], $editData['checked_fields']) ? 'checked' : '');endif; ?>>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -119,7 +121,7 @@ exit;
 
         </form>
         <br>
-        <form action="../construct/<?= $itemId ?>" method="post">
+        <form action="../construct/<?= $formId ?>" method="post">
             <input type="submit" name="backToForm" value="Back">
         </form>
         <?php

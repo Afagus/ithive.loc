@@ -17,12 +17,12 @@ class TelegrammSender extends PostProcessor
 
     ];
 
-    static public function generateFormHandler($itemId, $typeHandler, $currentRoute)
+    static public function generateFormHandler($formId, $typeHandler, $currentRoute)
     {
         $preferences = static::handlersFields['preferences'];
 //TODO: Переделать конструктор под требования телеги
         ?>
-        <form action="/<?= BASE ?>/saveHandler/<?= $itemId ?>" method="post">
+        <form action="/<?= BASE ?>/saveHandler/<?= $formId ?>" method="post">
             <table style="border: 1px solid black">
                 <tr>
                     <td>Enter a name of Handler</td>
@@ -64,7 +64,7 @@ class TelegrammSender extends PostProcessor
 
         </form>
         <br>
-        <form action="../construct/<?= $itemId ?>" method="post">
+        <form action="../construct/<?= $formId ?>" method="post">
             <input type="submit" name="backToForm" value="Back">
         </form>
         <?php

@@ -9,8 +9,7 @@ require_once 'content/footer.php';
 $typeHandler = $_POST['postprocessor'];
 $formId = ROUTE[1];
 
-
 $className = "\\vendor\classes\\" . $typeHandler;
-$className::generateFormHandler($formId,$typeHandler);
+$className::generateFormHandler($formId, $handlerID = '', $typeHandler);
 
 

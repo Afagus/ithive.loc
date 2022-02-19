@@ -71,19 +71,19 @@ class LeadSender extends PostProcessor
             "<br/>";
     }
 
-    static public function generateFormHandler($itemId, $typeHandler, $editData = '')
+    static public function generateFormHandler($formId, $handlerID, $typeHandler, $editData = '')
     {
 
 
         $preferences = static::handlersFields['preferences'];
 
         ?>
-        <form action="/<?= BASE ?>/saveHandler/<?= $itemId ?>" method="post">
+        <form action="/<?= BASE ?>/<?= $editData ? 'updateHandler' : 'saveHandler' ?>/<?= $editData ? $handlerID: $formId ?>" method="post">
             <table style="border: 1px solid black">
                 <tr>
                     <td><label for="titleHandler">Enter a name of Handler</label></td>
                     <td>
-                        <input type="text" name="titleHandler" id="titleHandler">
+                        <input type="text" name="titleHandler" id="titleHandler" value="<?= $editData['titleHandler'] ?? ''?>">
                     </td>
                 </tr>
                 <tr>
@@ -96,13 +96,13 @@ class LeadSender extends PostProcessor
                         <label for="lead-url">Input URL</label></td>
                     </td>
                     <td>
-                        <input type="text" name="lead-url" id="lead-url">
+                        <input type="text" name="lead-url" id="lead-url" value="<?= $editData['lead-url'] ?? ''?>">
                     </td>
                 </tr>
                 <?php foreach ($preferences as $key => $field): ?>
                     <tr>
                         <td><label for="<?= $key ?>"><?= $key ?></label></td>
-                        <td><?php self::viewListFields($key, $itemId); ?></td>
+                        <td><?php self::viewListFields($key, $formId, $editData); ?></td>
                     </tr>
                 <?php endforeach; ?>
 
@@ -112,7 +112,7 @@ class LeadSender extends PostProcessor
 
         </form>
         <br>
-        <form action="../construct/<?= $itemId ?>" method="post">
+        <form action="../construct/<?= $formId ?>" method="post">
             <input type="submit" name="backToForm" value="Back">
         </form>
         <?php

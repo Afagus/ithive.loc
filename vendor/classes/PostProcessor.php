@@ -20,7 +20,7 @@ abstract class PostProcessor
         $this->form = $getForm;
     }
 
-    abstract static public function generateFormHandler($formId, $typeHandler, $editData = '');
+    abstract static public function generateFormHandler($formId, $handlerID, $typeHandler, $editData = '');
 
     abstract public function send();
 
@@ -79,12 +79,17 @@ abstract class PostProcessor
     }
 
 
-    public static function viewListFields($key, $currentRoute)
+    public static function viewListFields($key, $currentRoute, $editData = '')
     {
+
         ?>
         <select name="fields[<?= $key ?>]" id="fieldList">
             <?php foreach (\vendor\classes\Form::getFieldsCollection($currentRoute) as $field): ?>
-                <option value="<?= $field['id'] ?>"><?= $field['name'] ?></option>
+                <?php if (!$editData): ?>
+                    <option value="<?= $field['id'] ?>"><?= $field['name'] ?></option>
+                <?php else:; ?>
+                    <option value="<?= $field['id'] ?>" <?php if ($editData['fields'][$key] == $field['id']) echo 'selected'; ?>><?= $field['name'] ?></option>
+                <?php endif; ?>
             <?php endforeach; ?>
         </select>
         <?php

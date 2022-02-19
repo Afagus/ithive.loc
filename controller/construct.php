@@ -43,7 +43,6 @@ $currentRoute = ROUTE[1];
 
         <?php foreach (\vendor\classes\PostProcessor::getReceivers($currentRoute) as $handler): ?>
             <tr>
-
                 <td><?= $handler['title']; ?></td>
                 <td>
                     <form id="<?= $handler['id'] ?>_delete_handler" class="deleteHandler"
@@ -56,14 +55,11 @@ $currentRoute = ROUTE[1];
                     <form action="/<?= BASE ?>/editHandler/<?= $handler['id'] ?>" method="post">
                         <input type="submit" value="edit" name="edit">
                     </form>
-
                 </td>
-
             </tr>
         <?php endforeach; ?>
         <td><span><hr></span></td>
     </table>
-
 </div>
 <?php require_once "vendor/createNewField.php";
 createNewField($tableInfo['typeOfFields'], $tableInfo['typeOfValidations']);

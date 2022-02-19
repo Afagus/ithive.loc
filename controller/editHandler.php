@@ -14,9 +14,11 @@ FROM postprocessing
 $sqlGet = $database->query($sql);
 
 $formId = $sqlGet[0]['form'];
+
 $typeHandler = $sqlGet[0]['postprocessor_type'];
 $data = json_decode($sqlGet[0]['preferences'],true);
 
+$handlerID = $sqlGet[0]['id'];
 
 $className = "\\vendor\classes\\" . $typeHandler;
-$className::generateFormHandler($formId,$typeHandler, $data);
+$className::generateFormHandler($formId, $handlerID, $typeHandler, $data);

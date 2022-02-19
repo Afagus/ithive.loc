@@ -1,12 +1,9 @@
 <?php
-
-
-
 $postprocessorType = $_POST['type-of-handler'];
 $formID = ROUTE[1];
+
 $titleHandler = $_POST['titleHandler'];
 $preferences = json_encode($_POST, JSON_HEX_APOS);
-
 
 
 $database = \database\singleConnect::getInstance();
